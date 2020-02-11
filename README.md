@@ -14,3 +14,11 @@ Instalación
     npm install
     ng serve
 
+Acuerdos de desarrollo
+
+### Services
+  Crear los servicios necesarios por módulo siguiendo el siguiente formato:
+
+  ng generate service services/<modulo>/<nombre de servicio> 
+
+    ejemplo:  ng generate service services/logger/logger
