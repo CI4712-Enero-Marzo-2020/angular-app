@@ -10,6 +10,7 @@ import { RouterModule } from '@angular/router';
 import { ComponentsModule } from './components/components.module';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -20,6 +21,7 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
   ],
   imports: [
     BrowserAnimationsModule,
+    HttpClientModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
@@ -29,5 +31,5 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { 
+export class AppModule {
 }
