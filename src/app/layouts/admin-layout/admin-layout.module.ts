@@ -3,7 +3,6 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdminLayoutRoutes } from './admin-layout.routing';
-import { ProjectsComponent } from '../../projects/projects.component';
 
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { 
@@ -12,6 +11,9 @@ import {
   faEdit,
   faTimes
 } from '@fortawesome/free-solid-svg-icons';
+
+// Agregar componentes aquí
+import { ProjectsComponent } from '../../projects/projects.component';
 
 import {
   MatButtonModule,
@@ -36,6 +38,7 @@ import {
     FontAwesomeModule
   ],
   declarations: [
+    // Agregar declaraciones de componentes aquí
     ProjectsComponent
   ]
 })

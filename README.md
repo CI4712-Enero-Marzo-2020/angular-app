@@ -22,3 +22,13 @@ Acuerdos de desarrollo
   ng generate service services/modulo/nombre de servicio 
 
     ejemplo:  ng generate service services/logger/logger
+
+### Layout
+  Los nuevos componentes agregados a la aplicación deben ser registrados en el layout
+  y agregados al sidebar en los archivos:
+
+  admin-layout.module.ts
+  admin-layout.routing.ts
+  sidebar.component.ts
+
+  conforme indican los comentarios.

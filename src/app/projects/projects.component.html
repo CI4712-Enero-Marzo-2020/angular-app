@@ -4,14 +4,21 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-danger">
-                        <h4 class="card-title ">Simple Table</h4>
-                        <p class="card-category"> Here is a subtitle for this table</p>
+
                         <div class="row">
-                            <div class="col-xs-12 col-md-6 text-right">
-                                
+                            <div class="col-xs-12 col-md-6 text-left">
+                                <h4 class="card-title ">Proyectos</h4>
+                                <p class="card-category">Listado</p>
                             </div>
-                            <div class="col-xs-12 col-md-6">
-                                <button mat-raised-button type="submit" class="btn pull-right"><fa-icon icon="glasses"></fa-icon></button>
+                            <div class="col-xs-12 col-md-6 text-right">
+                                <div class="input-group">
+                                    <input type="text" class="form-control">
+                                    <span class="input-group-btn">
+                                        <button mat-raised-button type="submit" class="btn pull-right">
+                                            <fa-icon icon="glasses"></fa-icon>
+                                        </button>
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -25,7 +32,9 @@
                                     <th>
                                         Descripción
                                     </th>
-                                    <th></th>
+                                    <th class="options-column">
+                                        Opciones
+                                    </th>
                                 </thead>
                                 <tbody>
                                     <tr>
@@ -33,13 +42,40 @@
                                             1
                                         </td>
                                         <td>
-                                            Dakota Rice
+                                            Proyecto Cool #254
                                         </td>
                                         <td>
-                                            <div class="btn-group" role="group" aria-label="Basic example">
-                                                <button type="button" class="btn btn-secondary"><fa-icon icon="hand-paper"></fa-icon></button>
-                                                <button type="button" class="btn btn-secondary"><fa-icon icon="edit"></fa-icon></button>
-                                                <button type="button" class="btn btn-secondary"><fa-icon icon="times"></fa-icon></button>
+                                            <div class="btn-group" role="group">
+                                                <button type="button" class="btn btn-secondary">
+                                                    <fa-icon icon="hand-paper"></fa-icon>
+                                                </button>
+                                                <button type="button" class="btn btn-secondary">
+                                                    <fa-icon icon="edit"></fa-icon>
+                                                </button>
+                                                <button type="button" class="btn btn-secondary">
+                                                    <fa-icon icon="times"></fa-icon>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            2
+                                        </td>
+                                        <td>
+                                            Proyecto No Tan Cool #765
+                                        </td>
+                                        <td>
+                                            <div class="btn-group" role="group">
+                                                <button type="button" class="btn btn-secondary">
+                                                    <fa-icon icon="hand-paper"></fa-icon>
+                                                </button>
+                                                <button type="button" class="btn btn-secondary">
+                                                    <fa-icon icon="edit"></fa-icon>
+                                                </button>
+                                                <button type="button" class="btn btn-secondary">
+                                                    <fa-icon icon="times"></fa-icon>
+                                                </button>
                                             </div>
                                         </td>
                                     </tr>

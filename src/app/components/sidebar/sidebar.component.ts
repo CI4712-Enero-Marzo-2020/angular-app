@@ -7,6 +7,9 @@ declare interface RouteInfo {
     icon: string;
     class: string;
 }
+
+
+// Agregar información de iconos del sidebar con rutas aquí
 export const ROUTES: RouteInfo[] = [
     { path: '/projects', title: 'Portafolio de Proyectos',  icon:'dashboard', class: '' }
 ];
