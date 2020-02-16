@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { LoggerService } from '../services/logger/logger.service';
+import { MatDialog } from '@angular/material';
+import { DialogComponent } from './dialog/dialog.component';
+import { ProjectsComponent } from '../projects/projects.component';
 
 @Component({
   selector: 'app-logger',
@@ -8,7 +11,8 @@ import { LoggerService } from '../services/logger/logger.service';
 })
 export class LoggerComponent implements OnInit {
   logger: any;
-  constructor(public loggerService: LoggerService) { }
+  id: any;
+  constructor(public loggerService: LoggerService, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.getLogger();
@@ -27,10 +31,33 @@ export class LoggerComponent implements OnInit {
     });
   }
 
-  delete(id) {
-    console.log(id);
-    this.loggerService.deleteLog(id).subscribe(res => {
-      console.log(res);
+  openDialog(idlog) {
+    this.id = idlog;
+    const dialogRef = this.dialog.open(DialogComponent, {
+      width: '60%',
+      height: '30%',
+      data: {operation: 'delete',
+              title: 'Eliminar',
+              message: 'Estás seguro que desear eliminar este registro?',
+              id: idlog,
+            }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      const animal = result;
+      if (result) {
+        this.delete();
+      }
+    });
+  }
+
+  delete() {
+    this.loggerService.deleteLog(this.id).subscribe(res => {
+      this.logger.forEach(element => {
+        if (element.id === this.id) {
+          this.logger.splice(this.logger.indexOf(element), 1);
+        }
+      });
     });
   }
 

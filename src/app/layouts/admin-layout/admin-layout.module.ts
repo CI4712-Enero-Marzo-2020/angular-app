@@ -21,9 +21,11 @@ import {
   MatRippleModule,
   MatFormFieldModule,
   MatTooltipModule,
-  MatSelectModule
+  MatSelectModule,
+  MatDialogModule
 } from '@angular/material';
 import { LoggerComponent } from 'src/app/logger/logger.component';
+import { DialogComponent } from 'src/app/logger/dialog/dialog.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -36,12 +38,14 @@ import { LoggerComponent } from 'src/app/logger/logger.component';
     MatInputModule,
     MatSelectModule,
     MatTooltipModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    MatDialogModule
   ],
   declarations: [
     // Agregar declaraciones de componentes aquí
     ProjectsComponent,
-    LoggerComponent
+    LoggerComponent,
+    DialogComponent
   ]
 })
 
