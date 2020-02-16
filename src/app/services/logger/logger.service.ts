@@ -13,4 +13,8 @@ export class LoggerService {
   public getAll() {
     return this.http.get(this.url + 'getall');
   }
+
+  public deleteLog(id) {
+    return this.http.get(this.url + 'delete/' + id );
+  }
 }

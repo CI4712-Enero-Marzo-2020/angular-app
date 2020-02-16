@@ -15,9 +15,7 @@ export class LoggerComponent implements OnInit {
   }
 
   getLogger() {
-    console.log(new Date(Date.parse('Sun, 16 Feb 2020 04:32:13 GMT')).getDate());
     this.loggerService.getAll().subscribe((res) => {
-      console.log('Registros en el Logger', res);
       this.logger = res;
       this.logger.forEach(element => {
         const dateObj = new Date(Date.parse(element.date));
@@ -29,8 +27,11 @@ export class LoggerComponent implements OnInit {
     });
   }
 
-  delete() {
-    //
+  delete(id) {
+    console.log(id);
+    this.loggerService.deleteLog(id).subscribe(res => {
+      console.log(res);
+    });
   }
 
 }
