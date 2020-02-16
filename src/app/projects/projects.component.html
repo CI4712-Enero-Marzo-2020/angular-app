@@ -17,6 +17,11 @@
                                         <button mat-raised-button type="submit" class="btn pull-right">
                                             <fa-icon icon="glasses"></fa-icon>
                                         </button>
+                                        <span class="input-group-btn">
+                                        <button mat-raised-button type="submit" class="btn pull-right" data-toggle="modal" data-target="#subir">
+                                            <fa-icon icon="arrow-alt-circle-up"></fa-icon>
+                                        </button>
+                                    </span>
                                     </span>
                                 </div>
                             </div>
@@ -46,13 +51,13 @@
                                         </td>
                                         <td>
                                             <div class="btn-group" role="group">
-                                                <button type="button" class="btn btn-secondary">
+                                                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#buy">
                                                     <fa-icon icon="hand-paper"></fa-icon>
                                                 </button>
-                                                <button type="button" class="btn btn-secondary">
+                                                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#buy">
                                                     <fa-icon icon="edit"></fa-icon>
                                                 </button>
-                                                <button type="button" class="btn btn-secondary">
+                                                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#eliminar">
                                                     <fa-icon icon="times"></fa-icon>
                                                 </button>
                                             </div>
@@ -73,7 +78,7 @@
                                                 <button type="button" class="btn btn-secondary">
                                                     <fa-icon icon="edit"></fa-icon>
                                                 </button>
-                                                <button type="button" class="btn btn-secondary">
+                                                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#eliminar">
                                                     <fa-icon icon="times"></fa-icon>
                                                 </button>
                                             </div>
@@ -87,4 +92,58 @@
             </div>
         </div>
     </div>
+
+<div class="modal modal-angular fade" id="eliminar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-body text-center">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="margin-top">
+                ¿Está seguro que desea eliminar este proyecto?
+            </h4>
+            <a class="modal-button" (click)="clickFunction()" target="_blank">
+  
+                    <div class="product-type">
+                        Si
+                    </div>
+            </a>
+            <a class="modal-button" data-dismiss="modal" target="_blank">
+
+                    <div class="product-type">
+                        No
+                    </div>
+            </a>
+        </div>
+    </div>
+</div>
+</div>
+
+
+
+<div class="modal modal-angular fade" id="subir" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+         <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Agregar proyecto</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Descripción:</label>
+            <input type="text" class="form-control" id="recipient-name">
+          </div>
+        </form>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary">Agregar</button>
+      </div>
+
+    </div>
+</div>
+</div>
 </div>
