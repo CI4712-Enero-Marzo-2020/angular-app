@@ -11,7 +11,8 @@ import {
   faEdit,
   faTimes,
   faArrowAltCircleUp,
-  faPen
+  faPen,
+  faPlay
 } from '@fortawesome/free-solid-svg-icons';
 
 // Agregar componentes aquí
@@ -49,6 +50,6 @@ export class AdminLayoutModule {
 
   constructor(library: FaIconLibrary) {
     // Add an icon to the library for convenient access in other components
-    library.addIcons(faGlasses, faHandPaper, faEdit, faTimes, faArrowAltCircleUp, faPen);
+    library.addIcons(faGlasses, faHandPaper, faEdit, faTimes, faArrowAltCircleUp, faPen, faPlay);
   }
 }
