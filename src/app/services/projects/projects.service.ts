@@ -59,10 +59,11 @@ export class ProjectsService {
 
   changeStatus(project: any,  action: string) {
     const url = action === 'pause' ? `${this.url}projects/pause/${project.id}` : `${this.url}projects/reactivate/${project.id}`;
-    return this.http.put(url, {})
+    return this.http.get(url)
     .toPromise()
     .then(
       (response) => {
+        console.log(response)
         return response;
       },
       (error) => {
@@ -73,11 +74,12 @@ export class ProjectsService {
   }
 
   delete(project: any) {
-    const id = project.id.toString();
+    const id = project.id;
     return this.http.get(`${this.url}projects/delete/${id}`)
     .toPromise()
     .then(
       (response) => {
+        console.log(response)
         return response;
       },
       (error) => {
