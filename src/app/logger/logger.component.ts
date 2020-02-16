@@ -13,6 +13,8 @@ export class LoggerComponent implements OnInit {
   logger: any;
   loggerCopy: any;
   id: any;
+  selectValue = '';
+  searchValue = '';
   constructor(public loggerService: LoggerService, public dialog: MatDialog) { }
 
   ngOnInit() {
@@ -63,34 +65,49 @@ export class LoggerComponent implements OnInit {
     });
   }
 
-  idFilter(idlog) {
-    console.log(idlog.value, this.logger);
-    if(idlog != '') {
-      this.logger = this.logger.filter(log => log.id === idlog.value);
-    }else {
-      this.logger = this.loggerCopy;
+  idFilter() {
+    console.log(this.searchValue);
+    this.logger = this.logger.filter(log => log.id === parseInt(this.searchValue, 10));
+  }
+
+  userFilter() {
+    this.logger = this.logger.filter(log => log.user === this.searchValue);
+  }
+
+  eventFilter() {
+    this.logger = this.logger.filter(log => log.event === this.searchValue);
+  }
+
+  moduleFilter() {
+    this.logger = this.logger.filter(log => log.loged_module === this.searchValue);
+  }
+
+  dateFilter() {
+    this.logger = this.logger.filter(log => log.date.includes(this.searchValue));
+  }
+
+  hourFilter() {
+    this.logger = this.logger.filter(log => log.hour.includes(this.searchValue));
+  }
+
+  search() {
+    this.logger = this.loggerCopy;
+    console.log(this.selectValue, this.searchValue);
+    if (this.selectValue === 'id') {
+      this.idFilter();
+    } else if (this.selectValue === 'user') {
+      this.userFilter();
+    } else if (this.selectValue === 'event') {
+      this.eventFilter();
+    } else if (this.selectValue === 'loged_module') {
+      this.moduleFilter();
+    } else if (this.selectValue === 'date') {
+      this.dateFilter();
     }
   }
-
-  userFilter(user) {
-    this.logger = this.logger.filter(log => log.user === user);
-  }
-
-  eventFilter(event) {
-    this.logger = this.logger.filter(log => log.event === event);
-
-  }
-
-  moduleFilter(moduleLog) {
-    this.logger = this.logger.filter(log => log.loged_module === moduleLog);
-
-  }
-
-  dateFilter(date) {
-    this.logger = this.logger.filter(log => log.date === date);
-  }
-
-  hourFilter(hour) {
-    this.logger = this.logger.filter(log => log.hour === hour);
+  clean() {
+    this.logger = this.loggerCopy;
+    this.searchValue = '';
+    this.selectValue = '';
   }
 }

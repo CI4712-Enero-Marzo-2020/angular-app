@@ -9,7 +9,8 @@ import {
   faGlasses,
   faHandPaper,
   faEdit,
-  faTimes
+  faTimes,
+  faEraser
 } from '@fortawesome/free-solid-svg-icons';
 
 // Agregar componentes aquí
@@ -53,6 +54,6 @@ export class AdminLayoutModule {
 
   constructor(library: FaIconLibrary) {
     // Add an icon to the library for convenient access in other components
-    library.addIcons(faGlasses, faHandPaper, faEdit, faTimes);
+    library.addIcons(faGlasses, faHandPaper, faEdit, faTimes, faEraser);
   }
 }
