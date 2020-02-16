@@ -11,22 +11,30 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 // TODO: probar cada funcionalidad: GET, PUT, PATCH, DELETE
 // TODO: agregar errores de validacion en formularios
 // TODO: hacer un solo submit y un solo form para editar y agregar
+// TODO: cambiar el json a formdata
 export class ProjectsComponent implements OnInit {
 
   projects: any[] = [];
   selectedProject: any;
-  newProject: any;
-  projectForm: FormGroup;
+  addProjectForm: FormGroup;
+  editProjectForm: FormGroup;
 
   constructor(
     private projectsService: ProjectsService,
     private formBuilder: FormBuilder
     ) {
     this.projects.push({description: 'Proyecto de SOPIII', id: 1});
+    this.getAllProjects();
   }
 
-  selectProject(index: number) {
-    this.selectProject = this.projects[index];
+  selectProject(index: number, action?: string) {
+    this.selectedProject = this.projects[index];
+    if (action === 'edit') {
+      this.editProjectForm.setValue({
+        description: this.selectedProject.description
+      });
+      console.log(this.editProjectForm);
+    }
   }
 
   async getAllProjects() {
@@ -34,44 +42,55 @@ export class ProjectsComponent implements OnInit {
   }
 
   async createProject() {
-    this.newProject = await this.projectsService.create({description: 'project', user_id: 1});
+    const formData = new FormData();
+    formData.append('description', this.addProjectForm.get('description').value);
+    formData.append('user_id', '1');
+    const newProject = await this.projectsService.create(formData);
+    this.projects.push(newProject);
   }
 
   async editProject() {
-    this.selectedProject = await this.projectsService.create(this.selectedProject);
+    const formData = new FormData();
+    formData.append('description', this.editProjectForm.get('description').value);
+    formData.append('user_id', '1');
+    const editedProject = await this.projectsService.edit(this.selectedProject, formData);
+    const index = this.findIndexProject();
+    this.projects = [...this.projects.slice(0, index), editedProject, ...this.projects.slice(index + 1, this.projects.length)];
   }
 
   async pauseProject() {
-    this.selectedProject = await this.projectsService.changeStatus(this.selectedProject, 'pause');
+    const editedProject = await this.projectsService.changeStatus(this.selectedProject, 'pause');
+    const index = this.findIndexProject();
+    this.projects = [...this.projects.slice(0, index), editedProject, ...this.projects.slice(index + 1, this.projects.length)];
   }
 
   async activateProject() {
-    this.selectedProject = await this.projectsService.changeStatus(this.selectedProject, 'activate');
+    const editedProject = await this.projectsService.changeStatus(this.selectedProject, 'activate');
+    const index = this.findIndexProject();
+    this.projects = [...this.projects.slice(0, index), editedProject, ...this.projects.slice(index + 1, this.projects.length)];
   }
   async removeProject() {
-    const getProjectIndex = (element) => element.id === this.selectedProject.id;
-    const index = this.projects.findIndex(getProjectIndex);
-    this.selectedProject = await this.projectsService.delete(this.selectedProject);
-    this.projects.slice(index, 1);
+    const index = this.findIndexProject();
+    await this.projectsService.delete(this.selectedProject);
+    this.projects = [...this.projects.slice(0, index), ...this.projects.slice(index + 1, this.projects.length)];
 
   }
-  compareById(project1, project2) {
-    if (project1.id > project2.id) { return 1; }
-    if (project1.id < project2.id) { return -1; }
-    return 0;
+
+  findIndexProject() {
+    const getProjectIndex = (element) => element.id === this.selectedProject.id;
+    const index = this.projects.findIndex(getProjectIndex);
+    return index;
   }
 
   ngOnInit() {
-    // console.log(this.projectsService.create({description: 'project'}));
-    // console.log(this.projectsService.getAll());
-    // this.getAllProjects();
-    this.projectForm = this.formBuilder.group({
-      description: [this.selectedProject ? this.selectedProject.description : '', Validators.required],
+    this.addProjectForm = this.formBuilder.group({
+      description: ['', Validators.required],
+    });
+    this.editProjectForm = this.formBuilder.group({
+      description: ['', Validators.required],
     });
   }
 
-  modalsubmit() {
 
-  }
 
 }

@@ -28,35 +28,24 @@ export class ProjectsService {
 
 
   create(project: any) {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-      token: '?'
-    });
-    const userId = 2;
-    const jsonStruct =  JSON.stringify({...project, user_id: userId});
-    return this.http.post(`${this.url}projects/add`, jsonStruct, {headers})
+    return this.http.post(`${this.url}projects/add`, project)
     .toPromise()
     .then(
       (response) => {
+        console.log('RESPONSE');
+        console.log(response)
         return response;
       },
       (error) => {
         // Devuelvo null
+        console.log('RESPONSE');
         console.log(error);
       }
     );
   }
 
-  edit(project: any) {
-    const userId = 1;
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-      token: '?'
-    });
-    const jsonStruct =  JSON.stringify({...project, user_id: userId});
-    return this.http.put(`${this.url}projects/update/${project.id}`, jsonStruct, {headers})
+  edit(project: any, form: any) {
+    return this.http.put(`${this.url}projects/update/${project.id}`, form)
     .toPromise()
     .then(
       (response) => {
@@ -84,7 +73,8 @@ export class ProjectsService {
   }
 
   delete(project: any) {
-    return this.http.delete(`${this.url}projects/pause/${project.id}`)
+    const id = project.id.toString();
+    return this.http.get(`${this.url}projects/delete/${id}`)
     .toPromise()
     .then(
       (response) => {
