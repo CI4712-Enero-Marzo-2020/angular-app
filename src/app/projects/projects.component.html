@@ -42,43 +42,22 @@
                                     </th>
                                 </thead>
                                 <tbody>
-                                    <tr>
+                                    <tr *ngFor="let project of projects; index as i">
                                         <td>
-                                            1
+                                            {{project.id}}
                                         </td>
                                         <td>
-                                            Proyecto Cool #254
-                                        </td>
-                                        <td>
-                                            <div class="btn-group" role="group">
-                                                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#buy">
-                                                    <fa-icon icon="hand-paper"></fa-icon>
-                                                </button>
-                                                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#buy">
-                                                    <fa-icon icon="edit"></fa-icon>
-                                                </button>
-                                                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#eliminar">
-                                                    <fa-icon icon="times"></fa-icon>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            2
-                                        </td>
-                                        <td>
-                                            Proyecto No Tan Cool #765
+                                            {{project.description}}
                                         </td>
                                         <td>
                                             <div class="btn-group" role="group">
-                                                <button type="button" class="btn btn-secondary">
+                                                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#buy" (click)="selectProject(i)">
                                                     <fa-icon icon="hand-paper"></fa-icon>
                                                 </button>
-                                                <button type="button" class="btn btn-secondary">
+                                                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#buy" (click)="selectProject(i)">
                                                     <fa-icon icon="edit"></fa-icon>
                                                 </button>
-                                                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#eliminar">
+                                                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#eliminar" (click)="selectProject(i)">
                                                     <fa-icon icon="times"></fa-icon>
                                                 </button>
                                             </div>
@@ -101,8 +80,8 @@
             <h4 class="margin-top">
                 ¿Está seguro que desea eliminar este proyecto?
             </h4>
-            <a class="modal-button" (click)="clickFunction()" target="_blank">
-  
+            <a class="modal-button" (click)="removeProject()" target="_blank">
+
                     <div class="product-type">
                         Si
                     </div>
@@ -130,10 +109,10 @@
         </button>
       </div>
       <div class="modal-body">
-        <form>
+        <form [formGroup]="projectForm" (ngSubmit)="modalSubmit()">
           <div class="form-group">
             <label for="recipient-name" class="col-form-label">Descripción:</label>
-            <input type="text" class="form-control" id="recipient-name">
+            <input formControlName="description" type="text" class="form-control" id="recipient-name">
           </div>
         </form>
     </div>
