@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdminLayoutRoutes } from './admin-layout.routing';
 
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { 
+import {
   faGlasses,
   faHandPaper,
   faEdit,
@@ -23,6 +23,7 @@ import {
   MatTooltipModule,
   MatSelectModule
 } from '@angular/material';
+import { LoggerComponent } from 'src/app/logger/logger.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -39,7 +40,8 @@ import {
   ],
   declarations: [
     // Agregar declaraciones de componentes aquí
-    ProjectsComponent
+    ProjectsComponent,
+    LoggerComponent
   ]
 })
 
