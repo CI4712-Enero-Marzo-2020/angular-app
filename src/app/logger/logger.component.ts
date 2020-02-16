@@ -11,6 +11,7 @@ import { ProjectsComponent } from '../projects/projects.component';
 })
 export class LoggerComponent implements OnInit {
   logger: any;
+  loggerCopy: any;
   id: any;
   constructor(public loggerService: LoggerService, public dialog: MatDialog) { }
 
@@ -28,6 +29,7 @@ export class LoggerComponent implements OnInit {
         element['date'] = date;
         element['hour'] = hour;
       });
+      this.loggerCopy = this.logger;
     });
   }
 
@@ -61,4 +63,34 @@ export class LoggerComponent implements OnInit {
     });
   }
 
+  idFilter(idlog) {
+    console.log(idlog.value, this.logger);
+    if(idlog != '') {
+      this.logger = this.logger.filter(log => log.id === idlog.value);
+    }else {
+      this.logger = this.loggerCopy;
+    }
+  }
+
+  userFilter(user) {
+    this.logger = this.logger.filter(log => log.user === user);
+  }
+
+  eventFilter(event) {
+    this.logger = this.logger.filter(log => log.event === event);
+
+  }
+
+  moduleFilter(moduleLog) {
+    this.logger = this.logger.filter(log => log.loged_module === moduleLog);
+
+  }
+
+  dateFilter(date) {
+    this.logger = this.logger.filter(log => log.date === date);
+  }
+
+  hourFilter(hour) {
+    this.logger = this.logger.filter(log => log.hour === hour);
+  }
 }

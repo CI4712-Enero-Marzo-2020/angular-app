@@ -49,6 +49,28 @@
                                   </th>
                               </thead>
                               <tbody>
+                                  <tr >
+                                      <td>
+                                        <input type="number" (input)="idFilter($event.target)">
+                                      </td>
+                                      <td>
+                                        <input type="text">
+                                      </td>
+                                      <td>
+                                        <input type="text">
+                                      </td>
+                                      <td>
+                                        <input type="text">
+                                      </td>
+                                      <td>
+                                        <input type="date">
+                                      </td>
+                                      <td>
+                                        <input type="text">
+                                      </td>
+                                      <td>
+                                      </td>
+                                  </tr>
                                   <tr *ngFor="let log of logger">
                                       <td>
                                         {{log.id}}
