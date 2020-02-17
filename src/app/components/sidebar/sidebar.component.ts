@@ -15,7 +15,8 @@ export const ROUTES_NOT_LOGGIN: RouteInfo[] = [
 
 // Agregar información de iconos del sidebar con rutas aquí
 export const ROUTES: RouteInfo[] = [
-    { path: '/projects', title: 'Portafolio de Proyectos',  icon:'dashboard', class: '' }
+    { path: '/projects', title: 'Portafolio de Proyectos',  icon:'dashboard', class: '' },
+    { path: '/logger', title: 'Logger de Eventos',  icon:'dashboard', class: '' }
 ];
 
 @Component({

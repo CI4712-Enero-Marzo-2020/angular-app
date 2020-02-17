@@ -1,0 +1,120 @@
+<div class="main-content">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-md-12">
+              <div class="card">
+                  <div class="card-header card-header-danger">
+
+                      <div class="row">
+                          <div class="col-xs-12 col-md-6 text-left">
+                              <h4 class="card-title ">Eventos</h4>
+                              <p class="card-category">Listado</p>
+                          </div>
+                          <div class="col-xs-12 col-md-6 text-right">
+                              <div class="input-group">
+                                  <input type="text" class="form-control" id="input-search" [(ngModel)]="searchValue">
+                                  <select [(ngModel)]="selectValue" class="form-control" id="input-search" >
+                                    <option value="" >Seleccione...</option>
+                                    <option value="id">Id</option>
+                                    <option value="user">Usuario</option>
+                                    <option value="event">Evento</option>
+                                    <option value="loged_module">Módulo</option>
+                                    <option value="date">Fecha</option>
+                                  </select>
+                                  <span class="input-group-btn">
+                                    <button mat-raised-button type="submit" class="btn pull-right" (click)="search()">
+                                        <fa-icon icon="glasses"></fa-icon>
+                                    </button>
+                                  </span>
+                                  <span class="input-group-btn custom-clear" (click)="clean()">
+                                      <fa-icon icon="eraser"></fa-icon>
+                                  </span>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="card-body">
+                      <div class="table-responsive">
+                          <table class="table">
+                              <thead class=" text-primary">
+                                  <th>
+                                    ID
+                                  </th>
+                                  <th>
+                                    Usuario
+                                  </th>
+                                  <th>
+                                    Evento
+                                  </th>
+                                  <th>
+                                    Módulo
+                                  </th>
+                                  <th>
+                                    Fecha
+                                  </th>
+                                  <th>
+                                    Hora
+                                  </th>
+                                  <th class="options-column">
+                                      Opciones
+                                  </th>
+                              </thead>
+                              <tbody>
+                                  <!-- <tr >
+                                      <td>
+                                        <input type="number" (input)="idFilter($event.target)">
+                                      </td>
+                                      <td>
+                                        <input type="text">
+                                      </td>
+                                      <td>
+                                        <input type="text">
+                                      </td>
+                                      <td>
+                                        <input type="text">
+                                      </td>
+                                      <td>
+                                        <input type="date">
+                                      </td>
+                                      <td>
+                                        <input type="text">
+                                      </td>
+                                      <td>
+                                      </td>
+                                  </tr> -->
+                                  <tr *ngFor="let log of logger">
+                                      <td>
+                                        {{log.id}}
+                                      </td>
+                                      <td>
+                                        {{log.user}}
+                                      </td>
+                                      <td>
+                                        {{log.event}}
+                                      </td>
+                                      <td>
+                                        {{log.loged_module}}
+                                      </td>
+                                      <td>
+                                        {{log.date}}
+                                      </td>
+                                      <td>
+                                        {{log.hour}}
+                                      </td>
+                                      <td>
+                                          <div class="btn-group" role="group">
+                                              <button type="button" class="btn btn-secondary" (click)="openDialog(log.id)" >
+                                                  <fa-icon icon="times"></fa-icon>
+                                              </button>
+                                          </div>
+                                      </td>
+                                  </tr>
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
