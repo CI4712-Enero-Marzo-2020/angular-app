@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdminLayoutRoutes } from './admin-layout.routing';
 
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { 
+import {
   faGlasses,
   faHandPaper,
   faEdit,
@@ -37,7 +37,7 @@ import {
     MatInputModule,
     MatSelectModule,
     MatTooltipModule,
-    FontAwesomeModule
+    FontAwesomeModule,
   ],
   declarations: [
     // Agregar declaraciones de componentes aquí
