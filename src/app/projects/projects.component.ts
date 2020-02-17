@@ -18,6 +18,8 @@ export class ProjectsComponent implements OnInit {
   selectedProject: any;
   addProjectForm: FormGroup;
   editProjectForm: FormGroup;
+  id: string;
+  projectsDuplicate: any[];
 
   constructor(
     private projectsService: ProjectsService,
@@ -94,18 +96,22 @@ export class ProjectsComponent implements OnInit {
   }
 
 
-  Search(this){
+  Search() {
 
-    var dup = this.projects.map(element => JSON.parse(JSON.stringify(element)));
-    console.log(dup);
+    this.projectsDuplicate = [...this.projects.map(element => JSON.parse(JSON.stringify(element)))];
 
-    if(this.description!=""){
-    this.projects= this.projects.filter(res=>{
-      return res.description.toLocaleLowerCase().match(this.description.toLocaleLowerCase());
-    });
+    if (this.id && this.id.length > 0) {
+      this.projects = this.projects.filter(res => {
+        return res.id === +this.id;
+      });
+    } else {
+      this.projects = this.projectsDuplicate;
+    }
+  }
 
-    } else if (this.description==""){
-    return this.ngOnInit();
+  resetProjectsList() {
+    if (this.id.length === 0) {
+      this.projects = [...this.projectsDuplicate.map(element => JSON.parse(JSON.stringify(element)))];
     }
   }
 
