@@ -14,8 +14,6 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { Location } from '@angular/common';
 
-
-
 @NgModule({
   declarations: [
     AppComponent,

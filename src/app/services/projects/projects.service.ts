@@ -1,61 +1,51 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders} from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProjectsService {
 
-
+  url = environment.api;
   constructor(private http: HttpClient) { }
 
   // TODO: falta verificar si el usuario esta autenticado
   getAll() {
-    const userId = '1';
-    return this.http.get(`url/${userId}`)
+    const userId = 1;
+    return this.http.get(`${this.url}projects/getall/${userId}`)
     .toPromise()
     .then(
-      (response) => {
+      (response: any[]) => {
         return response;
     },
       (error) => {
         console.log(error);
+        return null;
       }
     );
   }
 
 
   create(project: any) {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-      token: '?'
-    });
-    const userId = 1;
-    const jsonStruct =  JSON.stringify({...project, user_id: userId});
-    return this.http.post('url', jsonStruct, {headers})
+    return this.http.post(`${this.url}projects/add`, project)
     .toPromise()
     .then(
       (response) => {
+        console.log('RESPONSE');
+        console.log(response)
         return response;
       },
       (error) => {
         // Devuelvo null
+        console.log('RESPONSE');
         console.log(error);
       }
     );
   }
 
-  edit(project: any) {
-    const projectId = project.id;
-    const userId = 1;
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-      token: '?'
-    });
-    const jsonStruct =  JSON.stringify({...project, user_id: userId});
-    return this.http.put(`url/${projectId}`, jsonStruct, {headers})
+  edit(project: any, form: any) {
+    return this.http.put(`${this.url}projects/update/${project.id}`, form)
     .toPromise()
     .then(
       (response) => {
@@ -68,12 +58,12 @@ export class ProjectsService {
   }
 
   changeStatus(project: any,  action: string) {
-    const url = action === 'pause' ? 'pausarUrl' : 'reactivar';
-    const projectId = project.id;
-    return this.http.put(`${url}/${projectId}`, {})
+    const url = action === 'pause' ? `${this.url}projects/pause/${project.id}` : `${this.url}projects/reactivate/${project.id}`;
+    return this.http.get(url)
     .toPromise()
     .then(
       (response) => {
+        console.log(response)
         return response;
       },
       (error) => {
@@ -84,11 +74,12 @@ export class ProjectsService {
   }
 
   delete(project: any) {
-    const projectId = project.id;
-    return this.http.delete(`url/${projectId}`)
+    const id = project.id;
+    return this.http.get(`${this.url}projects/delete/${id}`)
     .toPromise()
     .then(
       (response) => {
+        console.log(response)
         return response;
       },
       (error) => {
