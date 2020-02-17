@@ -5,7 +5,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 describe('ProjectsService', () => {
   beforeEach(() => TestBed.configureTestingModule({
-    imports: [RouterTestingModule, HttpClientTestingModule],
+    imports: [HttpClientTestingModule],
     providers: [ProjectsService]
   }));
 
