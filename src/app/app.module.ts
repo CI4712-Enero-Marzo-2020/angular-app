@@ -13,6 +13,7 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { Location } from '@angular/common';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 
 
 
@@ -22,18 +23,18 @@ import { Location } from '@angular/common';
     AdminLayoutComponent,
   ],
   imports: [
-    Location,
     BrowserAnimationsModule,
     HttpClientModule,
-    HttpClient,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
     ComponentsModule,
     FontAwesomeModule,
+    MatDialogModule
   ],
-  providers: [],
+  providers: [
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
