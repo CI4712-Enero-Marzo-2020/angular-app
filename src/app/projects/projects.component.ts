@@ -41,7 +41,9 @@ export class ProjectsComponent implements OnInit {
   }
 
   async getAllProjects() {
+
     this.projects = await this.projectsService.getAll();
+    console.log(this.projects);
   }
 
   async createProject() {
