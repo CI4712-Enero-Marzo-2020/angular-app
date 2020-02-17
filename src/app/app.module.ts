@@ -10,7 +10,9 @@ import { RouterModule } from '@angular/router';
 import { ComponentsModule } from './components/components.module';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { Location } from '@angular/common';
 
 
 
@@ -20,13 +22,16 @@ import { HttpClientModule } from '@angular/common/http';
     AdminLayoutComponent,
   ],
   imports: [
+    Location,
     BrowserAnimationsModule,
     HttpClientModule,
+    HttpClient,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
-    ComponentsModule
+    ComponentsModule,
+    FontAwesomeModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
