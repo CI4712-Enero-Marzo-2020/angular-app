@@ -20,3 +20,8 @@
     overflow: hidden !important;
     outline:none !important;
 }
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: white !important;
+  opacity: 1 !important; /* Firefox */
+}
