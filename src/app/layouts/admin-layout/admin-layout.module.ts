@@ -16,6 +16,9 @@ import {
 import { ProjectsComponent } from '../../projects/projects.component';
 import {LoginComponent} from '../../login/login.component';
 import { LoginActivate } from '../../login/login-activate';
+import { CreateUsersComponent } from 'src/app/create-users/create-users.component';
+import { RegisterComponent } from 'src/app/register/register.component';
+
 
 import {
   MatButtonModule,
@@ -43,6 +46,8 @@ import {
     // Agregar declaraciones de componentes aquí
     ProjectsComponent,
     LoginComponent,
+    CreateUsersComponent,
+    RegisterComponent
   ],
   providers: [
     LoginActivate,

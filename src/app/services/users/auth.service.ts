@@ -15,12 +15,12 @@ export class AuthService {
     }
 
 
-    getAll() {
-        return this.http.get(`${this.api_url}/getall`)
-    }
-
     login(username:string,password:string):Observable<any>{
         return this.http.post(`${this.api_url}/login`,{username:username,password:password})
+    }
+
+    register(username:string,first_name:string,last_name:string,role:string,password:string):Observable<any>{
+        return this.http.post(`${this.api_url}/register`,{username:username,password:password,first_name:first_name,last_name:last_name,role:role})
     }
 
     isLoggedIn(){

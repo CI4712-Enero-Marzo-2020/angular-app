@@ -19,7 +19,7 @@ import { Location } from '@angular/common';
 @NgModule({
   declarations: [
     AppComponent,
-    AdminLayoutComponent
+    AdminLayoutComponent,
   ],
   imports: [
     BrowserAnimationsModule,
