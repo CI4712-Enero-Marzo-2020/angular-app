@@ -22,10 +22,8 @@ import { Location } from '@angular/common';
     AdminLayoutComponent
   ],
   imports: [
-    Location,
     BrowserAnimationsModule,
     HttpClientModule,
-    HttpClient,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
