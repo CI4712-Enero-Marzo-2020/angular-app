@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { LoggerService } from '../services/logger/logger.service';
 import { MatDialog } from '@angular/material';
 import { DialogComponent } from './dialog/dialog.component';
-import { ProjectsComponent } from '../projects/projects.component';
 
 @Component({
   selector: 'app-logger',
@@ -48,7 +47,6 @@ export class LoggerComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      const animal = result;
       if (result) {
         this.delete();
       }
