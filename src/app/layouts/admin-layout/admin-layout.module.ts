@@ -12,11 +12,14 @@ import {
   faTimes,
   faArrowAltCircleUp,
   faPen,
-  faPlay
+  faPlay,
+  faEraser
 } from '@fortawesome/free-solid-svg-icons';
 
 // Agregar componentes aquí
 import { ProjectsComponent } from '../../projects/projects.component';
+import {LoginComponent} from '../../login/login.component';
+import { LoginActivate } from '../../login/login-activate';
 
 import {
   MatButtonModule,
@@ -24,8 +27,11 @@ import {
   MatRippleModule,
   MatFormFieldModule,
   MatTooltipModule,
-  MatSelectModule
+  MatSelectModule,
+  MatDialogModule
 } from '@angular/material';
+import { LoggerComponent } from 'src/app/logger/logger.component';
+import { DialogComponent } from 'src/app/logger/dialog/dialog.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -39,10 +45,17 @@ import {
     MatSelectModule,
     MatTooltipModule,
     FontAwesomeModule,
+    MatDialogModule
   ],
   declarations: [
     // Agregar declaraciones de componentes aquí
-    ProjectsComponent
+    ProjectsComponent,
+    LoginComponent,
+    LoggerComponent,
+    DialogComponent
+  ],
+  providers: [
+    LoginActivate,
   ]
 })
 
@@ -50,6 +63,6 @@ export class AdminLayoutModule {
 
   constructor(library: FaIconLibrary) {
     // Add an icon to the library for convenient access in other components
-    library.addIcons(faGlasses, faHandPaper, faEdit, faTimes, faArrowAltCircleUp, faPen, faPlay);
+    library.addIcons(faGlasses, faHandPaper, faEdit, faTimes, faEraser, faArrowAltCircleUp, faPen, faPlay);
   }
 }

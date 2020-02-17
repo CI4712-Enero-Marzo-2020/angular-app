@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/services/users/auth.service';
 
 declare const $: any;
 declare interface RouteInfo {
@@ -7,25 +8,32 @@ declare interface RouteInfo {
     icon: string;
     class: string;
 }
-
+// Agregar información de iconos del sidebar con rutas aquí
+export const ROUTES_NOT_LOGGIN: RouteInfo[] = [
+  { path: '/login', title: 'Login',  icon:'person', class: '' }
+];
 
 // Agregar información de iconos del sidebar con rutas aquí
 export const ROUTES: RouteInfo[] = [
-    { path: '/projects', title: 'Portafolio de Proyectos',  icon:'dashboard', class: '' }
+    { path: '/projects', title: 'Portafolio de Proyectos',  icon:'dashboard', class: '' },
+    { path: '/logger', title: 'Logger de Eventos',  icon:'dashboard', class: '' }
 ];
 
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.css']
+  styleUrls: ['./sidebar.component.css'],
+  
 })
 export class SidebarComponent implements OnInit {
   menuItems: any[];
+  menuItems_not_login:any[];
 
-  constructor() { }
+  constructor(private authService:AuthService) { }
 
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem => menuItem);
+    this.menuItems_not_login = ROUTES_NOT_LOGGIN.filter(menuItems=>menuItems);
   }
   isMobileMenu() {
       if ($(window).width() > 991) {

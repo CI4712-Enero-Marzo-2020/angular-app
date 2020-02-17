@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { ProjectsService } from './projects.service';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('ProjectsService', () => {
   beforeEach(() => TestBed.configureTestingModule({
