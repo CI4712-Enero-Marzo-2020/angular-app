@@ -27,6 +27,7 @@ export class ProjectsComponent implements OnInit {
     this.getAllProjects();
   }
 
+
   selectProject(index: number, action?: string) {
     this.selectedProject = this.projects[index];
     if (action === 'edit') {
@@ -82,6 +83,7 @@ export class ProjectsComponent implements OnInit {
     return index;
   }
 
+
   ngOnInit() {
     this.addProjectForm = this.formBuilder.group({
       description: ['', Validators.required],
@@ -89,6 +91,22 @@ export class ProjectsComponent implements OnInit {
     this.editProjectForm = this.formBuilder.group({
       description: ['', Validators.required],
     });
+  }
+
+
+  Search(this){
+
+    var dup = this.projects.map(element => JSON.parse(JSON.stringify(element)));
+    console.log(dup);
+
+    if(this.description!=""){
+    this.projects= this.projects.filter(res=>{
+      return res.description.toLocaleLowerCase().match(this.description.toLocaleLowerCase());
+    });
+
+    } else if (this.description==""){
+    return this.ngOnInit();
+    }
   }
 
 
