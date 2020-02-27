@@ -14,13 +14,11 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { Location } from '@angular/common';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { SprintBacklogComponent } from './sprint-backlog/sprint-backlog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-    SprintBacklogComponent,
   ],
   imports: [
     BrowserAnimationsModule,

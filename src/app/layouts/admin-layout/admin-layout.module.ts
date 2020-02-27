@@ -13,7 +13,9 @@ import {
   faArrowAltCircleUp,
   faPen,
   faPlay,
-  faEraser
+  faEraser,
+  faCheckCircle,
+  faTimesCircle
 } from '@fortawesome/free-solid-svg-icons';
 
 // Agregar componentes aquí
@@ -32,6 +34,7 @@ import {
 } from '@angular/material';
 import { LoggerComponent } from 'src/app/logger/logger.component';
 import { DialogComponent } from 'src/app/logger/dialog/dialog.component';
+import { SprintBacklogComponent } from 'src/app/sprint-backlog/sprint-backlog.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -52,7 +55,8 @@ import { DialogComponent } from 'src/app/logger/dialog/dialog.component';
     ProjectsComponent,
     LoginComponent,
     LoggerComponent,
-    DialogComponent
+    DialogComponent,
+    SprintBacklogComponent
   ],
   providers: [
     LoginActivate,
@@ -63,6 +67,15 @@ export class AdminLayoutModule {
 
   constructor(library: FaIconLibrary) {
     // Add an icon to the library for convenient access in other components
-    library.addIcons(faGlasses, faHandPaper, faEdit, faTimes, faEraser, faArrowAltCircleUp, faPen, faPlay);
+    library.addIcons(faGlasses,
+                    faHandPaper,
+                    faEdit,
+                    faTimes,
+                    faEraser,
+                    faArrowAltCircleUp,
+                    faPen,
+                    faPlay,
+                    faCheckCircle,
+                    faTimesCircle);
   }
 }
