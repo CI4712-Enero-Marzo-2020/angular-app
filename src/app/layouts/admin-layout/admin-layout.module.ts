@@ -16,11 +16,13 @@ import {
   faPlusCircle,
   faSearch,
   faAddressBook,
-  faScroll
+  faScroll,
+  faCheck
 } from '@fortawesome/free-solid-svg-icons';
 
 // Agregar componentes aquí
 import { ProjectsComponent } from '../../projects/projects.component';
+import { ProductbacklogComponent } from '../../productbacklog/productbacklog.component';
 
 import {
   MatButtonModule,
@@ -46,7 +48,8 @@ import {
   ],
   declarations: [
     // Agregar declaraciones de componentes aquí
-    ProjectsComponent
+    ProjectsComponent,
+    ProductbacklogComponent
   ]
 })
 
@@ -54,6 +57,6 @@ export class AdminLayoutModule {
 
   constructor(library: FaIconLibrary) {
     // Add an icon to the library for convenient access in other components
-    library.addIcons(faGlasses, faHandPaper, faEdit, faTimes, faArrowAltCircleUp, faPen, faPlay,faPlusCircle, faSearch, faAddressBook, faScroll);
+    library.addIcons(faGlasses, faHandPaper, faEdit, faTimes, faArrowAltCircleUp, faPen, faPlay,faPlusCircle, faSearch, faAddressBook, faScroll, faCheck);
   }
 }

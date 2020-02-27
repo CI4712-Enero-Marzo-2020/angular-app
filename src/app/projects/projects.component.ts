@@ -114,7 +114,4 @@ export class ProjectsComponent implements OnInit {
       this.projects = [...this.projectsDuplicate.map(element => JSON.parse(JSON.stringify(element)))];
     }
   }
-
-
-
 }

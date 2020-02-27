@@ -53,8 +53,8 @@
                                         <td>
                                             <div class="btn-group" role="group">
 
-                                                <button type="button" class="btn btn-secondary">
-                                                    <fa-icon *ngIf="project.status == 'active'" icon="scroll"></fa-icon>
+                                                <button type="button" class="btn btn-secondary" [routerLink]="['/productbacklog',project.id]">
+                                                    <fa-icon icon="scroll"></fa-icon>
                                                 </button>
                                                 <button type="button" class="btn btn-secondary" data-toggle="modal"
                                                     data-target="#pausar" (click)="selectProject(i)">
