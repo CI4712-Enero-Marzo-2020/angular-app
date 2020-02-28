@@ -74,14 +74,15 @@
                                         </td>
                                         <td class="text-right">
                                             <div class="btn-group" role="group">
-                                                <button *ngIf="story.epic" type="button" class="btn btn-secondary">
+                                                <button *ngIf="story.epic" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#addEdit2">
                                                     <fa-icon icon="plus-circle"></fa-icon>
                                                 </button>
                                                 <button type="button" class="btn btn-secondary" data-toggle="modal"
                                                     data-target="#addEdit" (click)="initializeEditForm(story)">
                                                     <fa-icon icon="edit"></fa-icon>
                                                 </button>
-                                                <button type="button" class="btn btn-secondary">
+                                                <button type="button" class="btn btn-secondary" data-toggle="modal"
+                                                    data-target="#eliminar">
                                                     <fa-icon icon="times"></fa-icon>
                                                 </button>
                                             </div>
@@ -167,14 +168,48 @@
         </div>
     </div>
 
-    <!--<div class="modal modal-angular fade" id="eliminar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+     <div class="modal modal-angular fade" id="addEdit2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 *ngIf="addMode" class="modal-title">Asignar Historias</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <tbody>
+                    <tr *ngFor="let story of stories; index as i">
+                        
+                                        <td>
+                                            {{story.description}}
+
+                                        </td>
+                                        <td>                                        
+                                            <input formControlName="epic" class="form-check-input" type="checkbox" value="">
+                                            </td>
+
+                        
+                        </tr>
+                    </tbody>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button *ngIf="addMode" type="button" class="btn btn-primary" data-toggle="modal" data-dismiss="modal"
+                    (click)="createStory()">Asignar historias</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal modal-angular fade" id="eliminar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-body text-center">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
                     <h4 class="margin-top">
-                        ¿Está seguro que desea eliminar este proyecto?
+                        ¿Está seguro que desea eliminar esta historia?
                     </h4>
                     <a class="modal-button" data-dismiss="modal" (click)="removeProject()" target="_blank">
                         <div class="product-type">Si</div>
@@ -189,7 +224,7 @@
 
 
 
-    <div class="modal modal-angular fade" id="subir" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+   <!--  <div class="modal modal-angular fade" id="subir" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -268,7 +303,7 @@
                 </div>
             </div>
         </div>
-    </div> -->
+    </div>  -->
 
 
 </div>
