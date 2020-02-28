@@ -40,6 +40,7 @@ export class ProductbacklogComponent implements OnInit {
       date_created: new Date(Date.now())
     }
   ];
+  storiesDuplicate: any[];
 
   story : Story;
 
@@ -92,6 +93,26 @@ export class ProductbacklogComponent implements OnInit {
       done: [this.story.done]
     });
   }
+
+  Search() {
+
+    this.storiesDuplicate = [...this.stories.map(element => JSON.parse(JSON.stringify(element)))];
+
+    if (this.id && this.id.length > 0) {
+      this.stories = this.stories.filter(res => {
+        return res.id === +this.id;
+      });
+    } else {
+      this.stories = this.storiesDuplicate;
+    }
+  }
+
+  resetStoriesList() {
+    if (this.id.length === 0) {
+      this.stories = [...this.storiesDuplicate.map(element => JSON.parse(JSON.stringify(element)))];
+    }
+  }
+
 
   ngOnInit() {
     this.initializeAddForm();
