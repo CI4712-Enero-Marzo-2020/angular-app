@@ -180,14 +180,20 @@
                 <div class="modal-body">
                     <tbody>
                     <tr *ngFor="let story of stories; index as i">
-
+                        <div class="row">
+                                        <div class="col-sm-4">
                                         <td>
-                                            {{story.description}}
+                                            {{story.id}}
 
                                         </td>
+                                    </div>
+
+                                    <div class="col-sm-4">
                                         <td>                                        
                                             <input class="form-check-input" type="checkbox" value="" autocomplete="off">
                                             </td>
+                                    </div>
+                            </div>
 
                         
                         </tr>
