@@ -1,0 +1,18 @@
+os: linux
+language: node_js
+node_js:
+  - '10'
+  - '12'
+
+addons:
+  chrome: stable
+
+cache:
+  directories:
+    - ./node_modules
+
+install:
+  - npm install
+
+script:
+  - npm run test -- --watch=false --no-progress --browsers=ChromeHeadlessNoSandbox

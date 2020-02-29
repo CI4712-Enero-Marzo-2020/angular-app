@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProjectsService {
+export class StoriesService {
 
   url = environment.api;
   userID: any;
@@ -13,10 +13,9 @@ export class ProjectsService {
     this.userID = JSON.parse(localStorage.getItem('currentUser')).id;
    }
 
-  // TODO: falta verificar si el usuario esta autenticado
-  getAll() {
+   getAll() {
     // const userId = 1;
-    return this.http.get(`${this.url}projects/getall/${this.userID}`)
+    return this.http.get(`${this.url}stories/getall/${this.userID}`)
     .toPromise()
     .then(
       (response: any[]) => {
@@ -28,10 +27,8 @@ export class ProjectsService {
       }
     );
   }
-
-
-  create(project: any) {
-    return this.http.post(`${this.url}projects/add`, project)
+  create(form: any) {
+    return this.http.post(`${this.url}stories/add`, form)
     .toPromise()
     .then(
       (response) => {
@@ -47,8 +44,8 @@ export class ProjectsService {
     );
   }
 
-  edit(project: any, form: any) {
-    return this.http.put(`${this.url}projects/update/${project.id}`, form)
+  changeClassification(story: any, form: any) {
+    return this.http.patch(`${this.url}stories/classification/${story.id}`, form)
     .toPromise()
     .then(
       (response) => {
@@ -60,36 +57,30 @@ export class ProjectsService {
     );
   }
 
-  changeStatus(project: any,  action: string) {
-    const url = action === 'pause' ? `${this.url}projects/pause/${project.id}` : `${this.url}projects/reactivate/${project.id}`;
-    return this.http.get(url)
+  changePriority(story: any, form: any, priority: number) {
+    return this.http.patch(`${this.url}stories/classification/${story.id}`, form)
     .toPromise()
     .then(
       (response) => {
-        console.log(response);
         return response;
       },
       (error) => {
-        // Devuelvo null
         console.log(error);
       }
     );
   }
 
-  delete(project: any) {
-    const id = project.id;
-    return this.http.get(`${this.url}projects/delete/${id}`)
+  edit(story: any, form: any) {
+    return this.http.put(`${this.url}stories/update/${story.id}`, form)
     .toPromise()
     .then(
       (response) => {
-        console.log(response);
         return response;
       },
       (error) => {
-        // Devuelvo null
         console.log(error);
       }
     );
-
   }
+
 }

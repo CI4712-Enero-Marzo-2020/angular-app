@@ -20,6 +20,7 @@ export class ProjectsComponent implements OnInit {
   editProjectForm: FormGroup;
   id: string;
   projectsDuplicate: any[];
+  userID: any;
 
   constructor(
     private projectsService: ProjectsService,
@@ -27,6 +28,7 @@ export class ProjectsComponent implements OnInit {
     ) {
     this.projects.push({description: 'Proyecto de SOPIII', id: 1});
     this.getAllProjects();
+    this.userID = JSON.parse(localStorage.getItem('currentUser')).id;
   }
 
 
@@ -41,13 +43,15 @@ export class ProjectsComponent implements OnInit {
   }
 
   async getAllProjects() {
+
     this.projects = await this.projectsService.getAll();
+    console.log(this.projects);
   }
 
   async createProject() {
     const formData = new FormData();
     formData.append('description', this.addProjectForm.get('description').value);
-    formData.append('user_id', '1');
+    formData.append('user_id', this.userID);
     const newProject = await this.projectsService.create(formData);
     this.projects.push(newProject);
   }
@@ -55,7 +59,7 @@ export class ProjectsComponent implements OnInit {
   async editProject() {
     const formData = new FormData();
     formData.append('description', this.editProjectForm.get('description').value);
-    formData.append('user_id', '1');
+    formData.append('user_id', this.userID);
     const editedProject = await this.projectsService.edit(this.selectedProject, formData);
     const index = this.findIndexProject();
     this.projects = [...this.projects.slice(0, index), editedProject, ...this.projects.slice(index + 1, this.projects.length)];

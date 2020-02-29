@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdminLayoutRoutes } from './admin-layout.routing';
 
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { 
+import {
   faGlasses,
   faHandPaper,
   faEdit,
@@ -17,12 +17,15 @@ import {
   faSearch,
   faAddressBook,
   faScroll,
-  faCheck
+  faCheck,
+  faEraser
 } from '@fortawesome/free-solid-svg-icons';
 
 // Agregar componentes aquí
 import { ProjectsComponent } from '../../projects/projects.component';
 import { ProductbacklogComponent } from '../../productbacklog/productbacklog.component';
+import {LoginComponent} from '../../login/login.component';
+import { LoginActivate } from '../../login/login-activate';
 
 import {
   MatButtonModule,
@@ -30,8 +33,11 @@ import {
   MatRippleModule,
   MatFormFieldModule,
   MatTooltipModule,
-  MatSelectModule
+  MatSelectModule,
+  MatDialogModule
 } from '@angular/material';
+import { LoggerComponent } from 'src/app/logger/logger.component';
+import { DialogComponent } from 'src/app/logger/dialog/dialog.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -44,12 +50,19 @@ import {
     MatInputModule,
     MatSelectModule,
     MatTooltipModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    MatDialogModule
   ],
   declarations: [
     // Agregar declaraciones de componentes aquí
     ProjectsComponent,
-    ProductbacklogComponent
+    ProductbacklogComponent,
+    LoginComponent,
+    LoggerComponent,
+    DialogComponent
+  ],
+  providers: [
+    LoginActivate,
   ]
 })
 
