@@ -32,6 +32,16 @@ export class ProjectsComponent implements OnInit {
   }
 
 
+  ngOnInit() {
+    this.addProjectForm = this.formBuilder.group({
+      description: ['', Validators.required],
+    });
+    this.editProjectForm = this.formBuilder.group({
+      description: ['', Validators.required],
+    });
+  }
+
+
   selectProject(index: number, action?: string) {
     this.selectedProject = this.projects[index];
     if (action === 'edit') {
@@ -87,16 +97,6 @@ export class ProjectsComponent implements OnInit {
     const getProjectIndex = (element) => element.id === this.selectedProject.id;
     const index = this.projects.findIndex(getProjectIndex);
     return index;
-  }
-
-
-  ngOnInit() {
-    this.addProjectForm = this.formBuilder.group({
-      description: ['', Validators.required],
-    });
-    this.editProjectForm = this.formBuilder.group({
-      description: ['', Validators.required],
-    });
   }
 
 
