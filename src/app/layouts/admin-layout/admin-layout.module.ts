@@ -13,11 +13,17 @@ import {
   faArrowAltCircleUp,
   faPen,
   faPlay,
+  faPlusCircle,
+  faSearch,
+  faAddressBook,
+  faScroll,
+  faCheck,
   faEraser
 } from '@fortawesome/free-solid-svg-icons';
 
 // Agregar componentes aquí
 import { ProjectsComponent } from '../../projects/projects.component';
+import { ProductbacklogComponent } from '../../productbacklog/productbacklog.component';
 import {LoginComponent} from '../../login/login.component';
 import { LoginActivate } from '../../login/login-activate';
 
@@ -50,6 +56,7 @@ import { DialogComponent } from 'src/app/logger/dialog/dialog.component';
   declarations: [
     // Agregar declaraciones de componentes aquí
     ProjectsComponent,
+    ProductbacklogComponent,
     LoginComponent,
     LoggerComponent,
     DialogComponent
@@ -63,6 +70,6 @@ export class AdminLayoutModule {
 
   constructor(library: FaIconLibrary) {
     // Add an icon to the library for convenient access in other components
-    library.addIcons(faGlasses, faHandPaper, faEdit, faTimes, faEraser, faArrowAltCircleUp, faPen, faPlay);
+    library.addIcons(faGlasses, faHandPaper, faEdit, faTimes, faArrowAltCircleUp, faPen, faPlay,faPlusCircle, faSearch, faAddressBook, faScroll, faCheck);
   }
 }

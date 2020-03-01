@@ -15,12 +15,12 @@
                                     <input  type="text" placeholder="Buscar"[(ngModel)]="id"class="form-control" (ngModelChange)="resetProjectsList()">
                                     <span class="input-group-btn">
                                         <button id="but1" mat-raised-button type="submit" class="btn pull-right" (click)="Search()">
-                                            <fa-icon icon="glasses"></fa-icon>
+                                            <fa-icon icon="search"></fa-icon>
                                         </button>
                                         <span class="input-group-btn">
                                             <button id="but2" mat-raised-button type="submit" class="btn pull-right"
                                                 data-toggle="modal" data-target="#subir">
-                                                <fa-icon icon="arrow-alt-circle-up"></fa-icon>
+                                                <fa-icon icon="plus-circle"></fa-icon>
                                             </button>
                                         </span>
                                     </span>
@@ -52,6 +52,10 @@
                                         </td>
                                         <td>
                                             <div class="btn-group" role="group">
+
+                                                <button type="button" class="btn btn-secondary" [routerLink]="['/productbacklog',project.id]">
+                                                    <fa-icon icon="scroll"></fa-icon>
+                                                </button>
                                                 <button type="button" class="btn btn-secondary" data-toggle="modal"
                                                     data-target="#pausar" (click)="selectProject(i)">
                                                     <fa-icon *ngIf="project.status == 'active'" icon="hand-paper"></fa-icon>
