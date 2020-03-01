@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProjectsService } from '../services/projects/projects.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-projects',
@@ -23,7 +24,8 @@ export class ProjectsComponent implements OnInit {
 
   constructor(
     private projectsService: ProjectsService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private router: Router
     ) {
     this.projects.push({description: 'Proyecto de SOPIII', id: 1});
     this.getAllProjects();
@@ -117,6 +119,9 @@ export class ProjectsComponent implements OnInit {
     }
   }
 
+  goSprint(project) {
+    this.router.navigate(['sprint', project.id], {queryParams: {'user_id': project.user_id}});
+  }
 
 
 }

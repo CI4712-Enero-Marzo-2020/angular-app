@@ -16,6 +16,6 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'logger', component: LoggerComponent, children: [{
       path: 'delete', component: DialogComponent
     }] },
-    { path: 'sprint', component: SprintBacklogComponent}
+    { path: 'sprint/:id', component: SprintBacklogComponent}
 
 ];
