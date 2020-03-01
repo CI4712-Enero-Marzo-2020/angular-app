@@ -14,7 +14,7 @@
                         <label for="description">Descripción</label>
                         <input type="text" class="form-control" id="description" formControlName="description" placeholder="">
                       </div>
-                      <button type="submit" class="btn btn-primary">Generar sprint</button>
+                      <button *ngIf="!idSprint" type="submit" class="btn btn-primary">Generar sprint</button>
                     </form>
               </div>
           </div>
@@ -22,7 +22,7 @@
 
       <!--Agregar historias al Sprint -->
       <div *ngIf="sprintStories.length === 0" class="row">
-        <button class="btn btn-danger" style="text-align: center" data-toggle="modal" data-target="#modalStories" (click)="getStories()">
+        <button *ngIf="idSprint" class="btn btn-danger" style="text-align: center" data-toggle="modal" data-target="#modalStories" (click)="getStories()">
           Agregar historias al Sprint Backlog
         </button>
         <button *ngIf="back" class="btn btn-danger" style="text-align: center" data-toggle="modal" data-target="#modalStories" (click)="seeAllstories()">
@@ -77,17 +77,17 @@
                                     </td>
                                     <td>
 
-                                      <fa-icon icon="check-circle"></fa-icon>
-                                      <fa-icon icon="times-circle"></fa-icon>
+                                      <fa-icon *ngIf="story.done" icon="check-circle"></fa-icon>
+                                      <fa-icon *ngIf="!story.done" icon="times-circle"></fa-icon>
                                     </td>
                                     <td>
                                         <div class="btn-group" role="group">
                                             <button type="button" class="btn btn-secondary" (click)="seeDetails(story)" >
                                               <fa-icon icon="edit"></fa-icon>
                                             </button>
-                                            <button type="button" class="btn btn-secondary" (click)="openDialog(log.id)" >
+                                            <!-- <button type="button" class="btn btn-secondary" (click)="openDialog(log.id)" >
                                               <fa-icon icon="times"></fa-icon>
-                                            </button>
+                                            </button> -->
                                         </div>
                                     </td>
                                 </tr>
@@ -100,7 +100,7 @@
 
       </div>
       <div *ngIf="!seeAll" class="card">
-        <p>{{storySelected.description}}</p>
+        <p class="description-title">{{storySelected.description}}</p>
       </div>
 
       <!-- Lista de pruebas de una historia particular -->
@@ -268,7 +268,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-          <button type="button" class="btn btn-primary" (click)='save()'>Agregar Historias</button>
+          <button type="button" class="btn btn-primary" (click)='save()' data-dismiss="modal">Agregar Historias</button>
         </div>
       </div>
     </div>
@@ -281,7 +281,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="modalTest">Modal title</h5>
+          <h5 class="modal-title" id="modalTest">Agregar Prueba</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -293,7 +293,7 @@
               <input type="text" class="form-control" id="description" formControlName="description" placeholder="">
             </div>
             <div class="modal-footer">
-              <button type="submit" class="btn btn-primary">Agregar</button>
+              <button type="submit" class="btn btn-primary" >Agregar</button>
             </div>
           </form>
         </div>
@@ -321,7 +321,7 @@
               <input type="text" class="form-control" id="description" formControlName="description" placeholder="">
             </div>
             <div class="modal-footer">
-              <button type="submit" class="btn btn-primary">Agregar</button>
+              <button type="submit" class="btn btn-primary" >Agregar</button>
             </div>
           </form>
         </div>
@@ -359,7 +359,7 @@
               </label>
             </div>
             <div class="modal-footer">
-              <button type="submit" class="btn btn-primary">Editar</button>
+              <button type="submit" class="btn btn-primary" >Editar</button>
             </div>
           </form>
         </div>
@@ -396,7 +396,7 @@
               </label>
           </div>
             <div class="modal-footer">
-              <button type="submit" class="btn btn-primary">Editar</button>
+              <button type="submit" class="btn btn-primary" >Editar</button>
             </div>
           </form>
         </div>

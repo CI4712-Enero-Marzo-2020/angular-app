@@ -99,7 +99,6 @@ export class SprintBacklogComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log("crear sprint", this.sprintForm.value);
     this.sprintService.createSprint(this.sprintForm.value).subscribe((res: any) => {
       console.log(res.id);
       this.idSprint = res.id;
@@ -153,9 +152,8 @@ export class SprintBacklogComponent implements OnInit {
   }
 
   addCriteria() {
-    console.log(this.criteriaForm.value);
     this.sprintService.addCriteria(this.criteriaForm.value).subscribe(res => {
-      console.log(res);
+      this.criteriaList.push(res);
     });
   }
 
@@ -168,24 +166,17 @@ export class SprintBacklogComponent implements OnInit {
   }
 
   addToSprint(story) {
-    console.log("Agregar a Sprint");
     story['added'] = true;
-   // this.sprintStories.push(story);
     this.sprintStoriesToAdd.push(story);
-    console.log(this.sprintStoriesToAdd);
   }
 
   deleteFromSprint(story) {
-    console.log("Eliminar del sprint", story);
     story['added'] = false;
     this.sprintStoriesToAdd.splice(this.sprintStoriesToAdd.indexOf(story), 1);
-    console.log(this.sprintStoriesToAdd);
-
   }
 
   save() {
     this.sprintStories = this.sprintStoriesToAdd;
-    console.log(this.sprintStories);
     this.sprintStories.map(story => {
       this.sprintService.addStory(this.idSprint, story.id).subscribe(res => {
         console.log(res);
@@ -209,4 +200,16 @@ export class SprintBacklogComponent implements OnInit {
 
     this.seeAll = true;
   }
+
+  delete(type) {
+    if(type === 1) {
+      /** e liminar criterio */
+
+    } else if (type === 2) {
+      /** eliminar prueba */
+
+    }
+  }
+
+
 }
