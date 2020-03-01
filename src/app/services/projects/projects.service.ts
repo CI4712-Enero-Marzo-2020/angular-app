@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { AuthService } from '../users/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,8 +10,8 @@ export class ProjectsService {
 
   url = environment.api;
   userID: any;
-  constructor(private http: HttpClient) {
-    this.userID = JSON.parse(localStorage.getItem('currentUser')).id;
+  constructor(private http: HttpClient, private authService: AuthService) {
+    this.userID = authService.getCurrentUser().userId;
    }
 
   // TODO: falta verificar si el usuario esta autenticado
@@ -78,7 +79,7 @@ export class ProjectsService {
 
   delete(project: any) {
     const id = project.id;
-    return this.http.get(`${this.url}projects/delete/${id}`)
+    return this.http.delete(`${this.url}projects/delete/${id}`)
     .toPromise()
     .then(
       (response) => {

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProjectsService } from '../services/projects/projects.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../services/users/auth.service';
 
 @Component({
   selector: 'app-projects',
@@ -24,11 +25,12 @@ export class ProjectsComponent implements OnInit {
 
   constructor(
     private projectsService: ProjectsService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private authService: AuthService
     ) {
-    this.projects.push({description: 'Proyecto de SOPIII', id: 1});
+    // this.projects.push({description: 'Proyecto de SOPIII', id: 1});
     this.getAllProjects();
-    this.userID = JSON.parse(localStorage.getItem('currentUser')).id;
+    this.userID = authService.getCurrentUser().userId;
   }
 
 
@@ -54,8 +56,11 @@ export class ProjectsComponent implements OnInit {
 
   async getAllProjects() {
 
-    this.projects = await this.projectsService.getAll();
-    console.log(this.projects);
+    this.projectsService.getAll().then((projects) => {
+      if ( projects && projects.server !== 'NO_CONTENT') {
+        this.projects = projects;
+      }
+    });
   }
 
   async createProject() {

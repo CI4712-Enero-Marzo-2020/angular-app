@@ -10,12 +10,11 @@ export class StoriesService {
   url = environment.api;
   userID: any;
   constructor(private http: HttpClient) {
-    this.userID = JSON.parse(localStorage.getItem('currentUser')).id;
    }
 
-   getAll() {
+   getAll(projectID: any) {
     // const userId = 1;
-    return this.http.get(`${this.url}stories/getall/${this.userID}`)
+    return this.http.get(`${this.url}stories/getall/${projectID}`)
     .toPromise()
     .then(
       (response: any[]) => {
@@ -44,8 +43,8 @@ export class StoriesService {
     );
   }
 
-  changeClassification(story: any, form: any) {
-    return this.http.patch(`${this.url}stories/classification/${story.id}`, form)
+  changeClassification(story: any) {
+    return this.http.patch(`${this.url}stories/classification/${story.id}`, {})
     .toPromise()
     .then(
       (response) => {
@@ -57,8 +56,8 @@ export class StoriesService {
     );
   }
 
-  changePriority(story: any, form: any, priority: number) {
-    return this.http.patch(`${this.url}stories/classification/${story.id}`, form)
+  changePriority(story: any, priority: string) {
+    return this.http.patch(`${this.url}stories/${priority}/${story.id}`, {})
     .toPromise()
     .then(
       (response) => {
@@ -81,6 +80,49 @@ export class StoriesService {
         console.log(error);
       }
     );
+  }
+
+  addStoryToEpic(storyId: any, epicId: any) {
+    return this.http.put(`${this.url}stories/add_to_epic/${storyId}/${epicId}`, {})
+    .toPromise()
+    .then(
+      (response) => {
+        return response;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  deleteStoryToEpic(story: any, form: any) {
+    return this.http.put(`${this.url}stories/update/${story.id}`, form)
+    .toPromise()
+    .then(
+      (response) => {
+        return response;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  delete(story: any) {
+    const id = story.id;
+    return this.http.delete(`${this.url}stories/delete/${id}`)
+    .toPromise()
+    .then(
+      (response) => {
+        console.log(response);
+        return response;
+      },
+      (error) => {
+        // Devuelvo null
+        console.log(error);
+      }
+    );
+
   }
 
 }

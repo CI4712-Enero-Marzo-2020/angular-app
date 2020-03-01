@@ -74,7 +74,7 @@
                                         </td>
                                         <td class="text-right">
                                             <div class="btn-group" role="group">
-                                                <button *ngIf="story.epic" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#addEdit2">
+                                                <button *ngIf="story.epic" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#addEdit2" (click)="initializeAssignStories(story)">
                                                     <fa-icon icon="plus-circle"></fa-icon>
                                                 </button>
                                                 <button type="button" class="btn btn-secondary" data-toggle="modal"
@@ -82,7 +82,7 @@
                                                     <fa-icon icon="edit"></fa-icon>
                                                 </button>
                                                 <button type="button" class="btn btn-secondary" data-toggle="modal"
-                                                    data-target="#eliminar">
+                                                    data-target="#eliminar" (click)="selectStory(story)">
                                                     <fa-icon icon="times"></fa-icon>
                                                 </button>
                                             </div>
@@ -181,7 +181,7 @@
                     <tbody>
                         <h4>ID</h4>
                     <tr *ngFor="let story of stories; index as i">
-                        <div class="row" *ngIf="story.epic==false">
+                        <div class="row" *ngIf="story.epic==false && story.parent_id === null">
                                         <div class="col-sm-6" >
                                         <td>
                                             {{story.id}}
@@ -190,20 +190,20 @@
                                     </div>
 
                                     <div class="col-sm-4">
-                                        <td>                                        
-                                            <input class="form-check-input" type="checkbox" value="" autocomplete="off">
-                                            </td>
+                                        <td>
+                                            <input class="form-check-input" type="checkbox" value="" autocomplete="off" (click)="selectStory(story,'add')">
+                                        </td>
                                     </div>
                             </div>
 
-                        
+
                         </tr>
                     </tbody>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                     <button *ngIf="addMode" type="button" class="btn btn-primary" data-toggle="modal" data-dismiss="modal"
-                    (click)="createStory()">Asignar historias</button>
+                    (click)="addStoryToEpic()">Asignar historias</button>
                 </div>
             </div>
         </div>
@@ -218,7 +218,7 @@
                     <h4 class="margin-top">
                         ¿Está seguro que desea eliminar esta historia?
                     </h4>
-                    <a class="modal-button" data-dismiss="modal" (click)="removeProject()" target="_blank">
+                    <a class="modal-button" data-dismiss="modal" (click)="removeStory()" target="_blank">
                         <div class="product-type">Si</div>
                     </a>
                     <a class="modal-button" data-dismiss="modal" target="_blank">

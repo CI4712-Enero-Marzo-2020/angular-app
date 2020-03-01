@@ -6,4 +6,5 @@ export interface Story {
     epic: boolean;
     done: boolean;
     date_created: Date;
+    parent_id: number | null;
 }

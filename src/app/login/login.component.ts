@@ -11,10 +11,10 @@ import {AuthService} from '../services/users/auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  username:string;
-  password:string;
+  username: string;
+  password: string;
 
-  constructor(private authService:AuthService,private router:Router) {
+  constructor(private authService: AuthService, private router: Router) {
   }
 
   ngOnInit() {
@@ -22,10 +22,10 @@ export class LoginComponent implements OnInit {
 
   login() {
     console.log(this.username);
-    this.authService.login(this.username,this.password).subscribe(data=>{
+    this.authService.login(this.username, this.password).subscribe(data => {
       if (data) {
         if (!data.error) {
-          localStorage.setItem('currentUser', JSON.stringify({ access_token: data.access_token, refresh_token:data.refresh_token,  id:data.userId}));
+          sessionStorage.setItem('currentUser', JSON.stringify({ access_token: data.access_token, refresh_token: data.refresh_token,  userId: data.userId}));
           this.router.navigate(['']);
         } else {
           console.log('error')
