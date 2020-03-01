@@ -25,7 +25,13 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.username, this.password).subscribe(data => {
       if (data) {
         if (!data.error) {
-          sessionStorage.setItem('currentUser', JSON.stringify({ access_token: data.access_token, refresh_token: data.refresh_token,  userId: data.userId}));
+          sessionStorage.setItem('currentUser', JSON.stringify({ access_token: data.access_token,
+                                                                refresh_token: data.refresh_token,
+                                                                userId: data.userId}));
+          localStorage.setItem('currentUser', JSON.stringify({ access_token: data.access_token,
+            refresh_token: data.refresh_token,
+            userId: data.userId}));
+            this.router.navigate(['']);
           this.router.navigate(['']);
         } else {
           console.log('error')

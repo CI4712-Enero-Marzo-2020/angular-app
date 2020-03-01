@@ -5,7 +5,7 @@ import { AuthService } from '../services/users/auth.service';
 
 @Injectable()
 export class LoginActivate implements CanActivate {
-  constructor(private authService:AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
