@@ -13,38 +13,7 @@ export class ProductbacklogComponent implements OnInit {
 
   @Input() projectId: number;
   id: string;
-  stories: Story[] = [
-    {
-      id: 1,
-      description: 'Como product owner puedo descargar un proyecto para...',
-      epic: true,
-      priority: 0,
-      done: true,
-      project_id: 1,
-      date_created: new Date(Date.now()),
-      parent_id: null
-    },
-    {
-      id: 2,
-      description: 'No, no, no... Por "ahí" NO!',
-      epic: false,
-      priority: 1,
-      done: false,
-      project_id: 1,
-      date_created: new Date(Date.now()),
-      parent_id: null
-    },
-    {
-      id: 3,
-      description: 'Si, si, si... Por "ahí" SI!',
-      epic: true,
-      priority: 2,
-      done: false,
-      project_id: 1,
-      date_created: new Date(Date.now()),
-      parent_id: null
-    }
-  ];
+  stories: Story[];
   storiesDuplicate: any[];
   storiesToAssign: any[];
   story: Story;
@@ -64,6 +33,7 @@ export class ProductbacklogComponent implements OnInit {
     this.initializeAddForm();
     this.getAllStories();
     this.storiesToAssign = [];
+    this.stories = [];
   }
 
   initializeAddForm() {
