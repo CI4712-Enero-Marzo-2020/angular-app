@@ -14,6 +14,8 @@ import {
 
 // Agregar componentes aquí
 import { ProjectsComponent } from '../../projects/projects.component';
+import { DocumentsComponent } from '../../documents/documents.component';
+import { IntroComponent } from '../../intro/intro.component';
 import {LoginComponent} from '../../login/login.component';
 import { LoginActivate } from '../../login/login-activate';
 import { CreateUsersComponent } from 'src/app/create-users/create-users.component';
@@ -45,6 +47,8 @@ import {
   declarations: [
     // Agregar declaraciones de componentes aquí
     ProjectsComponent,
+    DocumentsComponent,
+    IntroComponent,
     LoginComponent,
     CreateUsersComponent,
     RegisterComponent

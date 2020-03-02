@@ -16,6 +16,7 @@ export const ROUTES_NOT_LOGGIN: RouteInfo[] = [
 // Agregar información de iconos del sidebar con rutas aquí
 export const ROUTES: RouteInfo[] = [
     { path: '/projects', title: 'Portafolio de Proyectos',  icon:'dashboard', class: '' },
+    { path: '/documents', title: 'Documentos de Proyectos',  icon:'dashboard', class: '' },
     { path: '/create-users', title: "Perfiles de Usuarios", icon: "person", class: ''}
 ];
 
