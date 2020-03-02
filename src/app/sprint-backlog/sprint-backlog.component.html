@@ -161,9 +161,9 @@
                                               <button type="button" class="btn btn-secondary"  data-toggle="modal" data-target="#modalCriteriaEdit" (click)="editCriteria(criteria)" >
                                                 <fa-icon icon="edit"></fa-icon>
                                               </button>
-                                              <!-- <button type="button" class="btn btn-secondary" (click)="openDialog(log.id)" >
+                                              <button type="button" class="btn btn-secondary" (click)="delete(1, criteria.id)" >
                                                 <fa-icon icon="times"></fa-icon>
-                                              </button> -->
+                                              </button>
                                           </div>
                                       </td>
                                   </tr>
@@ -230,7 +230,7 @@
                                           <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modalTestEdit"(click)="editTest(test)" >
                                             <fa-icon icon="edit"></fa-icon>
                                         </button>
-                                            <button type="button" class="btn btn-secondary" (click)="openDialog(test.id)" >
+                                            <button type="button" class="btn btn-secondary" (click)="delete(2, test.id)" >
                                                 <fa-icon icon="times"></fa-icon>
                                             </button>
                                         </div>
@@ -261,10 +261,10 @@
         </div>
         <div class="modal-body">
           <div class="row" *ngFor="let story of storiesList">
-            <div class="alert alert-default" role="alert">
-              <p>{{story.description}}</p>
-              <button class="btn btn-success btn-add" *ngIf="!story.added" (click)="addToSprint(story)">+</button>
-              <button class="btn btn-danger btn-delete" *ngIf="story.added" (click)="deleteFromSprint(story)">x</button>
+            <div class="alert alert-default col-md-12" role="alert">
+              <p class="col-md-6">{{story.description}}</p>
+              <button class="btn btn-success btn-add" *ngIf="!story.added" (click)="addToSprint(story)"><fa-icon icon='plus-circle'></fa-icon></button>
+              <button class="btn btn-danger btn-delete" *ngIf="story.added" (click)="deleteFromSprint(story)"><fa-icon icon='times'></fa-icon></button>
             </div>
           </div>
         </div>

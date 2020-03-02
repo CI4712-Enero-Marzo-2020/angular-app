@@ -165,7 +165,12 @@ export class SprintBacklogComponent implements OnInit {
 
   addCriteria() {
     this.sprintService.addCriteria(this.criteriaForm.value).subscribe(res => {
-      this.criteriaList.push(res);
+      console.log('agregar criterio sin permiso', res);
+      if(res === []) {
+        console.log("permiso denegado");
+      }else {
+        this.criteriaList.push(res);
+      }
     });
   }
 
@@ -205,7 +210,25 @@ export class SprintBacklogComponent implements OnInit {
     this.testForm.controls['story_id'].setValue(this.storySelected.id);
     this.criteriaForm.controls['user_id'].setValue(this.idUser);
     this.criteriaForm.controls['story_id'].setValue(this.storySelected.id);
+    this.getCriterias();
+    this.getTest();
+  }
+  getCriterias() {
+    this.criteriaList = [];
+    this.sprintService.getCriteriaByStory(this.storySelected.id).subscribe((res: any) => {
+      if (res.length > 0) {
+        this.criteriaList = res;
+      }
+    });
+  }
 
+  getTest() {
+    this.testsList = [];
+    this.sprintService.getTestByStory(this.storySelected.id).subscribe((res: any) => {
+      if (res.length > 0) {
+        this.testsList = res;
+      }
+    });
   }
 
   seeAllstories() {
@@ -214,13 +237,19 @@ export class SprintBacklogComponent implements OnInit {
     this.back = false;
   }
 
-  delete(type) {
+  delete(type, id) {
     if(type === 1) {
       /** e liminar criterio */
-
+      this.sprintService.deleteCriteria(id).subscribe((res: any) => {
+        const find = this.criteriaList.findIndex(i => i.id === res.id);
+        this.criteriaList.splice(find, 1);
+      });
     } else if (type === 2) {
       /** eliminar prueba */
-
+      this.sprintService.deleteTest(id).subscribe((res: any) => {
+        const find = this.testsList.findIndex(i => i.id === res.id);
+        this.testsList.splice(find, 1);
+      });
     }
   }
 

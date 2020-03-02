@@ -56,4 +56,12 @@ export class SprintService {
     return this.http.put(this.urlCriterios + 'update/' + citeriaId, params);
   }
 
+  deleteTest(testId) {
+    return this.http.post(this.urlPruebas + 'delete/' + testId, []);
+  }
+
+  deleteCriteria(citeriaId) {
+    return this.http.post(this.urlCriterios + 'delete/' + citeriaId, []);
+  }
+
 }
