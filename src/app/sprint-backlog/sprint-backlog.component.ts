@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SprintService } from '../services/sprint/sprint.service';
 import { Route, ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl } from '@angular/forms';
+import { element } from 'protractor';
 
 @Component({
   selector: 'app-sprint-backlog',
@@ -27,7 +28,7 @@ export class SprintBacklogComponent implements OnInit {
 
   sprintStories = [];
   sprintStoriesToAdd = [];
-  storiesList: any;
+  storiesList = [];
   seeAll = true;
   back = false;
   storySelected: any;
@@ -117,10 +118,19 @@ export class SprintBacklogComponent implements OnInit {
   }
 
   getStories() {
-    this.sprintService.getProjectStories(this.idProject).subscribe((res) => {
-      console.log(res);
-      this.storiesList = res;
-      this.storiesList.map(story => story['added'] = false);
+    this.storiesList = [];
+    console.log('jnhbggxcghbjmkl')
+    this.sprintService.getProjectStories(this.idProject).subscribe((res: any) => {
+
+      res.map((story: any) => {
+        const find = this.sprintStories.findIndex(i => i.id === story.id);
+        console.log(find, '*---',story);
+        if (find === -1) {
+          story['added'] = false;
+          this.storiesList.push(story);
+        }
+      });
+
     });
   }
 
