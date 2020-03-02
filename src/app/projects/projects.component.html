@@ -1,212 +1,212 @@
 <div class="main-content">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header card-header-danger">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-md-12">
+              <div class="card">
+                  <div class="card-header card-header-danger">
 
-                        <div class="row">
-                            <div class="col-xs-12 col-md-6 text-left">
-                                <h4 class="card-title ">Proyectos</h4>
-                                <p class="card-category">Listado</p>
-                            </div>
-                            <div class="col-xs-12 col-md-6 text-right">
-                                <div class="input-group">
-                                    <input  type="text" placeholder="Buscar"[(ngModel)]="id"class="form-control" (ngModelChange)="resetProjectsList()">
-                                    <span class="input-group-btn">
-                                        <button id="but1" mat-raised-button type="submit" class="btn pull-right" (click)="Search()">
-                                            <fa-icon icon="glasses"></fa-icon>
-                                        </button>
-                                        <span class="input-group-btn">
-                                            <button id="but2" mat-raised-button type="submit" class="btn pull-right"
-                                                data-toggle="modal" data-target="#subir">
-                                                <fa-icon icon="arrow-alt-circle-up"></fa-icon>
-                                            </button>
-                                        </span>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead class=" text-primary">
-                                    <th>
-                                        ID
-                                    </th>
-                                    <th>
-                                        Descripción
-                                    </th>
-                                    <th class="options-column">
-                                        Opciones
-                                    </th>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let project of projects; index as i">
-                                        <td>
-                                            {{project.id}}
-                                        </td>
-                                        <td>
-                                            {{project.description}}
-                                        </td>
-                                        <td>
-                                            <div class="btn-group" role="group">
-                                                <button type="button" class="btn btn-secondary" data-toggle="modal"
-                                                    data-target="#pausar" (click)="selectProject(i)">
-                                                    <fa-icon *ngIf="project.status == 'active'" icon="hand-paper"></fa-icon>
-                                                    <fa-icon *ngIf="project.status != 'active'" icon="play"></fa-icon>
-                                                </button>
-                                                <button type="button" class="btn btn-secondary" data-toggle="modal"
-                                                    data-target="#editar" (click)="selectProject(i, 'edit')">
-                                                    <fa-icon icon="edit"></fa-icon>
-                                                </button>
-                                                <button type="button" class="btn btn-secondary" data-toggle="modal"
-                                                    data-target="#eliminar" (click)="selectProject(i)">
-                                                    <fa-icon icon="times"></fa-icon>
-                                                </button>
-                                                <button type="button" class="btn btn-secondary"
-                                                    (click)="goSprint(project)">
-                                                  link
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+                      <div class="row">
+                          <div class="col-xs-12 col-md-6 text-left">
+                              <h4 class="card-title ">Proyectos</h4>
+                              <p class="card-category">Listado</p>
+                          </div>
+                          <div class="col-xs-12 col-md-6 text-right">
+                              <div class="input-group">
+                                  <input  type="text" placeholder="Buscar"[(ngModel)]="id"class="form-control" (ngModelChange)="resetProjectsList()">
+                                  <span class="input-group-btn">
+                                      <button id="but1" mat-raised-button type="submit" class="btn pull-right" (click)="Search()">
+                                          <fa-icon icon="search"></fa-icon>
+                                      </button>
+                                      <span class="input-group-btn">
+                                          <button id="but2" mat-raised-button type="submit" class="btn pull-right"
+                                              data-toggle="modal" data-target="#subir">
+                                              <fa-icon icon="plus-circle"></fa-icon>
+                                          </button>
+                                      </span>
+                                  </span>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="card-body">
+                      <div class="table-responsive">
+                          <table class="table">
+                              <thead class=" text-primary">
+                                  <th>
+                                      ID
+                                  </th>
+                                  <th>
+                                      Descripción
+                                  </th>
+                                  <th class="options-column">
+                                      Opciones
+                                  </th>
+                              </thead>
+                              <tbody>
+                                  <tr *ngFor="let project of projects; index as i">
+                                      <td>
+                                          {{project.id}}
+                                      </td>
+                                      <td>
+                                          {{project.description}}
+                                      </td>
+                                      <td>
+                                          <div class="btn-group" role="group">
 
-
-    <div class="modal modal-angular fade" id="pausar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div *ngIf="selectedProject" class="modal-body text-center">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                            aria-hidden="true">&times;</span></button>
-                    <h4 *ngIf="selectedProject.status == 'active'" class="margin-top">
-                        ¿Está seguro que desea pausar este proyecto?
-                    </h4>
-                    <h4 *ngIf="selectedProject.status != 'active'" class="margin-top">
-                        ¿Está seguro que desea reanudar este proyecto?
-                    </h4>
-                    <a class="modal-button" data-dismiss="modal" (click)="selectedProject.status == 'active' ? pauseProject() : activateProject()" target="_blank">
-                        <div class="product-type">Si</div>
-                    </a>
-                    <a class="modal-button" data-dismiss="modal" target="_blank">
-                        <div class="product-type">No</div>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal modal-angular fade" id="eliminar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-body text-center">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                            aria-hidden="true">&times;</span></button>
-                    <h4 class="margin-top">
-                        ¿Está seguro que desea eliminar este proyecto?
-                    </h4>
-                    <a class="modal-button" data-dismiss="modal" (click)="removeProject()" target="_blank">
-                        <div class="product-type">Si</div>
-                    </a>
-                    <a class="modal-button" data-dismiss="modal" target="_blank">
-                        <div class="product-type">No</div>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
+                                              <button type="button" class="btn btn-secondary" [routerLink]="['/productbacklog',project.id]">
+                                                  <fa-icon icon="scroll"></fa-icon>
+                                              </button>
+                                              <button type="button" class="btn btn-secondary" data-toggle="modal"
+                                                  data-target="#pausar" (click)="selectProject(i)">
+                                                  <fa-icon *ngIf="project.status == 'active'" icon="hand-paper"></fa-icon>
+                                                  <fa-icon *ngIf="project.status != 'active'" icon="play"></fa-icon>
+                                              </button>
+                                              <button type="button" class="btn btn-secondary" data-toggle="modal"
+                                                  data-target="#editar" (click)="selectProject(i, 'edit')">
+                                                  <fa-icon icon="edit"></fa-icon>
+                                              </button>
+                                              <button type="button" class="btn btn-secondary" data-toggle="modal"
+                                                  data-target="#eliminar" (click)="selectProject(i)">
+                                                  <fa-icon icon="times"></fa-icon>
+                                              </button>
+                                          </div>
+                                      </td>
+                                  </tr>
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
 
 
 
-    <div class="modal modal-angular fade" id="subir" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Agregar proyecto</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form [formGroup]="addProjectForm">
-                        <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">Descripción:</label>
-                            <input formControlName="description" type="text" class="form-control" id="recipient-name">
-                        </div>
-                    </form>
-                </div>
+  <div class="modal modal-angular fade" id="pausar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+              <div *ngIf="selectedProject" class="modal-body text-center">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                          aria-hidden="true">&times;</span></button>
+                  <h4 *ngIf="selectedProject.status == 'active'" class="margin-top">
+                      ¿Está seguro que desea pausar este proyecto?
+                  </h4>
+                  <h4 *ngIf="selectedProject.status != 'active'" class="margin-top">
+                      ¿Está seguro que desea reanudar este proyecto?
+                  </h4>
+                  <a class="modal-button" data-dismiss="modal" (click)="selectedProject.status == 'active' ? pauseProject() : activateProject()" target="_blank">
+                      <div class="product-type">Si</div>
+                  </a>
+                  <a class="modal-button" data-dismiss="modal" target="_blank">
+                      <div class="product-type">No</div>
+                  </a>
+              </div>
+          </div>
+      </div>
+  </div>
 
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-primary" data-dismiss="modal"
-                        (click)="createProject()">Agregar</button>
-                </div>
+  <div class="modal modal-angular fade" id="eliminar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+              <div class="modal-body text-center">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                          aria-hidden="true">&times;</span></button>
+                  <h4 class="margin-top">
+                      ¿Está seguro que desea eliminar este proyecto?
+                  </h4>
+                  <a class="modal-button" data-dismiss="modal" (click)="removeProject()" target="_blank">
+                      <div class="product-type">Si</div>
+                  </a>
+                  <a class="modal-button" data-dismiss="modal" target="_blank">
+                      <div class="product-type">No</div>
+                  </a>
+              </div>
+          </div>
+      </div>
+  </div>
 
-            </div>
-        </div>
-    </div>
 
-    <div class="modal modal-angular fade" id="editar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Editar proyecto</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form [formGroup]="editProjectForm">
-                        <div class="form-group">
-                            <input formControlName="description" type="text" class="form-control" id="recipient-name">
-                        </div>
-                    </form>
-                </div>
 
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-dismiss="modal"
-                        data-target="#seguro">Modificar</button>
-                </div>
+  <div class="modal modal-angular fade" id="subir" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Agregar proyecto</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              <div class="modal-body">
+                  <form [formGroup]="addProjectForm">
+                      <div class="form-group">
+                          <label for="recipient-name" class="col-form-label">Descripción:</label>
+                          <input formControlName="description" type="text" class="form-control" id="recipient-name">
+                      </div>
+                  </form>
+              </div>
 
-            </div>
-        </div>
-    </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                  <button type="submit" class="btn btn-primary" data-dismiss="modal"
+                      (click)="createProject()">Agregar</button>
+              </div>
 
-    <div class="modal modal-angular fade" id="seguro" tabindex="0" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-body text-center">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                            aria-hidden="true">&times;</span></button>
-                    <h4 class="margin-top">
-                        ¿Está seguro que desea modificar este proyecto?
-                    </h4>
-                    <a class="modal-button" target="_blank" data-dismiss="modal" (click)="editProject()">
+          </div>
+      </div>
+  </div>
 
-                        <div class="product-type">
-                            Si
-                        </div>
-                    </a>
-                    <a class="modal-button" data-dismiss="modal" target="_blank">
+  <div class="modal modal-angular fade" id="editar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Editar proyecto</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              <div class="modal-body">
+                  <form [formGroup]="editProjectForm">
+                      <div class="form-group">
+                          <input formControlName="description" type="text" class="form-control" id="recipient-name">
+                      </div>
+                  </form>
+              </div>
 
-                        <div class="product-type">
-                            No
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-dismiss="modal"
+                      data-target="#seguro">Modificar</button>
+              </div>
 
+          </div>
+      </div>
+  </div>
+
+  <div class="modal modal-angular fade" id="seguro" tabindex="0" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+              <div class="modal-body text-center">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                          aria-hidden="true">&times;</span></button>
+                  <h4 class="margin-top">
+                      ¿Está seguro que desea modificar este proyecto?
+                  </h4>
+                  <a class="modal-button" target="_blank" data-dismiss="modal" (click)="editProject()">
+
+                      <div class="product-type">
+                          Si
+                      </div>
+                  </a>
+                  <a class="modal-button" data-dismiss="modal" target="_blank">
+
+                      <div class="product-type">
+                          No
+                      </div>
+                  </a>
+              </div>
+          </div>
+      </div>
+  </div>
 
 </div>

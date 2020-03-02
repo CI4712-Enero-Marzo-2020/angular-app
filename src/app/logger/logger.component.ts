@@ -64,7 +64,6 @@ export class LoggerComponent implements OnInit {
   }
 
   idFilter() {
-    console.log(this.searchValue);
     this.logger = this.logger.filter(log => log.id === parseInt(this.searchValue, 10));
   }
 

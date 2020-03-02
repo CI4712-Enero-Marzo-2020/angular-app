@@ -13,13 +13,19 @@ import {
   faArrowAltCircleUp,
   faPen,
   faPlay,
-  faEraser,
   faCheckCircle,
-  faTimesCircle
+  faTimesCircle,
+  faPlusCircle,
+  faSearch,
+  faAddressBook,
+  faScroll,
+  faCheck,
+  faEraser
 } from '@fortawesome/free-solid-svg-icons';
 
 // Agregar componentes aquí
 import { ProjectsComponent } from '../../projects/projects.component';
+import { ProductbacklogComponent } from '../../productbacklog/productbacklog.component';
 import {LoginComponent} from '../../login/login.component';
 import { LoginActivate } from '../../login/login-activate';
 
@@ -53,6 +59,7 @@ import { SprintBacklogComponent } from 'src/app/sprint-backlog/sprint-backlog.co
   declarations: [
     // Agregar declaraciones de componentes aquí
     ProjectsComponent,
+    ProductbacklogComponent,
     LoginComponent,
     LoggerComponent,
     DialogComponent,
@@ -76,6 +83,10 @@ export class AdminLayoutModule {
                     faPen,
                     faPlay,
                     faCheckCircle,
-                    faTimesCircle);
+                    faTimesCircle,
+                    faPlusCircle,
+                    faSearch,
+                    faAddressBook,
+                    faScroll, faCheck);
   }
 }

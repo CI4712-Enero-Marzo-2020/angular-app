@@ -110,7 +110,6 @@ export class SprintBacklogComponent implements OnInit {
   }
 
   getSprint() {
-    //verificar si el sprin ya tiene historias
     this.sprintService.getSprintByProject(this.idProject).subscribe(res => {
       console.log(res);
 
@@ -132,8 +131,11 @@ export class SprintBacklogComponent implements OnInit {
   }
 
   editCriteria(criteria) {
+    console.log(criteria);
     this.editCriteriaForm.controls['approved'].setValue(criteria.approved);
+    this.editCriteriaForm.controls['description'].setValue(criteria.description);
     this.idCriteria = criteria.id;
+    console.log(this.editCriteriaForm.value);
   }
 
 

@@ -57,3 +57,11 @@
  @import "core/responsive";
 
 @import "core/angular-modal.scss";
+
+
+/* App styles */
+
+.narrow-column {
+    width: 1px; 
+    white-space: nowrap;
+}

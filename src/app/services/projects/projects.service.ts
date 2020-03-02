@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { AuthService } from '../users/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,12 +9,15 @@ import { environment } from 'src/environments/environment';
 export class ProjectsService {
 
   url = environment.api;
-  constructor(private http: HttpClient) { }
+  userID: any;
+  constructor(private http: HttpClient, private authService: AuthService) {
+    this.userID = authService.getCurrentUser().userId;
+   }
 
   // TODO: falta verificar si el usuario esta autenticado
   getAll() {
-    const userId = 1;
-    return this.http.get(`${this.url}projects/getall/${userId}`)
+    // const userId = 1;
+    return this.http.get(`${this.url}projects/getall/${this.userID}`)
     .toPromise()
     .then(
       (response: any[]) => {
@@ -33,7 +37,7 @@ export class ProjectsService {
     .then(
       (response) => {
         console.log('RESPONSE');
-        console.log(response)
+        console.log(response);
         return response;
       },
       (error) => {
@@ -63,7 +67,7 @@ export class ProjectsService {
     .toPromise()
     .then(
       (response) => {
-        console.log(response)
+        console.log(response);
         return response;
       },
       (error) => {
@@ -75,11 +79,11 @@ export class ProjectsService {
 
   delete(project: any) {
     const id = project.id;
-    return this.http.get(`${this.url}projects/delete/${id}`)
+    return this.http.delete(`${this.url}projects/delete/${id}`)
     .toPromise()
     .then(
       (response) => {
-        console.log(response)
+        console.log(response);
         return response;
       },
       (error) => {

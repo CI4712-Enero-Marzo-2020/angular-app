@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ComponentsModule } from './components/components.module';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
@@ -28,6 +29,7 @@ import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
     ReactiveFormsModule,
     RouterModule,
     ComponentsModule,
+    NgSelectModule,
     FontAwesomeModule,
     MatDialogModule
   ],
