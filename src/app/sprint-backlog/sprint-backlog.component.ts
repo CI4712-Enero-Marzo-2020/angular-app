@@ -211,6 +211,7 @@ export class SprintBacklogComponent implements OnInit {
   seeAllstories() {
 
     this.seeAll = true;
+    this.back = false;
   }
 
   delete(type) {

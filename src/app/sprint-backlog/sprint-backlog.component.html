@@ -25,7 +25,9 @@
         <button *ngIf="idSprint" class="btn btn-danger" style="text-align: center" data-toggle="modal" data-target="#modalStories" (click)="getStories()">
           Agregar historias al Sprint Backlog
         </button>
-        <button *ngIf="back" class="btn btn-danger" style="text-align: center" data-toggle="modal" data-target="#modalStories" (click)="seeAllstories()">
+      </div>
+      <div *ngIf="sprintStories.length > 0 && back" class="row">
+        <button class="btn btn-warning" style="float: right" (click)="seeAllstories()">
           Volver
         </button>
       </div>
