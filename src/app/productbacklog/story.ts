@@ -2,7 +2,7 @@ export interface Story {
     id: number;
     description: string;
     project_id: number;
-    priority: number;
+    priority: string;
     epic: boolean;
     done: boolean;
     date_created: Date;

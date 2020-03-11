@@ -65,9 +65,9 @@
                                             <fa-icon *ngIf="story.epic" icon="check"></fa-icon>
                                         </td>
                                         <td>
-                                            <span *ngIf="story.priority == 0">Alta</span>
-                                            <span *ngIf="story.priority == 1">Media</span>
-                                            <span *ngIf="story.priority == 2">Baja</span>
+                                          <span *ngIf="story.priority == 'high'">Alta</span>
+                                          <span *ngIf="story.priority == 'medium'">Media</span>
+                                          <span *ngIf="story.priority == 'low'">Baja</span>
                                         </td>
                                         <td class="text-center">
                                             <fa-icon *ngIf="story.done" icon="check"></fa-icon>
