@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Story } from './story';
 import { StoriesService } from '../services/stories/stories.service';
+import { SprintService } from '../services/sprint/sprint.service';
 
 @Component({
   selector: 'app-productbacklog',
@@ -19,14 +20,18 @@ export class ProductbacklogComponent implements OnInit {
   story: Story;
   addEditStoryForm: FormGroup;
   addMode = true;
+  newSprint = false;
+  sprintId = 0;
 
   constructor(
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private router: Router,
-    private storiesService: StoriesService
+    private storiesService: StoriesService,
+    private sprintService: SprintService
   ) {
     this.projectId = this.route.snapshot.params.id;
+    this.getSprint();
   }
 
   ngOnInit() {
@@ -165,6 +170,21 @@ export class ProductbacklogComponent implements OnInit {
   generateSprint() {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     this.router.navigate(['sprint', this.projectId], {queryParams: {'user_id': currentUser.userId}});
+  }
+
+  getSprint() {
+    this.sprintService.getSprintActive(this.projectId).subscribe((res: any) => {
+      if (res.server) {
+        this.newSprint = true;
+      } else {
+        this.newSprint = false;
+        this.sprintId = res[0].id;
+      }
+    });
+  }
+
+  sprintDetail() {
+    this.router.navigate(['sprint/details', this.sprintId]);
   }
 
 }

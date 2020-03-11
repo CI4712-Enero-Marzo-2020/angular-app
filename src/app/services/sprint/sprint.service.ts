@@ -20,15 +20,30 @@ export class SprintService {
   }
 
   addStory(sprintId, storyId) {
-    console.log(sprintId,storyId);
-    return this.http.patch(this.urlSprint + 'addstory/' + sprintId + '/' + storyId, []);
+    return this.http.get(this.urlSprint + 'addstory/' + sprintId + '/' + storyId);
   }
   getProjectStories(id) {
     return this.http.get(this.urlStories + 'getall/' + id);
   }
 
+  getSprintStories(id) {
+    return this.http.get(this.urlSprint + 'getstories/' + id);
+  }
+
   getSprintByProject(id) {
     return this.http.get(this.urlSprint + 'getbyproject/' + id);
+  }
+
+  getSprintDetails(id) {
+    return this.http.get(this.urlSprint + id);
+  }
+
+  getSprintActive(id) {
+    return this.http.get(this.urlSprint + 'active/' + id);
+  }
+
+  editSprint(id, params) {
+    return this.http.put(this.urlSprint + 'update/' + id, params);
   }
 
   getCriteriaByStory(id) {
