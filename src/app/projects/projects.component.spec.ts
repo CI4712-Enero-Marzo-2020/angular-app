@@ -4,6 +4,7 @@ import { ProjectsComponent } from './projects.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 describe('ProjectsComponent', () => {
   let component: ProjectsComponent;
@@ -12,7 +13,7 @@ describe('ProjectsComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ ProjectsComponent ],
-      imports: [FontAwesomeModule, HttpClientTestingModule, RouterTestingModule]
+      imports: [FontAwesomeModule, FormsModule, ReactiveFormsModule, RouterTestingModule, HttpClientTestingModule],
     })
     .compileComponents();
   }));

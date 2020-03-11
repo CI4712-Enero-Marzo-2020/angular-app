@@ -32,7 +32,9 @@ export class ProjectsComponent implements OnInit {
     ) {
     // this.projects.push({description: 'Proyecto de SOPIII', id: 1});
     this.getAllProjects();
-    this.userID = authService.getCurrentUser().userId;
+    if (authService.getCurrentUser()) {
+      this.userID = authService.getCurrentUser().userId;
+    }
   }
 
 

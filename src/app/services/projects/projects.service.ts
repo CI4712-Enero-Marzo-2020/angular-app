@@ -11,8 +11,10 @@ export class ProjectsService {
   url = environment.api;
   userID: any;
   constructor(private http: HttpClient, private authService: AuthService) {
-    this.userID = authService.getCurrentUser().userId;
-   }
+    if (authService.getCurrentUser()) {
+      this.userID = authService.getCurrentUser().userId;
+    }
+  }
 
   // TODO: falta verificar si el usuario esta autenticado
   getAll() {
