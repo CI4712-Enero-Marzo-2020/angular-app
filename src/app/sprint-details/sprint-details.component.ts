@@ -1,18 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { SprintService } from '../services/sprint/sprint.service';
-import { Route, ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl } from '@angular/forms';
-import { element } from 'protractor';
+import { SprintService } from '../services/sprint/sprint.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-sprint-backlog',
-  templateUrl: './sprint-backlog.component.html',
-  styleUrls: ['./sprint-backlog.component.scss']
+  selector: 'app-sprint-details',
+  templateUrl: './sprint-details.component.html',
+  styleUrls: ['./sprint-details.component.scss']
 })
-export class SprintBacklogComponent implements OnInit {
+export class SprintDetailsComponent implements OnInit {
   idProject: number;
-  idUser: number;
-  idSprint = 0;
+  idSprint: number;
+
+  sprint: any;
+
+  idUser = 0;
   idStory = 0;
   idTest = 0;
   idCriteria = 0;
@@ -36,10 +38,8 @@ export class SprintBacklogComponent implements OnInit {
               public route: ActivatedRoute,
               public router: Router) {
 
-    this.idProject = parseInt(this.route.snapshot.paramMap.get('id'), 10);
-    this.route.queryParams.subscribe(res => {
-      this.idUser = parseInt(res.user_id, 10);
-    });
+    this.idSprint = parseInt(this.route.snapshot.paramMap.get('id'), 10);
+    this.getSprint();
     this.formSprint();
     this.formCriteria();
     this.formTest();
@@ -47,79 +47,80 @@ export class SprintBacklogComponent implements OnInit {
     this.formTestEdit();
   }
 
-
-  ngOnInit() {
-
+  ngOnInit() {}
+  /** informacion basica del sprint */
+  getSprint() {
+    this.sprintService.getSprintDetails(this.idSprint).subscribe(res => {
+      this.sprint = res[0];
+      this.getSprintStories();
+    });
   }
 
-
+  /** historias ligadas al sprint */
+  getSprintStories() {
+    this.sprintService.getSprintStories(this.sprint.id).subscribe((res: any) => {
+      if (res.server) {
+        this.sprintStories = [];
+      } else {
+        this.sprintStories = res;
+      }
+    });
+  }
 
   formSprint() {
     this.sprintForm = new FormGroup({
-      project_id : new FormControl(this.idProject),
-      description: new FormControl(''),
-      user_id: new FormControl(this.idUser)
+    project_id : new FormControl(this.idProject),
+    description: new FormControl(''),
+    user_id: new FormControl(this.idUser)
     });
   }
 
   formTest() {
     this.testForm = new FormGroup({
-      story_id : new FormControl(''),
-      description: new FormControl(''),
-      user_id: new FormControl(this.idUser)
+    story_id : new FormControl(''),
+    description: new FormControl(''),
+    user_id: new FormControl(this.idUser)
     });
   }
 
   formTestEdit() {
     this.editTestForm = new FormGroup({
-      story_id : new FormControl(''),
-      description: new FormControl(''),
-      user_id: new FormControl(this.idUser),
-      approved: new FormControl()
+    story_id : new FormControl(''),
+    description: new FormControl(''),
+    user_id: new FormControl(this.idUser),
+    approved: new FormControl()
     });
   }
 
 
   formCriteria() {
     this.criteriaForm = new FormGroup({
-      story_id : new FormControl(''),
-      description: new FormControl(''),
-      user_id: new FormControl(this.idUser)
+    story_id : new FormControl(''),
+    description: new FormControl(''),
+    user_id: new FormControl(this.idUser)
     });
   }
 
   formCriteriaEdit() {
     this.editCriteriaForm = new FormGroup({
-      story_id : new FormControl(''),
-      description: new FormControl(''),
-      user_id: new FormControl(this.idUser),
-      approved: new FormControl()
+    story_id : new FormControl(''),
+    description: new FormControl(''),
+    user_id: new FormControl(this.idUser),
+    approved: new FormControl()
 
     });
   }
-
-  onSubmit() {
-    this.sprintService.createSprint(this.sprintForm.value).subscribe((res: any) => {
-      console.log(res.id);
-      this.idSprint = res.id;
-    });
-  }
-
 
   getStories() {
     this.storiesList = [];
-    console.log('jnhbggxcghbjmkl')
-    this.sprintService.getProjectStories(this.idProject).subscribe((res: any) => {
-
+    this.sprintService.getProjectStories(this.sprint.project_id).subscribe((res: any) => {
       res.map((story: any) => {
         const find = this.sprintStories.findIndex(i => i.id === story.id);
-        console.log(find, '*---',story);
         if (find === -1) {
           story['added'] = false;
           this.storiesList.push(story);
         }
       });
-
     });
   }
 
@@ -130,11 +131,9 @@ export class SprintBacklogComponent implements OnInit {
   }
 
   editCriteria(criteria) {
-    console.log(criteria);
     this.editCriteriaForm.controls['approved'].setValue(criteria.approved);
     this.editCriteriaForm.controls['description'].setValue(criteria.description);
     this.idCriteria = criteria.id;
-    console.log(this.editCriteriaForm.value);
   }
 
 
@@ -147,26 +146,23 @@ export class SprintBacklogComponent implements OnInit {
 
   sendEditedCriteria() {
     this.sprintService.editCriteria(this.idCriteria, this.editCriteriaForm.value).subscribe((res: any) => {
-      const index = this.criteriaList.findIndex(i => i.id === res.id);
-      this.criteriaList[index] = res;
+    const index = this.criteriaList.findIndex(i => i.id === res.id);
+    this.criteriaList[index] = res;
     });
   }
 
   addCriteria() {
     this.sprintService.addCriteria(this.criteriaForm.value).subscribe(res => {
-      console.log('agregar criterio sin permiso', res);
       if(res === []) {
         console.log("permiso denegado");
-      }else {
+      } else {
         this.criteriaList.push(res);
       }
     });
   }
 
   addTest() {
-    console.log(this.testForm.value);
     this.sprintService.addTest(this.testForm.value).subscribe(res => {
-      console.log(res);
       this.testsList.push(res);
     });
   }
@@ -188,7 +184,6 @@ export class SprintBacklogComponent implements OnInit {
         console.log(res);
       });
     });
-
   }
 
   seeDetails(story) {
@@ -202,6 +197,7 @@ export class SprintBacklogComponent implements OnInit {
     this.getCriterias();
     this.getTest();
   }
+
   getCriterias() {
     this.criteriaList = [];
     this.sprintService.getCriteriaByStory(this.storySelected.id).subscribe((res: any) => {
@@ -221,13 +217,12 @@ export class SprintBacklogComponent implements OnInit {
   }
 
   seeAllstories() {
-
     this.seeAll = true;
     this.back = false;
   }
 
   delete(type, id) {
-    if(type === 1) {
+    if (type === 1) {
       /** e liminar criterio */
       this.sprintService.deleteCriteria(id).subscribe((res: any) => {
         const find = this.criteriaList.findIndex(i => i.id === res.id);
