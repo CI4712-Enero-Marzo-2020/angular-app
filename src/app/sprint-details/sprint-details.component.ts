@@ -12,7 +12,7 @@ export class SprintDetailsComponent implements OnInit {
   idProject: number;
   idSprint: number;
 
-  sprint: any;
+  sprint = {  id: 0, user: {id: 0}, project_id: 0};
 
   idUser = 0;
   idStory = 0;
@@ -190,9 +190,9 @@ export class SprintDetailsComponent implements OnInit {
     this.seeAll = false;
     this.back = true;
     this.storySelected = story;
-    this.testForm.controls['user_id'].setValue(this.idUser);
+    this.testForm.controls['user_id'].setValue(this.sprint.user.id);
     this.testForm.controls['story_id'].setValue(this.storySelected.id);
-    this.criteriaForm.controls['user_id'].setValue(this.idUser);
+    this.criteriaForm.controls['user_id'].setValue(this.sprint.user.id);
     this.criteriaForm.controls['story_id'].setValue(this.storySelected.id);
     this.getCriterias();
     this.getTest();
@@ -235,6 +235,12 @@ export class SprintDetailsComponent implements OnInit {
         this.testsList.splice(find, 1);
       });
     }
+  }
+
+  close() {
+    this.sprintService.editSprint(this.sprint.id, {closed: true}).subscribe((res)=> {
+      this.router.navigate(['projects']);
+    });
   }
 
 

@@ -22,7 +22,7 @@
         </button>
       </div>
       <!-- Lista de historias del Sprint Backlog -->
-      <div *ngIf="sprintStories.length >= 0" class="row">
+      <div *ngIf="sprintStories.length >= 0 && seeAll" class="row">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header card-header-danger">
@@ -91,7 +91,9 @@
         </div>
 
       </div>
-
+      <div class="row">
+        <button class="btn btn-danger" (click)="close()"> Finalizar Sprint</button>
+      </div>
       <div *ngIf="!seeAll" class="card">
         <p class="description-title">{{storySelected.description}}</p>
       </div>
