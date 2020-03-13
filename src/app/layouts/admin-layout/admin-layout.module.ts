@@ -36,7 +36,9 @@ import {
   MatFormFieldModule,
   MatTooltipModule,
   MatSelectModule,
-  MatDialogModule
+  MatDialogModule,
+  MatTabGroup,
+  MatTabsModule
 } from '@angular/material';
 import { LoggerComponent } from 'src/app/logger/logger.component';
 import { DialogComponent } from 'src/app/logger/dialog/dialog.component';
@@ -55,7 +57,8 @@ import { SprintDetailsComponent } from 'src/app/sprint-details/sprint-details.co
     MatSelectModule,
     MatTooltipModule,
     FontAwesomeModule,
-    MatDialogModule
+    MatDialogModule,
+    MatTabsModule
   ],
   declarations: [
     // Agregar declaraciones de componentes aquí

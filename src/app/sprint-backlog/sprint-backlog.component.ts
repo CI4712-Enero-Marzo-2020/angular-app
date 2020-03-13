@@ -27,11 +27,13 @@ export class SprintBacklogComponent implements OnInit {
   selected = false;
 
   sprintStories = [];
+  sprintTask = [];
   sprintStoriesToAdd = [];
   storiesList = [];
   seeAll = true;
   back = false;
   storySelected: any;
+
   constructor(public sprintService: SprintService,
               public route: ActivatedRoute,
               public router: Router) {
@@ -100,7 +102,6 @@ export class SprintBacklogComponent implements OnInit {
 
   onSubmit() {
     this.sprintService.createSprint(this.sprintForm.value).subscribe((res: any) => {
-      console.log(res.id);
       this.idSprint = res.id;
     });
   }
@@ -108,7 +109,6 @@ export class SprintBacklogComponent implements OnInit {
 
   getStories() {
     this.storiesList = [];
-    console.log('jnhbggxcghbjmkl')
     this.sprintService.getProjectStories(this.idProject).subscribe((res: any) => {
 
       res.map((story: any) => {
@@ -130,11 +130,9 @@ export class SprintBacklogComponent implements OnInit {
   }
 
   editCriteria(criteria) {
-    console.log(criteria);
     this.editCriteriaForm.controls['approved'].setValue(criteria.approved);
     this.editCriteriaForm.controls['description'].setValue(criteria.description);
     this.idCriteria = criteria.id;
-    console.log(this.editCriteriaForm.value);
   }
 
 
@@ -154,10 +152,9 @@ export class SprintBacklogComponent implements OnInit {
 
   addCriteria() {
     this.sprintService.addCriteria(this.criteriaForm.value).subscribe(res => {
-      console.log('agregar criterio sin permiso', res);
-      if(res === []) {
+      if (res === []) {
         console.log("permiso denegado");
-      }else {
+      } else {
         this.criteriaList.push(res);
       }
     });

@@ -1,243 +1,333 @@
 <div class="main-content">
   <div class="container-fluid">
-      <div class="col-md-12">
-          <div class="card">
-              <div class="card-header card-header-text card-header-primary">
-                <div class="card-text">
-                  <h4 class="card-title">Sprint</h4>
-                </div>
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header card-header-text card-header-primary">
+              <div class="card-text">
+                <h4 class="card-title">Sprint</h4>
               </div>
-              <div class="card-body">
-                <div  class="form-group">
-                  <label for="description">Descripción</label>
-                  <input type="text" class="form-control" id="description" value="{{sprint.description}}" placeholder="">
-                </div>
+            </div>
+            <div class="card-body">
+              <div  class="form-group">
+                <label for="description">Descripción</label>
+                <input type="text" class="form-control" id="description" value="{{sprint.description}}" placeholder="">
               </div>
-          </div>
-      </div>
+            </div>
+        </div>
+    </div>
+    <mat-tab-group mat-align-tabs="center" *ngIf="seeAll">
+      <mat-tab label="Historias de Usuario">
+        <ng-template matTabContent #storiesTab>
+          <!-- Lista de historias del Sprint Backlog -->
+          <div class="row">
+              <div class="col-md-12">
+                  <div class="card">
+                      <div class="card-header card-header-danger">
 
-      <div *ngIf="sprintStories.length > 0 && back" class="row">
-        <button class="btn btn-warning" style="float: right" (click)="seeAllstories()">
-          Volver
-        </button>
-      </div>
-      <!-- Lista de historias del Sprint Backlog -->
-      <div *ngIf="sprintStories.length >= 0 && seeAll" class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header card-header-danger">
-
-                    <div class="row">
-                        <div class="col-xs-12 col-md-6 text-left">
-                            <h4 class="card-title ">Sprint backlog</h4>
-                        </div>
-                        <div class="col-xs-12 col-md-6 text-right">
-                          <div class="input-group">
-                              <span class="input-group-btn">
-                                  <button id="but1" mat-raised-button type="submit" class="btn pull-right" data-toggle="modal" data-target="#modalStories" (click)="getStories()">
-                                      <fa-icon icon="arrow-alt-circle-up"></fa-icon>
-                                  </button>
-                              </span>
+                          <div class="row">
+                              <div class="col-xs-12 col-md-6 text-left">
+                                  <h4 class="card-title ">Sprint backlog</h4>
+                              </div>
+                              <div class="col-xs-12 col-md-6 text-right">
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button id="but1" mat-raised-button type="submit" class="btn pull-right" data-toggle="modal" data-target="#modalStories" (click)="getStories()">
+                                            <fa-icon icon="arrow-alt-circle-up"></fa-icon>
+                                        </button>
+                                    </span>
+                                </div>
+                              </div>
                           </div>
+                      </div>
+                      <div class="card-body">
+                          <div class="table-responsive">
+                              <table class="table">
+                                  <thead class=" text-primary">
+                                      <th>
+                                        ID
+                                      </th>
+                                      <th>
+                                        Descripción
+                                      </th>
+                                      <th>
+                                        Aprobación
+                                      </th>
+                                      <th class="options-column">
+                                          Opciones
+                                      </th>
+                                  </thead>
+                                  <tbody>
+                                    <tr *ngFor="let story of sprintStories">
+                                          <td>
+                                            {{story.id}}
+                                          </td>
+                                          <td>
+                                            {{story.description}}
+                                          </td>
+                                          <td>
+
+                                            <fa-icon *ngIf="story.done" icon="check-circle"></fa-icon>
+                                            <fa-icon *ngIf="!story.done" icon="times-circle"></fa-icon>
+                                          </td>
+                                          <td>
+                                              <div class="btn-group" role="group">
+                                                  <button type="button" class="btn btn-secondary" (click)="seeDetails(story)" >
+                                                    <fa-icon icon="edit"></fa-icon>
+                                                  </button>
+                                                  <!-- <button type="button" class="btn btn-secondary" (click)="openDialog(log.id)" >
+                                                    <fa-icon icon="times"></fa-icon>
+                                                  </button> -->
+                                              </div>
+                                          </td>
+                                      </tr>
+                                  </tbody>
+                              </table>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+            </div>
+        </ng-template>
+      </mat-tab>
+      <mat-tab label="Tareas">
+        <ng-template matTabContent #taskTab>
+          <!-- Lista de tareas del Sprint Backlog -->
+          <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6 text-left">
+                                <h4 class="card-title ">Tareas</h4>
+                            </div>
+                            <div class="col-xs-12 col-md-6 text-right">
+                              <div class="input-group">
+                                  <span class="input-group-btn">
+                                      <button id="but1" mat-raised-button type="submit" class="btn pull-right" data-toggle="modal" data-target="#modalStories" (click)="getStories()">
+                                          <fa-icon icon="arrow-alt-circle-up"></fa-icon>
+                                      </button>
+                                  </span>
+                              </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead class=" text-primary">
-                                <th>
-                                  ID
-                                </th>
-                                <th>
-                                  Descripción
-                                </th>
-                                <th>
-                                  Aprobación
-                                </th>
-                                <th class="options-column">
-                                    Opciones
-                                </th>
-                            </thead>
-                            <tbody>
-                               <tr *ngFor="let story of sprintStories">
-                                    <td>
-                                      {{story.id}}
-                                    </td>
-                                    <td>
-                                      {{story.description}}
-                                    </td>
-                                    <td>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                    <th>
+                                      ID
+                                    </th>
+                                    <th>
+                                      Descripción
+                                    </th>
+                                    <th>
+                                      Aprobación
+                                    </th>
+                                    <th class="options-column">
+                                        Opciones
+                                    </th>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let task of sprintTasks">
+                                        <td>
+                                          {{task.id}}
+                                        </td>
+                                        <td>
+                                          {{task.description}}
+                                        </td>
+                                        <td>
 
-                                      <fa-icon *ngIf="story.done" icon="check-circle"></fa-icon>
-                                      <fa-icon *ngIf="!story.done" icon="times-circle"></fa-icon>
-                                    </td>
-                                    <td>
-                                        <div class="btn-group" role="group">
-                                            <button type="button" class="btn btn-secondary" (click)="seeDetails(story)" >
-                                              <fa-icon icon="edit"></fa-icon>
-                                            </button>
-                                            <!-- <button type="button" class="btn btn-secondary" (click)="openDialog(log.id)" >
-                                              <fa-icon icon="times"></fa-icon>
-                                            </button> -->
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                                          <fa-icon *ngIf="task.done" icon="check-circle"></fa-icon>
+                                          <fa-icon *ngIf="!task.done" icon="times-circle"></fa-icon>
+                                        </td>
+                                        <td>
+                                            <div class="btn-group" role="group">
+                                                <button type="button" class="btn btn-secondary" (click)="seeDetails(task)" >
+                                                  <fa-icon icon="edit"></fa-icon>
+                                                </button>
+                                                <!-- <button type="button" class="btn btn-secondary" (click)="openDialog(log.id)" >
+                                                  <fa-icon icon="times"></fa-icon>
+                                                </button> -->
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+          </div>
+          <p *ngIf="sprintTasks.length === 0"> No existen tareas definidos para esta historia</p>
 
-      </div>
-      <div class="row">
-        <button class="btn btn-danger" (click)="close()"> Finalizar Sprint</button>
-      </div>
-      <div *ngIf="!seeAll" class="card">
-        <p class="description-title">{{storySelected.description}}</p>
-      </div>
+        </ng-template>
+      </mat-tab>
+    </mat-tab-group>
 
-      <!-- Lista de pruebas de una historia particular -->
-      <div *ngIf="!seeAll" class="row">
-          <div class="col-md-12">
-              <div class="card">
-                  <div class="card-header card-header-danger">
 
+    <div *ngIf="sprintStories.length > 0 && back" class="row back">
+      <button class="btn btn-warning" style="float: right" (click)="seeAllstories()">
+        Volver
+      </button>
+    </div>
+
+
+    <div *ngIf="seeAll" class="row close">
+      <button class="btn" (click)="close()"> Finalizar Sprint</button>
+    </div>
+    <div *ngIf="!seeAll" class="card">
+      <p class="description-title">{{storySelected.description}}</p>
+    </div>
+    <mat-tab-group mat-align-tabs="center" *ngIf="!seeAll">
+      <mat-tab label="Pruebas de Aceptación">
+        <ng-template matTabContent>
+          <!-- Lista de pruebas de una historia particular-->
+          <div  class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
                       <div class="row">
                           <div class="col-xs-12 col-md-6 text-left">
-                              <h4 class="card-title ">Criterios de Aceptación</h4>
+                              <h4 class="card-title ">Pruebas de Aceptación</h4>
                           </div>
                           <div class="col-xs-12 col-md-6 text-right">
                             <div class="input-group">
                                 <span class="input-group-btn">
-                                    <button id="but1" mat-raised-button type="submit" class="btn pull-right" data-toggle="modal" data-target="#modalCriteria">
+                                    <button id="but1" mat-raised-button type="submit" class="btn pull-right" data-toggle="modal" data-target="#modalTest">
                                         <fa-icon icon="arrow-alt-circle-up"></fa-icon>
                                     </button>
+
                                 </span>
                             </div>
                           </div>
                       </div>
-                  </div>
-                  <div class="card-body">
-                      <div class="table-responsive">
-                          <table class="table">
-                              <thead class=" text-primary">
-                                  <th>
-                                    ID
-                                  </th>
-                                  <th>
-                                    Descripción
-                                  </th>
-                                  <th>
-                                    Aprobación
-                                  </th>
-                                  <th class="options-column">
-                                      Opciones
-                                  </th>
-                              </thead>
-                              <tbody>
-                                 <tr *ngFor="let criteria of criteriaList">
-                                      <td>
-                                        {{criteria.id}}
-                                      </td>
-                                      <td>
-                                        {{criteria.description}}
-                                      </td>
-                                      <td>
-
-                                        <fa-icon *ngIf="criteria.approved" icon="check-circle"></fa-icon>
-                                        <fa-icon *ngIf="!criteria.approved" icon="times-circle"></fa-icon>
-                                      </td>
-                                      <td>
-                                          <div class="btn-group" role="group">
-                                              <button type="button" class="btn btn-secondary"  data-toggle="modal" data-target="#modalCriteriaEdit" (click)="editCriteria(criteria)" >
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                    <th>
+                                      ID
+                                    </th>
+                                    <th>
+                                      Descripción
+                                    </th>
+                                    <th>
+                                      Aprobación
+                                    </th>
+                                    <th class="options-column">
+                                        Opciones
+                                    </th>
+                                </thead>
+                                <tbody>
+                                  <tr *ngFor="let test of testsList">
+                                        <td>
+                                          {{test.id}}
+                                        </td>
+                                        <td>
+                                          {{test.description}}
+                                        </td>
+                                        <td>
+                                          <fa-icon *ngIf="test.approved" icon="check-circle"></fa-icon>
+                                          <fa-icon *ngIf="!test.approved" icon="times-circle"></fa-icon>
+                                        </td>
+                                        <td>
+                                            <div class="btn-group" role="group">
+                                              <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modalTestEdit"(click)="editTest(test)" >
                                                 <fa-icon icon="edit"></fa-icon>
-                                              </button>
-                                              <button type="button" class="btn btn-secondary" (click)="delete(1, criteria.id)" >
-                                                <fa-icon icon="times"></fa-icon>
-                                              </button>
-                                          </div>
-                                      </td>
-                                  </tr>
-                              </tbody>
-                          </table>
+                                            </button>
+                                                <button type="button" class="btn btn-secondary" (click)="delete(2, test.id)" >
+                                                    <fa-icon icon="times"></fa-icon>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+          <p *ngIf="testsList.length === 0"> No existen pruebas definidas para esta historia</p>
+        </ng-template>
+      </mat-tab>
+      <mat-tab label="Criterios de Aceptación">
+        <ng-template matTabContent>
+          <!-- Lista de criterias de una historia particular -->
+          <div class="row">
+              <div class="col-md-12">
+                  <div class="card">
+                      <div class="card-header card-header-danger">
+
+                          <div class="row">
+                              <div class="col-xs-12 col-md-6 text-left">
+                                  <h4 class="card-title ">Criterios de Aceptación</h4>
+                              </div>
+                              <div class="col-xs-12 col-md-6 text-right">
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button id="but1" mat-raised-button type="submit" class="btn pull-right" data-toggle="modal" data-target="#modalCriteria">
+                                            <fa-icon icon="arrow-alt-circle-up"></fa-icon>
+                                        </button>
+                                    </span>
+                                </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="card-body">
+                          <div class="table-responsive">
+                              <table class="table">
+                                  <thead class=" text-primary">
+                                      <th>
+                                        ID
+                                      </th>
+                                      <th>
+                                        Descripción
+                                      </th>
+                                      <th>
+                                        Aprobación
+                                      </th>
+                                      <th class="options-column">
+                                          Opciones
+                                      </th>
+                                  </thead>
+                                  <tbody>
+                                    <tr *ngFor="let criteria of criteriaList">
+                                          <td>
+                                            {{criteria.id}}
+                                          </td>
+                                          <td>
+                                            {{criteria.description}}
+                                          </td>
+                                          <td>
+
+                                            <fa-icon *ngIf="criteria.approved" icon="check-circle"></fa-icon>
+                                            <fa-icon *ngIf="!criteria.approved" icon="times-circle"></fa-icon>
+                                          </td>
+                                          <td>
+                                              <div class="btn-group" role="group">
+                                                  <button type="button" class="btn btn-secondary"  data-toggle="modal" data-target="#modalCriteriaEdit" (click)="editCriteria(criteria)" >
+                                                    <fa-icon icon="edit"></fa-icon>
+                                                  </button>
+                                                  <button type="button" class="btn btn-secondary" (click)="delete(1, criteria.id)" >
+                                                    <fa-icon icon="times"></fa-icon>
+                                                  </button>
+                                              </div>
+                                          </td>
+                                      </tr>
+                                  </tbody>
+                              </table>
+                          </div>
                       </div>
                   </div>
               </div>
           </div>
-      </div>
-      <p *ngIf="!seeAll && criteriaList.length === 0"> No existen criterios definidos para esta historia</p>
-      <!-- Lista de pruebas de una historia particular-->
-      <div *ngIf="!seeAll" class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header card-header-danger">
-                  <div class="row">
-                      <div class="col-xs-12 col-md-6 text-left">
-                          <h4 class="card-title ">Pruebas de Aceptación</h4>
-                      </div>
-                      <div class="col-xs-12 col-md-6 text-right">
-                        <div class="input-group">
-                            <span class="input-group-btn">
-                                <button id="but1" mat-raised-button type="submit" class="btn pull-right" data-toggle="modal" data-target="#modalTest">
-                                    <fa-icon icon="arrow-alt-circle-up"></fa-icon>
-                                </button>
-
-                            </span>
-                        </div>
-                      </div>
-                  </div>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead class=" text-primary">
-                                <th>
-                                  ID
-                                </th>
-                                <th>
-                                  Descripción
-                                </th>
-                                <th>
-                                  Aprobación
-                                </th>
-                                <th class="options-column">
-                                    Opciones
-                                </th>
-                            </thead>
-                            <tbody>
-                               <tr *ngFor="let test of testsList">
-                                    <td>
-                                      {{test.id}}
-                                    </td>
-                                    <td>
-                                      {{test.description}}
-                                    </td>
-                                    <td>
-                                      <fa-icon *ngIf="test.approved" icon="check-circle"></fa-icon>
-                                      <fa-icon *ngIf="!test.approved" icon="times-circle"></fa-icon>
-                                    </td>
-                                    <td>
-                                        <div class="btn-group" role="group">
-                                          <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modalTestEdit"(click)="editTest(test)" >
-                                            <fa-icon icon="edit"></fa-icon>
-                                        </button>
-                                            <button type="button" class="btn btn-secondary" (click)="delete(2, test.id)" >
-                                                <fa-icon icon="times"></fa-icon>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-      </div>
-      <p *ngIf="!seeAll && testsList.length === 0"> No existen pruebas definidas para esta historia</p>
-
+          <p *ngIf="criteriaList.length === 0"> No existen criterios definidos para esta historia</p>
+        </ng-template>
+      </mat-tab>
+    </mat-tab-group>
   </div>
 </div>
 <!-------------------------- Modal de seleccion de historias -------------------->

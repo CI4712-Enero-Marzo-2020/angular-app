@@ -29,6 +29,7 @@ export class SprintDetailsComponent implements OnInit {
   selected = false;
 
   sprintStories = [];
+  sprintTasks = [];
   sprintStoriesToAdd = [];
   storiesList = [];
   seeAll = true;
