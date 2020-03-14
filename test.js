@@ -1,9 +1,9 @@
-describe("Agregar Historia", function(){
+describe("Hacer login", function(){
 	browser.ignoreSyncronization=true;
 
-	it("Agregar Historia", function(){
-		browser.get("http://localhost:4200/productbacklog/1");
-		console.log("entrada a Backlog exitosa")
-		browser.sleep(5000)
+	it("Hacer login", function(){
+		browser.get("http://localhost:4200/login");
+		browser.sleep(20000)
+		
 	});
 });
