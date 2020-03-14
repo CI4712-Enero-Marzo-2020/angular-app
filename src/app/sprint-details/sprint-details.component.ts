@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { SprintService } from '../services/sprint/sprint.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../services/users/auth.service';
@@ -38,7 +38,7 @@ export class SprintDetailsComponent implements OnInit {
   back = false;
   storySelected: any;
   users = [{id: 1, name: 'nairelyshz'}, {id: 2, name: 'jguzman'}, {id: 3, name: 'jjjjj'}, {id: 4, name: 'kkkk'}];
-  selectedUser = [1];
+  selectedUser = [];
   constructor(public sprintService: SprintService,
               public route: ActivatedRoute,
               public router: Router,
@@ -124,12 +124,12 @@ export class SprintDetailsComponent implements OnInit {
   formTask() {
     this.taskForm = new FormGroup({
       description : new FormControl(''),
-      sprint_id: new FormControl(this.sprint.id),
+      sprint_id: new FormControl(this.idSprint),
       task_type: new FormControl(''),
       task_class: new FormControl(''),
       task_status: new FormControl(''),
       user_id: new FormControl(this.idUser),
-      users: new FormControl([]),
+      users: new FormControl([], Validators.required),
       task_functions: new FormControl()
     });
   }
@@ -267,11 +267,15 @@ export class SprintDetailsComponent implements OnInit {
   }
 
   createTask() {
-    console.log(this.taskForm.value)
+    console.log(this.taskForm.value, this.selectedUser);
+    this.sprintService.createTask(this.taskForm.value).subscribe(res => {
+      console.log("TASK", res);
+    })
   }
 
   userSelect(selection) {
     console.log(selection);
+
   }
 
 

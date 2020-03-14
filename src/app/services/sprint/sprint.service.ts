@@ -11,6 +11,7 @@ export class SprintService {
   urlSprint = 'http://localhost:5000/sprint/';
   urlCriterios = 'http://localhost:5000/criteria/';
   urlPruebas = 'http://localhost:5000/tests/';
+  urlTasks = 'http://localhost:5000/tasks/';
 
   createSprint(params) {
     console.log(params);
@@ -77,6 +78,10 @@ export class SprintService {
 
   deleteCriteria(citeriaId) {
     return this.http.post(this.urlCriterios + 'delete/' + citeriaId, []);
+  }
+
+  createTask(params) {
+    return this.http.post( this.urlTasks + 'add', params);
   }
 
 }
