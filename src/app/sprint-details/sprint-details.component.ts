@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { SprintService } from '../services/sprint/sprint.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../services/users/auth.service';
 
 @Component({
   selector: 'app-sprint-details',
@@ -23,6 +24,7 @@ export class SprintDetailsComponent implements OnInit {
   criteriaForm: FormGroup;
   editTestForm: FormGroup;
   editCriteriaForm: FormGroup;
+  taskForm: FormGroup;
 
   testsList = [];
   criteriaList = [];
@@ -35,17 +37,24 @@ export class SprintDetailsComponent implements OnInit {
   seeAll = true;
   back = false;
   storySelected: any;
+  users = [{id: 1, name: 'nairelyshz'}, {id: 2, name: 'jguzman'}, {id: 3, name: 'jjjjj'}, {id: 4, name: 'kkkk'}];
+  selectedUser = [1];
   constructor(public sprintService: SprintService,
               public route: ActivatedRoute,
-              public router: Router) {
+              public router: Router,
+              public authService: AuthService) {
 
     this.idSprint = parseInt(this.route.snapshot.paramMap.get('id'), 10);
     this.getSprint();
+    if (authService.getCurrentUser()) {
+      this.idUser = authService.getCurrentUser().userId;
+    }
     this.formSprint();
     this.formCriteria();
     this.formTest();
     this.formCriteriaEdit();
     this.formTestEdit();
+    this.formTask();
   }
 
   ngOnInit() {}
@@ -109,6 +118,19 @@ export class SprintDetailsComponent implements OnInit {
     user_id: new FormControl(this.idUser),
     approved: new FormControl()
 
+    });
+  }
+
+  formTask() {
+    this.taskForm = new FormGroup({
+      description : new FormControl(''),
+      sprint_id: new FormControl(this.sprint.id),
+      task_type: new FormControl(''),
+      task_class: new FormControl(''),
+      task_status: new FormControl(''),
+      user_id: new FormControl(this.idUser),
+      users: new FormControl([]),
+      task_functions: new FormControl()
     });
   }
 
@@ -242,6 +264,14 @@ export class SprintDetailsComponent implements OnInit {
     this.sprintService.editSprint(this.sprint.id, {closed: true}).subscribe((res)=> {
       this.router.navigate(['projects']);
     });
+  }
+
+  createTask() {
+    console.log(this.taskForm.value)
+  }
+
+  userSelect(selection) {
+    console.log(selection);
   }
 
 

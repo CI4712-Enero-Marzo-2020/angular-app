@@ -44,6 +44,7 @@ import { LoggerComponent } from 'src/app/logger/logger.component';
 import { DialogComponent } from 'src/app/logger/dialog/dialog.component';
 import { SprintBacklogComponent } from 'src/app/sprint-backlog/sprint-backlog.component';
 import { SprintDetailsComponent } from 'src/app/sprint-details/sprint-details.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 @NgModule({
   imports: [
     CommonModule,
@@ -58,7 +59,8 @@ import { SprintDetailsComponent } from 'src/app/sprint-details/sprint-details.co
     MatTooltipModule,
     FontAwesomeModule,
     MatDialogModule,
-    MatTabsModule
+    MatTabsModule,
+    NgSelectModule
   ],
   declarations: [
     // Agregar declaraciones de componentes aquí

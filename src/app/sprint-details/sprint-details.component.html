@@ -103,7 +103,7 @@
                             <div class="col-xs-12 col-md-6 text-right">
                               <div class="input-group">
                                   <span class="input-group-btn">
-                                      <button id="but1" mat-raised-button type="submit" class="btn pull-right" data-toggle="modal" data-target="#modalStories" (click)="getStories()">
+                                      <button id="but1" mat-raised-button type="submit" class="btn pull-right" data-toggle="modal" data-target="#modalTask">
                                           <fa-icon icon="arrow-alt-circle-up"></fa-icon>
                                       </button>
                                   </span>
@@ -173,7 +173,7 @@
     </div>
 
 
-    <div *ngIf="seeAll" class="row close">
+    <div *ngIf="seeAll" class="row close-btn">
       <button class="btn" (click)="close()"> Finalizar Sprint</button>
     </div>
     <div *ngIf="!seeAll" class="card">
@@ -486,6 +486,77 @@
           </form>
         </div>
 
+      </div>
+    </div>
+  </div>
+
+      <!-------------------------- Crear Tarea -------------------->
+
+  <!-- Modal -->
+  <div class="modal fade" id="modalTask" tabindex="-1" role="dialog" aria-labelledby="modalTask" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalTask">Crear Tarea</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="taskForm" (ngSubmit)="createTask()">
+            <div  class="form-group">
+              <label for="description">Descripción</label>
+              <input type="text" class="form-control" id="description" formControlName="description" placeholder="">
+            </div>
+            <div class="form-row">
+              <div class="col">
+                <label for="">Tipo</label>
+                <select class="form-control" formControlName="task_type">
+                  <option value="desarrollo" >Desarrollo</option>
+                  <option value="user">Usuario</option>
+                  <option value="event">Evento</option>
+                </select>
+              </div>
+              <div class="col">
+                <label for="">Estado</label>
+                <select class="form-control" formControlName="task_status">
+                  <option value="iniciada" >Iniciada</option>
+                  <option value="culminada">Culminada</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="col">
+                <label for="">Clase</label>
+                <select class="form-control" formControlName="task_class">
+                  <option value="desarrollo" >Desarrollo</option>
+                  <option value="user">Usuario</option>
+                  <option value="event">Evento</option>
+                </select>
+              </div>
+              <div class="col">
+                <label for="">Funciones</label>
+                <input type="number" class="input" min="1">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="nay">Usuarios</label>
+              <ng-select bindLabel="nay"
+                  placeholder=""
+                  appendTo="body"
+                  multiple="true"
+                  maxSelectedItems=2
+                  [(ngModel)]="selectedUser">
+                  <ng-option value="user.id" *ngFor="let user of users">
+                      {{user.name}}
+                  </ng-option>
+              </ng-select>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary" >Crear tarea</button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   </div>

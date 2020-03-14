@@ -1,3 +1,6 @@
+
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
 .container {
   margin: 5%;
 }
@@ -22,7 +25,12 @@ button {
   padding-top: 15px;
   font-style: italic;
 }
-.close {
+.close-btn {
   margin: 0 auto;
   margin-top: 10px;
+}
+
+.form-task {
+  width: 40%;
+  margin: 0 auto;
 }
