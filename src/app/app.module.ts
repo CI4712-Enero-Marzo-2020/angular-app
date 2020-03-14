@@ -19,7 +19,7 @@ import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 @NgModule({
   declarations: [
     AppComponent,
-    AdminLayoutComponent,
+    AdminLayoutComponent
   ],
   imports: [
     BrowserAnimationsModule,

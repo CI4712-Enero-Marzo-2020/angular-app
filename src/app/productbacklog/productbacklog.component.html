@@ -99,6 +99,9 @@
     <button *ngIf="newSprint" class="btn mat-raised-button sprint" (click)="generateSprint()">Generar Sprint</button>
     <button *ngIf="!newSprint" class="btn btn-primary sprint" (click)="sprintDetail()">Ver Sprint</button>
 
+    <button class="btn btn-primary sprint" (click)="sprintPlanning()">Sprint Planning</button>
+    <button class="btn btn-primary sprint" (click)="sprintRetrospective()">Sprint Retrospective</button>
+    <button class="btn btn-primary sprint" (click)="sprintTechnical()">Sprint Technical</button>
 
 
     <div class="modal modal-angular fade" id="addEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

@@ -184,6 +184,14 @@ export class ProductbacklogComponent implements OnInit {
     this.router.navigate(['sprint', this.projectId], {queryParams: {'user_id': currentUser.userId}});
   }
 
+  sprintPlanning() {
+    this.router.navigate(['sprintplanning']);
+  }
+
+  sprintRetrospective() {
+    this.router.navigate(['sprintretrospective']);
+  }
+
   getSprint() {
     this.sprintService.getSprintActive(this.projectId).subscribe((res: any) => {
       if (res.server) {
@@ -195,8 +203,8 @@ export class ProductbacklogComponent implements OnInit {
     });
   }
 
-  sprintDetail() {
-    this.router.navigate(['sprint/details', this.sprintId]);
+  sprintTechnical() {
+    this.router.navigate(['sprinttechnical']);
   }
 
 }

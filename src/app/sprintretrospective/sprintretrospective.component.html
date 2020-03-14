@@ -1,0 +1,100 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6 text-left">
+                                <h4 class="card-title ">Reunión de Retrospectiva</h4>
+                                <p class="card-category">Sprint 1</p>
+                            </div>
+                            <div class="col-xs-12 col-md-6 text-right">
+                                <div class="input-group">
+                                    <input type="text" placeholder="Buscar" [(ngModel)]="id" class="form-control"
+                                        (ngModelChange)="resetStoriesList()">
+                                    <span class="input-group-btn">
+                                        <button id="but1" mat-raised-button type="submit" class="btn pull-right"
+                                            (click)="Search()">
+                                            <fa-icon icon="search"></fa-icon>
+                                        </button>
+                                        <span class="input-group-btn">
+                                            <button id="but2" mat-raised-button type="submit" class="btn pull-right"
+                                                data-toggle="modal" data-target="#addEdit" (click)="initializeAddForm()">
+                                                <fa-icon icon="plus-circle"></fa-icon>
+                                            </button>
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table text-center">
+                                <thead class=" text-primary">
+                                    <th class="narrow-column">
+                                        ID
+                                    </th>
+                                    <th class="narrow-column">
+                                        Fecha
+                                    </th>
+                                    <th>
+                                        Técnica
+                                    </th>
+                                    <th>
+                                        Resultados Positivos
+                                    </th>
+                                    <th>
+                                        Resultados Negativos
+                                    </th>
+                                    <th>
+                                        Decisión
+                                    </th>
+                                    <th class="narrow-column">
+                                        Opciones
+                                    </th>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let retrospective of retrospectives; index as i">
+                                        <td class="text-center">
+                                            {{retrospective.id}}
+                                        </td>
+                                        <td>
+                                            {{datepipe.transform(retrospective.date, 'dd/MM/yyyy')}}
+                                        </td>
+                                        <td>
+                                            {{retrospective.method}}
+                                        </td>
+                                        <td>
+                                            {{retrospective.positive}}
+                                        </td>
+                                        <td>
+                                            {{retrospective.negative}}
+                                        </td>
+                                        <td>
+                                            {{retrospective.decision}}
+                                        </td>
+                                        <td class="text-right">
+                                            <div class="btn-group" role="group">
+                                                <button type="button" class="btn btn-secondary" data-toggle="modal"
+                                                    data-target="#addEdit" (click)="true">
+                                                    <fa-icon icon="edit"></fa-icon>
+                                                </button>
+                                                <button type="button" class="btn btn-secondary" data-toggle="modal"
+                                                    data-target="#eliminar" (click)="true">
+                                                    <fa-icon icon="times"></fa-icon>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

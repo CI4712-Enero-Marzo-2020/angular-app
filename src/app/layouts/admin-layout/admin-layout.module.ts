@@ -41,6 +41,9 @@ import {
 import { LoggerComponent } from 'src/app/logger/logger.component';
 import { DialogComponent } from 'src/app/logger/dialog/dialog.component';
 import { SprintBacklogComponent } from 'src/app/sprint-backlog/sprint-backlog.component';
+import { SprintplanningComponent } from 'src/app/sprintplanning/sprintplanning.component';
+import { SprintretrospectiveComponent } from 'src/app/sprintretrospective/sprintretrospective.component';
+import { SprinttechnicalComponent } from 'src/app/sprinttechnical/sprinttechnical.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -63,7 +66,10 @@ import { SprintBacklogComponent } from 'src/app/sprint-backlog/sprint-backlog.co
     LoginComponent,
     LoggerComponent,
     DialogComponent,
-    SprintBacklogComponent
+    SprintBacklogComponent,
+    SprintplanningComponent,
+    SprintretrospectiveComponent,
+    SprinttechnicalComponent
   ],
   providers: [
     LoginActivate,
