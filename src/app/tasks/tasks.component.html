@@ -37,7 +37,7 @@
           </div>
           <div class="col">
             <label for="">Funciones</label>
-            <input type="number" class="input" min="1" formControlName="task_functions">
+            <input type="number" class="input taskFunction" min="1" formControlName="task_functions">
           </div>
         </div>
         <div class="form-group">
@@ -48,7 +48,7 @@
               multiple="true"
               maxSelectedItems=2
               formControlName="users">
-              <ng-option value="{{ user.id }}" *ngFor="let user of users">
+              <ng-option  value="{{ user.id }}" *ngFor="let user of users">
                   {{user.name}}
               </ng-option>
           </ng-select>
