@@ -338,13 +338,13 @@ export class SprintDetailsComponent implements OnInit {
   }
 
   calculateDuration() {
-    console.log(this.initDate, this.endDate);
-    const fechaInicio = new Date(this.initDate).getTime();
-    const fechaFin    = new Date(this.endDate).getTime();
+    // console.log(this.initDate, this.endDate);
+    // const fechaInicio = new Date(this.initDate).getTime();
+    // const fechaFin    = new Date(this.endDate).getTime();
 
-    const diff = fechaFin - fechaInicio;
-    this.durationTime = diff/ (1000 * 60 * 60 * 24);
-    console.log("dias", this.durationTime );
+    // const diff = fechaFin - fechaInicio;
+    // this.durationTime = diff/ (1000 * 60 * 60 * 24);
+    // console.log("dias", this.durationTime );
   }
 
 }
