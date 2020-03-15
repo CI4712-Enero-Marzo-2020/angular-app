@@ -155,16 +155,19 @@
                                                 {{task.description}}
                                               </td>
                                               <td>
-                                                {{task.description}}
+                                                {{task.task_type}}
                                               </td>
                                               <td>
-                                                {{task.description}}
+                                                {{task.task_status}}
                                               </td>
                                               <td>
-                                                {{task.description}}
+                                                {{task.task_asignners}}
                                               </td>
                                               <td>
-                                                {{task.description}}
+                                                {{task.task_class}}
+                                              </td>
+                                              <td>
+                                                {{task.task_functions}}
                                               </td>
                                               <td>
                                                 <div class="btn-group" role="group">
@@ -185,6 +188,32 @@
                     </div>
                   </div>
                   <p *ngIf="sprintTasks.length === 0"> No existen tareas definidos para esta historia</p>
+                  <div class="row">
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="">Inicio</label>
+                        <input type="date" class="input" [(ngModel)]="initDate" >
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="">Cierre</label>
+                        <input type="date" class="input" [(ngModel)]="endDate" (change)="calculateDuration()" >
+                      </div>            </div>
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="">Duración</label>
+                        <input type="number" min="0" [(ngModel)]="durationTime" class="input" disabled> (días)
+                      </div>
+                    </div>
+                    <div class="col">
+
+                      <div class="form-group">
+                        <label for="">Tiempo estimado</label>
+                        <input type="number" class="input" [(ngModel)]="estimatedTime" disabled> (horas)
+                      </div>
+                    </div>
+                  </div>
 
         </ng-template>
       </mat-tab>

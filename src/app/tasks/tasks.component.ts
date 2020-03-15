@@ -34,7 +34,12 @@ export class TasksComponent implements OnInit {
   }
   ngOnInit() {
     this.formTask();
-    if (this.data.operation === 2) {
+    if (this.data.operation === 1) {
+      this.taskForm.controls['task_type'].setValue('Desarrollo');
+      this.taskForm.controls['task_class'].setValue('Sencilla');
+      this.taskForm.controls['task_status'].setValue('Iniciada');
+      this.taskForm.controls['task_functions'].setValue(1);
+    } else if (this.data.operation === 2) {
       this.taskForm.controls['id'].setValue(this.data.task.task.id);
       this.taskForm.controls['description'].setValue(this.data.task.task.description);
       this.taskForm.controls['task_type'].setValue(this.data.task.task.task_type);
@@ -71,6 +76,20 @@ export class TasksComponent implements OnInit {
       });
     }
     this.onNoClick();
+  }
+
+  selectClass() {
+    console.log("cambio de clase");
+    if (this.taskForm.value.task_class === 'Sencilla') {
+      this.taskForm.controls['task_functions'].setValue(1);
+
+    } else if (this.taskForm.value.task_class === 'Media') {
+      this.taskForm.controls['task_functions'].setValue(3);
+
+    } else if (this.taskForm.value.task_class === 'Compleja') {
+      this.taskForm.controls['task_functions'].setValue(5);
+
+    }
   }
 
 }

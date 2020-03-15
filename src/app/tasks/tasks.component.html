@@ -29,7 +29,7 @@
         <div class="form-row">
           <div class="col">
             <label for="">Clase</label>
-            <select class="form-control" formControlName="task_class">
+            <select class="form-control" formControlName="task_class" (change)="selectClass()">
               <option value="Sencilla" >Sencilla</option>
               <option value="Media">Media</option>
               <option value="Compleja">Compleja</option>
@@ -37,7 +37,7 @@
           </div>
           <div class="col">
             <label for="">Funciones</label>
-            <input type="number" class="input taskFunction" min="1" formControlName="task_functions">
+            <input type="number" class="input taskFunction" min="1" formControlName="task_functions" disabled>
           </div>
         </div>
         <div class="form-group">

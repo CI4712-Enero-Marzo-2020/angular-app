@@ -18,6 +18,11 @@ export class SprintBacklogComponent implements OnInit {
   idStory = 0;
   idTest = 0;
   idCriteria = 0;
+  estimatedTime = 0;
+  durationTime = 0;
+  initDate = '';
+  endDate = '';
+
   sprintForm: FormGroup;
   testForm: FormGroup;
   criteriaForm: FormGroup;
@@ -26,15 +31,34 @@ export class SprintBacklogComponent implements OnInit {
 
   testsList = [];
   criteriaList = [];
-  selected = false;
-
   sprintStories = [];
-  sprintTasks = [];
   sprintStoriesToAdd = [];
   storiesList = [];
+
+  selected = false;
   seeAll = true;
   back = false;
   storySelected: any;
+  sprintTasks = [
+    { id: 1,
+      description:"nueva tarea",
+      task_class: "Sencilla",
+      task_functions: 1
+    },
+    { id: 2,
+      description:"nueva tarea",
+      task_class: "Media",
+      task_functions: 3
+    },
+    { id: 3,
+      description:"nueva tarea",
+      task_class: "Compleja",
+      task_functions: 5
+    },
+    { id: 4,
+      description:"nueva tarea",
+      task_class: "Media",
+      task_functions: 3}];
 
   constructor(public sprintService: SprintService,
               public route: ActivatedRoute,
@@ -50,6 +74,8 @@ export class SprintBacklogComponent implements OnInit {
     this.formTest();
     this.formCriteriaEdit();
     this.formTestEdit();
+    this.getTasks();
+
   }
 
 
@@ -124,6 +150,10 @@ export class SprintBacklogComponent implements OnInit {
       });
 
     });
+  }
+
+  getTasks() {
+    this.calculateTime();
   }
 
   editTest(test) {
@@ -251,6 +281,36 @@ export class SprintBacklogComponent implements OnInit {
               id: 1,
             }
     });
+    modalDialog.afterClosed().subscribe(result => {
+      this.calculateTime();
+    });
+  }
+
+  calculateTime() {
+    let simples = 0;
+    let medias = 0;
+    let complex = 0;
+    this.sprintTasks.map(task => {
+      if (task.task_class === 'Sencilla') {
+        simples += 1;
+      } else if (task.task_class === 'Media') {
+        medias += 1;
+      } else if (task.task_class === 'Compleja') {
+        complex += 1;
+      }
+    });
+
+    this.estimatedTime = simples + (medias * 3) + (complex * 5);
+  }
+
+  calculateDuration() {
+    console.log(this.initDate, this.endDate);
+    const fechaInicio = new Date(this.initDate).getTime();
+    const fechaFin    = new Date(this.endDate).getTime();
+
+    const diff = fechaFin - fechaInicio;
+    this.durationTime = diff/ (1000 * 60 * 60 * 24);
+    console.log("dias", this.durationTime );
   }
 
 
