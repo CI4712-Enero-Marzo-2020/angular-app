@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Plan, User } from './plan';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-sprintplanning',
@@ -64,11 +65,24 @@ export class SprintplanningComponent implements OnInit {
       ]
     }
   ];
+  addEditPlanForm: FormGroup;
+  addMode = true;
 
 
-  constructor() { }
+  constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    this.initializeAddForm();
+  }
+
+  initializeAddForm() {
+    this.addMode = true;
+    this.addEditPlanForm = this.formBuilder.group({
+      subject : ["", Validators.required],
+      user_story_id : [[], Validators.required],
+      activity : ["", Validators.required],
+      assigned: [[], Validators.required]
+    });
   }
 
   showUsers(users: User[]) {

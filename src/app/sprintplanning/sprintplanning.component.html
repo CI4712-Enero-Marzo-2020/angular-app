@@ -91,4 +91,71 @@
             </div>
         </div>
     </div>
+
+    <div class="modal modal-angular fade" id="addEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 *ngIf="addMode" class="modal-title">Agregar Plan</h5>
+                    <h5 *ngIf="!addMode" class="modal-title">Editar Plan {{story.id}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form [formGroup]="addEditPlanForm">
+                        <div class="row">
+                            <div class="col-12">
+                                <h6>Tema</h6>
+                                <div class="form-group">
+                                    <input formControlName="subject" type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <h6>IDHU</h6>
+                                <div class="form-group">
+                                    <select formControlName="user_story_id" multiple class="form-control">
+                                        <option value="0">Alta</option>
+                                        <option value="1">Media</option>
+                                        <option value="2">Baja</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <h6>Actividad</h6>
+                                <div class="form-group">
+                                    <input formControlName="activity" type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <h6>Asignado</h6>
+                                <div class="form-group">
+                                    <select formControlName="assigned" multiple class="form-control">
+                                        <option value="0">Alta</option>
+                                        <option value="1">Media</option>
+                                        <option value="2">Baja</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button *ngIf="addMode" type="button" class="btn btn-primary" data-toggle="modal" data-dismiss="modal"
+                    (click)="createStory()">Crear Historia</button>
+                    <button *ngIf="!addMode" type="button" class="btn btn-primary" data-toggle="modal" data-dismiss="modal"
+                    (click)="editStory()">Editar Historia</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
 </div>
