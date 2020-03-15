@@ -3,6 +3,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { SprintService } from '../services/sprint/sprint.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../services/users/auth.service';
+import { MatDialogConfig, MatDialog } from '@angular/material';
+import { TasksComponent } from '../tasks/tasks.component';
 
 @Component({
   selector: 'app-sprint-details',
@@ -31,7 +33,7 @@ export class SprintDetailsComponent implements OnInit {
   selected = false;
 
   sprintStories = [];
-  sprintTasks = [];
+  sprintTasks = [{ id: 1, description:"nueva tarea"}, { id: 2, description:"nueva tarea"}];
   sprintStoriesToAdd = [];
   storiesList = [];
   seeAll = true;
@@ -42,7 +44,7 @@ export class SprintDetailsComponent implements OnInit {
   constructor(public sprintService: SprintService,
               public route: ActivatedRoute,
               public router: Router,
-              public authService: AuthService) {
+              public authService: AuthService, private matDialog: MatDialog) {
 
     this.idSprint = parseInt(this.route.snapshot.paramMap.get('id'), 10);
     this.getSprint();
@@ -267,16 +269,31 @@ export class SprintDetailsComponent implements OnInit {
   }
 
   createTask() {
-    console.log(this.taskForm.value, this.selectedUser);
-    this.sprintService.createTask(this.taskForm.value).subscribe(res => {
-      console.log("TASK", res);
-    })
+
+    const modalDialog = this.matDialog.open(TasksComponent, {
+      width: '65%',
+      data: {
+              title: 'Crear Tarea',
+              operation: 1,
+              idProject: this.idSprint,
+              idUser: this.idUser
+            }
+    });
   }
 
-  userSelect(selection) {
-    console.log(selection);
-
+  editTask(task) {
+    const modalDialog = this.matDialog.open(TasksComponent, {
+      width: '65%',
+      data: {
+              title: 'Editar Tarea',
+              operation: 2,
+              idProject: this.idSprint,
+              idUser: this.idUser,
+              task: {task}
+            }
+    });
   }
+
 
 
 }

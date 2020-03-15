@@ -97,95 +97,95 @@
       </mat-tab>
       <mat-tab label="Tareas">
         <ng-template matTabContent>
-          <!-- Lista de tareas del Sprint Backlog -->
-          <div class="row">
-              <div class="col-md-12">
-                  <div class="card">
-                      <div class="card-header card-header-danger">
-
-                          <div class="row">
-                              <div class="col-xs-12 col-md-6 text-left">
-                                  <h4 class="card-title ">Tareas</h4>
-                              </div>
-                              <div class="col-xs-12 col-md-6 text-right">
-                                <div class="input-group">
-                                    <span class="input-group-btn">
-                                        <button id="but1" mat-raised-button type="submit" class="btn pull-right" data-toggle="modal" data-target="#modalStories" (click)="getStories()">
-                                            <fa-icon icon="arrow-alt-circle-up"></fa-icon>
-                                        </button>
-                                    </span>
+                  <!-- Lista de tareas del Sprint Backlog -->
+                  <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header card-header-danger">
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-6 text-left">
+                                        <h4 class="card-title ">Tareas</h4>
+                                    </div>
+                                    <div class="col-xs-12 col-md-6 text-right">
+                                      <div class="input-group">
+                                          <span class="input-group-btn">
+                                              <button id="but1" mat-raised-button type="submit" class="btn pull-right" (click)="createTask()">
+                                                  <fa-icon icon="arrow-alt-circle-up"></fa-icon>
+                                              </button>
+                                          </span>
+                                      </div>
+                                    </div>
                                 </div>
-                              </div>
-                          </div>
-                      </div>
-                      <div class="card-body">
-                          <div class="table-responsive">
-                              <table class="table">
-                                  <thead class=" text-primary">
-                                      <th>
-                                        ID
-                                      </th>
-                                      <th>
-                                        Descripción
-                                      </th>
-                                      <th>
-                                        Tipo
-                                      </th>
-                                      <th>
-                                        Estado
-                                      </th>
-                                      <th>
-                                        Asignada
-                                      </th>
-                                      <th>
-                                        Clase
-                                      </th>
-                                      <th>
-                                        Funciones
-                                      </th>
-                                      <th class="options-column">
-                                          Opciones
-                                      </th>
-                                  </thead>
-                                  <tbody>
-                                    <tr *ngFor="let task of sprintTasks">
-                                          <td>
-                                            {{task.id}}
-                                          </td>
-                                          <td>
-                                            {{task.description}}
-                                          </td>
-                                          <td>
-                                            {{task.description}}
-                                          </td>
-                                          <td>
-                                            {{task.description}}
-                                          </td>
-                                          <td>
-                                            {{task.description}}
-                                          </td>
-                                          <td>
-                                            {{task.description}}
-                                          </td>
-                                          <td>
-                                              <div class="btn-group" role="group">
-                                                  <button type="button" class="btn btn-secondary" (click)="seeDetails(story)" >
-                                                    <fa-icon icon="edit"></fa-icon>
-                                                  </button>
-                                                  <!-- <button type="button" class="btn btn-secondary" (click)="openDialog(log.id)" >
-                                                    <fa-icon icon="times"></fa-icon>
-                                                  </button> -->
-                                              </div>
-                                          </td>
-                                      </tr>
-                                  </tbody>
-                              </table>
-                          </div>
-                      </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead class=" text-primary">
+                                          <th>
+                                            ID
+                                          </th>
+                                          <th>
+                                            Descripción
+                                          </th>
+                                          <th>
+                                            Tipo
+                                          </th>
+                                          <th>
+                                            Estado
+                                          </th>
+                                          <th>
+                                            Asignada
+                                          </th>
+                                          <th>
+                                            Clase
+                                          </th>
+                                          <th>
+                                            Funciones
+                                          </th>
+                                          <th class="options-column">
+                                              Opciones
+                                          </th>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let task of sprintTasks">
+                                              <td>
+                                                {{task.id}}
+                                              </td>
+                                              <td>
+                                                {{task.description}}
+                                              </td>
+                                              <td>
+                                                {{task.description}}
+                                              </td>
+                                              <td>
+                                                {{task.description}}
+                                              </td>
+                                              <td>
+                                                {{task.description}}
+                                              </td>
+                                              <td>
+                                                {{task.description}}
+                                              </td>
+                                              <td>
+                                                <div class="btn-group" role="group">
+                                                    <button type="button" class="btn btn-secondary" (click)="seeDetails(task)" >
+                                                      <fa-icon icon="edit"></fa-icon>
+                                                    </button>
+                                                    <!-- <button type="button" class="btn btn-secondary" (click)="openDialog(log.id)" >
+                                                      <fa-icon icon="times"></fa-icon>
+                                                    </button> -->
+                                                </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                   </div>
-              </div>
-          </div>
-          <p *ngIf="sprintTasks.length === 0"> No se han agregado tareas </p>
+                  <p *ngIf="sprintTasks.length === 0"> No existen tareas definidos para esta historia</p>
+
         </ng-template>
       </mat-tab>
     </mat-tab-group>

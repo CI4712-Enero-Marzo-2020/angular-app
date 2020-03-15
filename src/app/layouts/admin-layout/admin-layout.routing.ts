@@ -9,6 +9,7 @@ import { LoginActivate } from 'src/app/login/login-activate';
 import { LoginComponent } from 'src/app/login/login.component';
 import { SprintBacklogComponent } from 'src/app/sprint-backlog/sprint-backlog.component';
 import { SprintDetailsComponent } from 'src/app/sprint-details/sprint-details.component';
+import { TasksComponent } from 'src/app/tasks/tasks.component';
 
 export const AdminLayoutRoutes: Routes = [
     // Agregar path y respectivo componente aquí
@@ -19,7 +20,9 @@ export const AdminLayoutRoutes: Routes = [
       path: 'delete', component: DialogComponent
     }] },
     { path: 'sprint/:id', component: SprintBacklogComponent},
-    { path: 'sprint/details/:id', component: SprintDetailsComponent}
+    { path: 'sprint/details/:id', component: SprintDetailsComponent, children: [{
+      path: 'task/create', component: TasksComponent
+    }]}
 
 
 ];

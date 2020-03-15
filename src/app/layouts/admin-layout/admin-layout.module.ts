@@ -45,6 +45,7 @@ import { DialogComponent } from 'src/app/logger/dialog/dialog.component';
 import { SprintBacklogComponent } from 'src/app/sprint-backlog/sprint-backlog.component';
 import { SprintDetailsComponent } from 'src/app/sprint-details/sprint-details.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { TasksComponent } from 'src/app/tasks/tasks.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -70,7 +71,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
     LoggerComponent,
     DialogComponent,
     SprintBacklogComponent,
-    SprintDetailsComponent
+    SprintDetailsComponent,
+    TasksComponent
   ],
   providers: [
     LoginActivate,

@@ -15,7 +15,6 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { Location } from '@angular/common';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,7 +30,8 @@ import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
     ComponentsModule,
     NgSelectModule,
     FontAwesomeModule,
-    MatDialogModule
+    MatDialogModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent],

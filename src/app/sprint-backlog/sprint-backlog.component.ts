@@ -3,6 +3,8 @@ import { SprintService } from '../services/sprint/sprint.service';
 import { Route, ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl } from '@angular/forms';
 import { element } from 'protractor';
+import { MatDialog } from '@angular/material';
+import { TasksComponent } from '../tasks/tasks.component';
 
 @Component({
   selector: 'app-sprint-backlog',
@@ -27,7 +29,7 @@ export class SprintBacklogComponent implements OnInit {
   selected = false;
 
   sprintStories = [];
-  sprintTask = [];
+  sprintTasks = [];
   sprintStoriesToAdd = [];
   storiesList = [];
   seeAll = true;
@@ -36,7 +38,8 @@ export class SprintBacklogComponent implements OnInit {
 
   constructor(public sprintService: SprintService,
               public route: ActivatedRoute,
-              public router: Router) {
+              public router: Router,
+              private matDialog: MatDialog) {
 
     this.idProject = parseInt(this.route.snapshot.paramMap.get('id'), 10);
     this.route.queryParams.subscribe(res => {
@@ -238,6 +241,18 @@ export class SprintBacklogComponent implements OnInit {
       });
     }
   }
+
+  createTask() {
+    const modalDialog = this.matDialog.open(TasksComponent, {
+      width: '65%',
+      data: {
+              title: 'Crear Tarea',
+              operation: 1,
+              id: 1,
+            }
+    });
+  }
+
 
 
 }
