@@ -26,8 +26,13 @@ import {
 // Agregar componentes aquí
 import { ProjectsComponent } from '../../projects/projects.component';
 import { ProductbacklogComponent } from '../../productbacklog/productbacklog.component';
+import { DocumentsComponent } from '../../documents/documents.component';
+import { IntroComponent } from '../../intro/intro.component';
 import {LoginComponent} from '../../login/login.component';
 import { LoginActivate } from '../../login/login-activate';
+import { CreateUsersComponent } from 'src/app/create-users/create-users.component';
+import { RegisterComponent } from 'src/app/register/register.component';
+
 
 import {
   MatButtonModule,
@@ -72,7 +77,11 @@ import { TasksComponent } from 'src/app/tasks/tasks.component';
     DialogComponent,
     SprintBacklogComponent,
     SprintDetailsComponent,
-    TasksComponent
+    TasksComponent,
+    DocumentsComponent,
+    IntroComponent,
+    CreateUsersComponent,
+    RegisterComponent
   ],
   providers: [
     LoginActivate,

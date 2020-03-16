@@ -1,0 +1,58 @@
+
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title">Registro</h4>
+                        <p class="card-category">Ingresa los datos del usuario</p>
+                    </div>
+                    <div class="card-body">
+                        <form (ngSubmit)="register()" #userRegisterForm="ngForm">                                
+                            <div class="row">
+
+                                <div class="col-md-8">
+                                      <input type="text" class="form-control" placeholder="Usuario" [(ngModel)]="username" name="username">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                      <input type="text" class="form-control" placeholder="Contraseña" type="password" [(ngModel)]="password" name="password">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                      <input type="text" class="form-control" placeholder="Nombre" type="text" [(ngModel)]="first_name" name="first_name">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                      <input type="text" class="form-control" placeholder="Apellido" type="text" [(ngModel)]="last_name" name="last_name">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                      <select class="form-control" placeholder="Rol" [(ngModel)]="role" name="role">
+                                          <option value="Product Owner">Product Owner</option>
+                                          <option value="Scrum Master">Scrum Master</option>
+                                          <option value="Scrum Team">Scrum Team</option>
+                                      </select>
+                                      <fa-icon icon="['fa','plus']"></fa-icon>
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <button type="submit" class="btn btn-danger btn-round">Registrar</button>
+                                    <button type="button" class="btn btn-danger btn-round" (click)="limpiarCampos()">Limpiar campos</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
