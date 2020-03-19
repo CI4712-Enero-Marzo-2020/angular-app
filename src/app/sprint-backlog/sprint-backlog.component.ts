@@ -41,26 +41,8 @@ export class SprintBacklogComponent implements OnInit {
   seeAll = true;
   back = false;
   storySelected: any;
-  sprintTasks = [
-    { id: 1,
-      description:"nueva tarea",
-      task_class: "Sencilla",
-      task_functions: 1
-    },
-    { id: 2,
-      description:"nueva tarea",
-      task_class: "Media",
-      task_functions: 3
-    },
-    { id: 3,
-      description:"nueva tarea",
-      task_class: "Compleja",
-      task_functions: 5
-    },
-    { id: 4,
-      description:"nueva tarea",
-      task_class: "Media",
-      task_functions: 3}];
+  sprintTasks = [];
+  sprint: any;
 
   constructor(public sprintService: SprintService,
               public route: ActivatedRoute,
@@ -76,7 +58,6 @@ export class SprintBacklogComponent implements OnInit {
     this.formTest();
     this.formCriteriaEdit();
     this.formTestEdit();
-    this.getTasks();
 
   }
 
@@ -170,14 +151,17 @@ export class SprintBacklogComponent implements OnInit {
 
   onSubmit() {
     const jsonSprint = this.sprintForm.value;
+    this.initDate = this.sprintForm.value.init_date;
     jsonSprint.init_date = this.getCurrentDate();
     const endDateFormat = jsonSprint.end_date.split("-");
     jsonSprint.end_date = '';
     jsonSprint.end_date = endDateFormat[2] + "/" + endDateFormat[1] + "/" + endDateFormat[0];
-    console.log( jsonSprint);
+    this.endDate = jsonSprint.end_date;
 
     this.sprintService.createSprint(jsonSprint).subscribe((res: any) => {
       this.idSprint = res.id;
+      this.sprint = res;
+      this.calculateDuration();
     });
   }
 
@@ -198,8 +182,25 @@ export class SprintBacklogComponent implements OnInit {
     });
   }
 
+
   getTasks() {
-    this.calculateTime();
+    this.sprintService.getAllTasks(this.idSprint).subscribe((res: any) => {
+      this.sprintTasks = res;
+      this.calculateTime();
+      this.calculateFunctions();
+    });
+  }
+
+  calculateFunctions() {
+    this.sprintTasks.map(task => {
+      if (task.task_class === 'Sencilla') {
+       task.task_functions = 1;
+      } else if (task.task_class === 'Media') {
+        task.task_functions = 3;
+      } else if (task.task_class === 'Compleja') {
+        task.task_functions = 5;
+      }
+    });
   }
 
   editTest(test) {
@@ -322,13 +323,14 @@ export class SprintBacklogComponent implements OnInit {
     const modalDialog = this.matDialog.open(TasksComponent, {
       width: '65%',
       data: {
-              title: 'Crear Tarea',
-              operation: 1,
-              id: 1,
-            }
+        title: 'Crear Tarea',
+        operation: 1,
+        idProject: this.sprint.id,
+        idUser: this.idUser
+      }
     });
     modalDialog.afterClosed().subscribe(result => {
-      this.calculateTime();
+      this.getTasks();
     });
   }
 
@@ -350,14 +352,13 @@ export class SprintBacklogComponent implements OnInit {
   }
 
   calculateDuration() {
-    console.log(this.initDate, this.endDate);
-    const fechaInicio = new Date(this.initDate).getTime();
-    const fechaFin    = new Date(this.endDate).getTime();
+    const fechaInicio = new Date(this.sprint.init_date).getTime();
+    const fechaFin    = new Date(this.sprint.end_date).getTime();
 
     const diff = fechaFin - fechaInicio;
-    this.durationTime = diff/ (1000 * 60 * 60 * 24);
-    console.log("dias", this.durationTime );
+    this.durationTime = parseInt((diff / (1000 * 60 * 60 * 24)).toString(), 10) + 1;
   }
+
 
 
 
