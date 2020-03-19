@@ -88,4 +88,8 @@ export class SprintService {
     return this.http.post(this.urlTasks + 'update/' + id, params);
   }
 
+  getAllTasks(id) {
+    return this.http.get(this.urlTasks + 'getbysprint/' + id);
+  }
+
 }

@@ -10,19 +10,19 @@
           <div class="col">
             <label for="">Tipo</label>
             <select class="form-control" formControlName="task_type">
-              <option value="Desarrollo" >Desarrollo</option>
-              <option value="Diseño">Diseño</option>
-              <option value="Reparar">Reparar</option>
-              <option value="Refactor">Refactor</option>
+              <option value="develop" >Desarrollo</option>
+              <option value="design">Diseño</option>
+              <option value="fix">Reparar</option>
+              <option value="refact">Refactor</option>
             </select>
           </div>
           <div class="col">
             <label for="">Estado</label>
             <select class="form-control" formControlName="task_status">
-              <option value="Nueva" >Nueva</option>
-              <option value="Iniciada">Iniciada</option>
-              <option value="Lista para Pruebas">Lista para Pruebas</option>
-              <option value="Culminada">Culminada</option>
+              <option value="new" >Nueva</option>
+              <option value="init">Iniciada</option>
+              <option value="to_test">Lista para Pruebas</option>
+              <option value="ended">Culminada</option>
             </select>
           </div>
         </div>
@@ -30,9 +30,9 @@
           <div class="col">
             <label for="">Clase</label>
             <select class="form-control" formControlName="task_class" (change)="selectClass()">
-              <option value="Sencilla" >Sencilla</option>
-              <option value="Media">Media</option>
-              <option value="Compleja">Compleja</option>
+              <option value="easy" >Sencilla</option>
+              <option value="middle">Media</option>
+              <option value="hard">Compleja</option>
             </select>
           </div>
           <div class="col">

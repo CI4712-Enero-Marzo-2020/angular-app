@@ -22,7 +22,9 @@ export class SprintBacklogComponent implements OnInit {
   durationTime = 0;
   initDate = '';
   endDate = '';
-
+  currentDate = '';
+  currentHour = '';
+  dateFormat = '';
   sprintForm: FormGroup;
   testForm: FormGroup;
   criteriaForm: FormGroup;
@@ -86,13 +88,50 @@ export class SprintBacklogComponent implements OnInit {
 
 
   formSprint() {
+    this.getCurrentDate();
     this.sprintForm = new FormGroup({
       project_id : new FormControl(this.idProject),
       description: new FormControl(''),
+      init_date: new FormControl(this.dateFormat),
+      end_date: new FormControl(''),
       user_id: new FormControl(this.idUser)
     });
   }
 
+  getCurrentDate() {
+    const dateObj = new Date();
+    let today = dateObj.getDate().toString() ;
+    let mounth = (dateObj.getMonth() + 1).toString() ;
+    let hour = '';
+    let minutes = '';
+    let miliseg = '';
+
+    if (dateObj.getDate() <= 9) {
+      today = '0' + today.toString();
+    }
+    if ((dateObj.getMonth() + 1) <= 9) {
+      mounth = '0' + mounth.toString();
+    }
+    if (dateObj.getHours() <= 9) {
+      hour = '0' + dateObj.getHours().toString();
+    } else {
+      hour = dateObj.getHours().toString();
+    }
+    if (dateObj.getMinutes() <= 9) {
+      minutes = '0' + dateObj.getMinutes().toString();
+    } else {
+      minutes = dateObj.getMinutes().toString();
+    }
+    if (dateObj.getSeconds() <= 9) {
+      miliseg = '0' + dateObj.getSeconds().toString();
+    } else {
+      miliseg = dateObj.getSeconds().toString();
+    }
+    this.dateFormat = today + '/' + mounth + '/' + dateObj.getFullYear();
+    this.currentDate = dateObj.getFullYear() + '-' + mounth + '-' + today;
+    this.currentHour = hour + ':' + minutes + ':' + miliseg;
+    return this.dateFormat + ' ' + this.currentHour;
+  }
   formTest() {
     this.testForm = new FormGroup({
       story_id : new FormControl(''),
@@ -130,7 +169,14 @@ export class SprintBacklogComponent implements OnInit {
   }
 
   onSubmit() {
-    this.sprintService.createSprint(this.sprintForm.value).subscribe((res: any) => {
+    const jsonSprint = this.sprintForm.value;
+    jsonSprint.init_date = this.getCurrentDate();
+    const endDateFormat = jsonSprint.end_date.split("-");
+    jsonSprint.end_date = '';
+    jsonSprint.end_date = endDateFormat[2] + "/" + endDateFormat[1] + "/" + endDateFormat[0];
+    console.log( jsonSprint);
+
+    this.sprintService.createSprint(jsonSprint).subscribe((res: any) => {
       this.idSprint = res.id;
     });
   }

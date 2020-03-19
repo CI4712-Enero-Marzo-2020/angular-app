@@ -14,6 +14,20 @@
                   <label for="description">Descripción</label>
                   <input type="text" class="form-control" id="description" formControlName="description" placeholder="">
                 </div>
+                <div class="row">
+                  <div class="col">
+                    <div class="form-group">
+                      <label for="">Inicio</label>
+                      <input type="text" class="form-control" formControlName="init_date"  disabled >
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="form-group">
+                      <label for="">Cierre</label>
+                      <input type="date" class="form-control" min="{{ currentDate }}" formControlName="end_date" disabled="{{ !idSprint }}">
+                    </div>
+                  </div>
+                </div>
                 <button *ngIf="!idSprint" type="submit" class="btn btn-primary">Generar sprint</button>
               </form>
         </div>

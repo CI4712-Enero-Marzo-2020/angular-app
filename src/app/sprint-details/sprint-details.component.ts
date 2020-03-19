@@ -15,7 +15,7 @@ export class SprintDetailsComponent implements OnInit {
   idProject: number;
   idSprint: number;
 
-  sprint = {  id: 0, user: {id: 0}, project_id: 0};
+  sprint = {  id: 0, user: {id: 0}, project_id: 0, end_date: '', init_date: ''};
 
   idUser = 0;
   idStory = 0;
@@ -34,26 +34,7 @@ export class SprintDetailsComponent implements OnInit {
   estimatedTime = 0;
   durationTime = 0;
   sprintStories = [];
-  sprintTasks = [
-                { id: 1,
-                  description:"nueva tarea",
-                  task_class: "Sencilla",
-                  task_functions: 1
-                },
-                { id: 2,
-                  description:"nueva tarea",
-                  task_class: "Media",
-                  task_functions: 3
-                },
-                { id: 3,
-                  description:"nueva tarea",
-                  task_class: "Compleja",
-                  task_functions: 5
-                },
-                { id: 4,
-                  description:"nueva tarea",
-                  task_class: "Media",
-                  task_functions: 3}];
+  sprintTasks = [];
   sprintStoriesToAdd = [];
   storiesList = [];
   seeAll = true;
@@ -61,6 +42,8 @@ export class SprintDetailsComponent implements OnInit {
   storySelected: any;
   users = [{id: 1, name: 'nairelyshz'}, {id: 2, name: 'jguzman'}, {id: 3, name: 'jjjjj'}, {id: 4, name: 'kkkk'}];
   selectedUser = [];
+  initDate = '';
+  endDate = '';
   constructor(public sprintService: SprintService,
               public route: ActivatedRoute,
               public router: Router,
@@ -68,7 +51,6 @@ export class SprintDetailsComponent implements OnInit {
 
     this.idSprint = parseInt(this.route.snapshot.paramMap.get('id'), 10);
     this.getSprint();
-    this.getTasks();
     if (authService.getCurrentUser()) {
       this.idUser = authService.getCurrentUser().userId;
     }
@@ -83,9 +65,16 @@ export class SprintDetailsComponent implements OnInit {
   ngOnInit() {}
   /** informacion basica del sprint */
   getSprint() {
-    this.sprintService.getSprintDetails(this.idSprint).subscribe(res => {
+    this.sprintService.getSprintDetails(this.idSprint).subscribe((res: any) => {
       this.sprint = res[0];
+      let dateObj = new Date(this.sprint.init_date);
+      this.initDate = dateObj.getDate() + '/' + (dateObj.getMonth() + 1) + '/' + dateObj.getFullYear();
+      dateObj = new Date(this.sprint.end_date);
+      this.endDate = dateObj.getDate() + '/' + (dateObj.getMonth() + 1) + '/' + dateObj.getFullYear();
       this.getSprintStories();
+      this.getTasks();
+      this.calculateDuration();
+
     });
   }
 
@@ -171,10 +160,25 @@ export class SprintDetailsComponent implements OnInit {
   }
 
   getTasks() {
+    this.sprintService.getAllTasks(this.idSprint).subscribe((res: any) => {
+      this.sprintTasks = res;
+      this.calculateTime();
+      this.calculateFunctions();
+    });
 
-    this.calculateTime();
   }
 
+  calculateFunctions() {
+    this.sprintTasks.map(task => {
+      if (task.task_class === 'Sencilla') {
+       task.task_functions = 1;
+      } else if (task.task_class === 'Media') {
+        task.task_functions = 3;
+      } else if (task.task_class === 'Compleja') {
+        task.task_functions = 5;
+      }
+    });
+  }
   calculateTime() {
     let simples = 0;
     let medias = 0;
@@ -322,6 +326,9 @@ export class SprintDetailsComponent implements OnInit {
               idUser: this.idUser
             }
     });
+    modalDialog.afterClosed().subscribe(result => {
+      this.getTasks();
+    });
   }
 
   editTask(task) {
@@ -335,16 +342,16 @@ export class SprintDetailsComponent implements OnInit {
               task: {task}
             }
     });
+    modalDialog.afterClosed().subscribe(result => {
+      this.getTasks();
+    });
   }
 
   calculateDuration() {
-    // console.log(this.initDate, this.endDate);
-    // const fechaInicio = new Date(this.initDate).getTime();
-    // const fechaFin    = new Date(this.endDate).getTime();
-
-    // const diff = fechaFin - fechaInicio;
-    // this.durationTime = diff/ (1000 * 60 * 60 * 24);
-    // console.log("dias", this.durationTime );
+    const fechaInicio = new Date(this.sprint.init_date).getTime();
+    const fechaFin    = new Date(this.sprint.end_date).getTime();
+    const diff = fechaFin - fechaInicio;
+    this.durationTime = parseInt((diff / (1000 * 60 * 60 * 24)).toString(), 10) + 1;
   }
 
 }

@@ -155,7 +155,10 @@
                                         {{task.task_status}}
                                       </td>
                                       <td>
-                                        {{task.task_asignners}}
+                                        <p *ngFor="let user of task.users">
+                                            {{user.username}}
+
+                                        </p>
                                       </td>
                                       <td>
                                         {{task.task_class}}
@@ -182,24 +185,24 @@
             </div>
           </div>
           <div class="row">
-            <div class="col">
+            <div class="col-3">
               <div class="form-group">
                 <label for="">Inicio</label>
-                <input type="date" class="input" disabled>
+                <input type="text" class="input" [(ngModel)]="initDate" disabled>
               </div>
             </div>
-            <div class="col">
+            <div class="col-3">
               <div class="form-group">
                 <label for="">Cierre</label>
-                <input type="date" class="input" disabled>
+                <input type="text" class="input" [(ngModel)]="endDate" disabled>
               </div>            </div>
-            <div class="col">
+            <div class="col-3">
               <div class="form-group">
                 <label for="">Duración</label>
-                <input type="number" min="0" [(ngModel)]="durationTime" class="input" disabled>
+                <input type="number" min="0" [(ngModel)]="durationTime" class="input" disabled>(días)
               </div>
             </div>
-            <div class="col">
+            <div class="col-3">
 
               <div class="form-group">
                 <label for="">Tiempo estimado</label>

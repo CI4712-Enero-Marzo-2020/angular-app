@@ -18,7 +18,7 @@ export class TasksComponent implements OnInit {
   idSprint = 0;
   idUser = 0;
   storySelected: any;
-  users = [{id: 1, name: 'nairelyshz'}, {id: 2, name: 'jguzman'}, {id: 3, name: 'jjjjj'}, {id: 4, name: 'kkkk'}];
+  users = [{id: 1, name: 'jguzman'}, {id: 2, name: 'nairelyshz'}];
   selectedUser = [];
   taskForm: FormGroup;
 
@@ -35,9 +35,9 @@ export class TasksComponent implements OnInit {
   ngOnInit() {
     this.formTask();
     if (this.data.operation === 1) {
-      this.taskForm.controls['task_type'].setValue('Desarrollo');
-      this.taskForm.controls['task_class'].setValue('Sencilla');
-      this.taskForm.controls['task_status'].setValue('Iniciada');
+      this.taskForm.controls['task_type'].setValue('develop');
+      this.taskForm.controls['task_class'].setValue('easy');
+      this.taskForm.controls['task_status'].setValue('init');
       this.taskForm.controls['task_functions'].setValue(1);
     } else if (this.data.operation === 2) {
       this.taskForm.controls['id'].setValue(this.data.task.task.id);
@@ -91,5 +91,6 @@ export class TasksComponent implements OnInit {
 
     }
   }
+
 
 }
