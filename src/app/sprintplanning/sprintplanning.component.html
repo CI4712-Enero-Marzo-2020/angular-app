@@ -12,16 +12,16 @@
                             </div>
                             <div class="col-xs-12 col-md-6 text-right">
                                 <div class="input-group">
-                                    <input type="text" placeholder="Buscar" [(ngModel)]="id" class="form-control"
-                                        (ngModelChange)="resetStoriesList()">
+                                    <input type="text" placeholder="Buscar" [(ngModel)]="searchword" class="form-control">
                                     <span class="input-group-btn">
                                         <button id="but1" mat-raised-button type="submit" class="btn pull-right"
-                                            (click)="Search()">
+                                            (click)="true">
                                             <fa-icon icon="search"></fa-icon>
                                         </button>
                                         <span class="input-group-btn">
                                             <button id="but2" mat-raised-button type="submit" class="btn pull-right"
-                                                data-toggle="modal" data-target="#addEdit" (click)="initializeAddForm()">
+                                                data-toggle="modal" data-target="#addEdit"
+                                                (click)="initializeAddForm()">
                                                 <fa-icon icon="plus-circle"></fa-icon>
                                             </button>
                                         </span>
@@ -54,7 +54,7 @@
                                     </th>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let plan of plans; index as i">
+                                    <tr *ngFor="let plan of filterPlans(searchword); index as i">
                                         <td class="text-center">
                                             {{plan.id}}
                                         </td>
@@ -68,16 +68,16 @@
                                             {{plan.activity}}
                                         </td>
                                         <td>
-                                            {{showUsers(plan.assigned)}}
+                                            {{plan.assigned}}
                                         </td>
                                         <td class="text-right">
                                             <div class="btn-group" role="group">
                                                 <button type="button" class="btn btn-secondary" data-toggle="modal"
-                                                    data-target="#addEdit" (click)="true">
+                                                    data-target="#addEdit" (click)="initializeEditForm(plan)">
                                                     <fa-icon icon="edit"></fa-icon>
                                                 </button>
                                                 <button type="button" class="btn btn-secondary" data-toggle="modal"
-                                                    data-target="#eliminar" (click)="true">
+                                                    data-target="#eliminar" (click)="initializeDeleteForm(plan)">
                                                     <fa-icon icon="times"></fa-icon>
                                                 </button>
                                             </div>
@@ -97,7 +97,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 *ngIf="addMode" class="modal-title">Agregar Plan</h5>
-                    <h5 *ngIf="!addMode" class="modal-title">Editar Plan {{story.id}}</h5>
+                    <h5 *ngIf="!addMode" class="modal-title">Editar Plan {{plan.id}}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -106,38 +106,27 @@
                     <form [formGroup]="addEditPlanForm">
                         <div class="row">
                             <div class="col-12">
-                                <h6>Tema</h6>
                                 <div class="form-group">
+                                    <h6>Tema</h6>
                                     <input formControlName="subject" type="text" class="form-control">
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="row">
                             <div class="col-12">
-                                <h6>IDHU</h6>
                                 <div class="form-group">
-                                    <select formControlName="user_story_id" multiple class="form-control">
-                                        <option value="0">Alta</option>
-                                        <option value="1">Media</option>
-                                        <option value="2">Baja</option>
-                                    </select>
+                                    <h6>IDHU</h6>
+                                    <input formControlName="user_story_id" type="text" class="form-control">
                                 </div>
                             </div>
                             <div class="col-12">
-                                <h6>Actividad</h6>
                                 <div class="form-group">
+                                    <h6>Actividad</h6>
                                     <input formControlName="activity" type="text" class="form-control">
                                 </div>
                             </div>
                             <div class="col-12">
-                                <h6>Asignado</h6>
                                 <div class="form-group">
-                                    <select formControlName="assigned" multiple class="form-control">
-                                        <option value="0">Alta</option>
-                                        <option value="1">Media</option>
-                                        <option value="2">Baja</option>
-                                    </select>
+                                    <h6>Asignado</h6>
+                                    <input formControlName="assigned" type="text" class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -146,10 +135,30 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button *ngIf="addMode" type="button" class="btn btn-primary" data-toggle="modal" data-dismiss="modal"
-                    (click)="createStory()">Crear Historia</button>
-                    <button *ngIf="!addMode" type="button" class="btn btn-primary" data-toggle="modal" data-dismiss="modal"
-                    (click)="editStory()">Editar Historia</button>
+                    <button *ngIf="addMode" type="button" class="btn btn-primary" data-toggle="modal"
+                        data-dismiss="modal" (click)="createPlan()">Crear Plan</button>
+                    <button *ngIf="!addMode" type="button" class="btn btn-primary" data-toggle="modal"
+                        data-dismiss="modal" (click)="editPlan()">Editar Plan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal modal-angular fade" id="eliminar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="margin-top">
+                        ¿Está seguro que desea eliminar el plan {{plan?plan.id:""}}?
+                    </h4>
+                    <a class="modal-button" data-dismiss="modal" (click)="removePlan()" target="_blank">
+                        <div class="product-type">Si</div>
+                    </a>
+                    <a class="modal-button" data-dismiss="modal" target="_blank">
+                        <div class="product-type">No</div>
+                    </a>
                 </div>
             </div>
         </div>

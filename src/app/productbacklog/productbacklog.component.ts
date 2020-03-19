@@ -184,6 +184,10 @@ export class ProductbacklogComponent implements OnInit {
     this.router.navigate(['sprint', this.projectId], {queryParams: {'user_id': currentUser.userId}});
   }
 
+  sprintDetail() {
+    this.router.navigate(['sprint/details', this.sprintId]);
+  }
+
   sprintPlanning() {
     this.router.navigate(['sprintplanning']);
   }

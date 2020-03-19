@@ -1,13 +1,15 @@
 export interface Plan {
     id: number;
+    planning_id: number;
     subject: string;
-    user_story_id: number[];
+    user_story_id: string;
     activity: string;
-    assigned: User[];
+    assigned: string;
 }
 
-export interface User {
+export interface Planning {
     id: number;
-    first_name: string;
-    last_name: string;
+    results: Plan[];
+    date: Date;
+    sprint_id: number;
 }

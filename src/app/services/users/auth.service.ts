@@ -16,7 +16,17 @@ export class AuthService {
 
 
     getAll() {
-        return this.http.get(`${this.api_url}/getall`);
+        return this.http.get(`${this.api_url}/getall`)
+        .toPromise()
+        .then(
+          (response: any[]) => {
+            return response;
+        },
+          (error) => {
+            console.log(error);
+            return null;
+          }
+        );
     }
 
     login(username: string, password: string): Observable<any> {
