@@ -3,6 +3,7 @@ import { Plan } from './plan';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Story } from '../productbacklog/story';
 import { AuthService } from '../services/users/auth.service';
+import { SprintplanningService } from '../services/meetings/sprintplanning/sprintplanning.service';
 
 @Component({
   selector: 'app-sprintplanning',
@@ -15,53 +16,62 @@ export class SprintplanningComponent implements OnInit {
     {
       id: 0,
       planning_id: 0,
-      subject: "Tema 1",
-      user_story_id: "0, 2, 5",
-      activity: "Actividad 1",
-      assigned: "Pedro Pérez, María Grimaldi"
+      subject: 'Tema 1',
+      user_story_id: '0, 2, 5',
+      activity: 'Actividad 1',
+      assigned: 'Pedro Pérez, María Grimaldi'
     },
     {
       id: 1,
       planning_id: 0,
-      subject: "Tema 2",
-      user_story_id: "1, 3, 4",
-      activity: "Actividad 2",
-      assigned: "María Grimaldi"
+      subject: 'Tema 2',
+      user_story_id: '1, 3, 4',
+      activity: 'Actividad 2',
+      assigned: 'María Grimaldi'
     },
     {
       id: 2,
       planning_id: 0,
-      subject: "Tema 3",
-      user_story_id: "6, 7, 8",
-      activity: "Actividad 3",
-      assigned: "Pedro Pérez, María Grimaldi, Julio Pérez"
+      subject: 'Tema 3',
+      user_story_id: '6, 7, 8',
+      activity: 'Actividad 3',
+      assigned: 'Pedro Pérez, María Grimaldi, Julio Pérez'
     }
   ];
   addEditPlanForm: FormGroup;
   addMode = true;
   plan: Plan;
-  searchword : string = "";
+  searchword: string = '';
 
   sprint: any;
 
   constructor(
+    private planningService: SprintplanningService,
     private formBuilder: FormBuilder,
     private authService: AuthService) {
-    
   }
 
   ngOnInit() {
     this.initializeAddForm();
-    this.searchword = ""
+    this.searchword = '';
+  }
+
+  async getAllPlans() {
+    this.planningService.getAll(this.sprint).then((response) => {
+      if (response && response.server !== 'NO_CONTENT' && response.server !== 'ERROR') {
+        this.plans = response;
+      }
+      console.log(response);
+    });
   }
 
   initializeAddForm() {
     this.addMode = true;
     this.addEditPlanForm = this.formBuilder.group({
-      subject: ["", Validators.required],
-      user_story_id: ["", Validators.required],
-      activity: ["", Validators.required],
-      assigned: ["", Validators.required]
+      subject: ['', Validators.required],
+      user_story_id: ['', Validators.required],
+      activity: ['', Validators.required],
+      assigned: ['', Validators.required]
     });
   }
 
@@ -82,7 +92,7 @@ export class SprintplanningComponent implements OnInit {
 
   async createPlan() {
     const formData = new FormData();
-    formData.append('planning_id', "0");
+    formData.append('planning_id', '0');
     formData.append('subject', this.addEditPlanForm.get('subject').value);
     formData.append('user_story_id', this.addEditPlanForm.get('user_story_id').value);
     formData.append('activity', this.addEditPlanForm.get('activity').value);
@@ -91,12 +101,17 @@ export class SprintplanningComponent implements OnInit {
     console.log(formData.get('user_story_id'));
     console.log(formData.get('activity'));
     console.log(formData.get('assigned'));
+    const newPlan: any = await this.planningService.create(formData);
+    if (newPlan && newPlan.server !== 'ERROR') {
+      this.plans.push(newPlan);
+    }
   }
 
   async editPlan() {
+    const index = this.findIndexPlan();
     const formData = new FormData();
     formData.append('id', this.plan.id.toString());
-    formData.append('planning_id', "0");
+    formData.append('planning_id', '0');
     formData.append('subject', this.addEditPlanForm.get('subject').value);
     formData.append('user_story_id', this.addEditPlanForm.get('user_story_id').value);
     formData.append('activity', this.addEditPlanForm.get('activity').value);
@@ -106,14 +121,20 @@ export class SprintplanningComponent implements OnInit {
     console.log(formData.get('user_story_id'));
     console.log(formData.get('activity'));
     console.log(formData.get('assigned'));
+    this.planningService.edit(this.plan, formData).then((response: any) => {
+      console.log(response);
+      if (response && response.server !== 'ERROR') {
+        this.plans = [...this.plans.slice(0, index), response, ...this.plans.slice(index + 1, this.plans.length)];
+      }
+    });
   }
 
   async removePlan() {
   }
 
   filterPlans(id: string) {
-    if (id == "") return this.plans;
-    var plans = [];
+    if (id === '') { return this.plans; }
+    const plans = [];
     this.plans.forEach(plan => {
       if (plan.id.toString().includes(id)) {
         plans.push(plan);
@@ -122,4 +143,9 @@ export class SprintplanningComponent implements OnInit {
     return plans;
   }
 
+  findIndexPlan() {
+    const getProjectIndex = (element) => element.id === this.plan.id;
+    const index = this.plans.findIndex(getProjectIndex);
+    return index;
+  }
 }
