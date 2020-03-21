@@ -41,8 +41,8 @@ export class SprintRetrospectiveService {
     );
   }
 
-  edit(meeting: any, form: any) {
-    return this.http.put(`${this.url}meetings/retrospectives/${meeting.id}`, form)
+  edit(meetingId: any, form: any) {
+    return this.http.put(`${this.url}meetings/retrospectives/${meetingId}`, form)
     .toPromise()
     .then(
       (response) => {
