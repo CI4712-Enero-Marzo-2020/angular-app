@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../services/users/auth.service';
 import { MatDialogConfig, MatDialog } from '@angular/material';
 import { TasksComponent } from '../tasks/tasks.component';
+import { DialogComponent } from '../logger/dialog/dialog.component';
 
 @Component({
   selector: 'app-sprint-details',
@@ -40,10 +41,12 @@ export class SprintDetailsComponent implements OnInit {
   seeAll = true;
   back = false;
   storySelected: any;
-  users = [{id: 1, name: 'nairelyshz'}, {id: 2, name: 'jguzman'}, {id: 3, name: 'jjjjj'}, {id: 4, name: 'kkkk'}];
+  users = [{id: 1, name: 'jguzman'}, {id: 2, name: 'nairelyshz'}, {id: 3, name: 'jjjjj'}, {id: 4, name: 'kkkk'}];
   selectedUser = [];
   initDate = '';
   endDate = '';
+  criteriaError = false;
+  testError = false;
   constructor(public sprintService: SprintService,
               public route: ActivatedRoute,
               public router: Router,
@@ -161,9 +164,14 @@ export class SprintDetailsComponent implements OnInit {
 
   getTasks() {
     this.sprintService.getAllTasks(this.idSprint).subscribe((res: any) => {
-      this.sprintTasks = res;
-      this.calculateTime();
-      this.calculateFunctions();
+      if (res.server) {
+        this.sprintTasks = [];
+      } else {
+        this.sprintTasks = res;
+        this.calculateTime();
+        this.calculateFunctions();
+      }
+
     });
 
   }
@@ -225,10 +233,13 @@ export class SprintDetailsComponent implements OnInit {
 
   addCriteria() {
     this.sprintService.addCriteria(this.criteriaForm.value).subscribe(res => {
-      if(res === []) {
-        console.log("permiso denegado");
-      } else {
-        this.criteriaList.push(res);
+
+      this.criteriaList.push(res);
+
+    },
+    (error) => {
+      if (error.status === 405) {
+        this.criteriaError = true;
       }
     });
   }
@@ -236,6 +247,11 @@ export class SprintDetailsComponent implements OnInit {
   addTest() {
     this.sprintService.addTest(this.testForm.value).subscribe(res => {
       this.testsList.push(res);
+    },
+    (error) => {
+      if (error.status === 405) {
+        this.testError = true;
+      }
     });
   }
 
@@ -352,6 +368,33 @@ export class SprintDetailsComponent implements OnInit {
     const fechaFin    = new Date(this.sprint.end_date).getTime();
     const diff = fechaFin - fechaInicio;
     this.durationTime = parseInt((diff / (1000 * 60 * 60 * 24)).toString(), 10) + 1;
+  }
+
+  openDialog(idtask) {
+
+    const dialogRef = this.matDialog.open(DialogComponent, {
+      width: '60%',
+      height: '30%',
+      data: {operation: 'delete',
+              type: 3,
+              title: 'Eliminar',
+              message: 'Estás seguro que desear eliminar esta tarea?',
+              id: idtask,
+            }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.deleteTask(idtask);
+        this.getTasks();
+      }
+    });
+  }
+
+  public deleteTask(id) {
+    this.sprintService.deleteTask(id).subscribe((res) => {
+      this.getTasks();
+    });
   }
 
 }

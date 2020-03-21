@@ -48,6 +48,7 @@ export class TasksComponent implements OnInit {
       this.taskForm.controls['task_functions'].setValue(this.data.task.task.task_functions);
       this.taskForm.controls['users'].setValue(this.data.task.task.users);
     }
+    this.getUsers();
   }
 
   formTask() {
@@ -65,21 +66,20 @@ export class TasksComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.taskForm.value, this.selectedUser);
     if (this.data.operation === 1) {
       this.sprintService.createTask(this.taskForm.value).subscribe(res => {
-        console.log("TASK crear", res);
+        this.onNoClick();
+
       });
     } else {
       this.sprintService.editTask(this.taskForm.value.id, this.taskForm.value).subscribe(res => {
-        console.log("TASK editar", res);
+        this.onNoClick();
+
       });
     }
-    this.onNoClick();
   }
 
   selectClass() {
-    console.log("cambio de clase");
     if (this.taskForm.value.task_class === 'Sencilla') {
       this.taskForm.controls['task_functions'].setValue(1);
 
@@ -90,6 +90,12 @@ export class TasksComponent implements OnInit {
       this.taskForm.controls['task_functions'].setValue(5);
 
     }
+  }
+
+  getUsers() {
+    this.sprintService.getTeams().subscribe(res => {
+      console.log(res);
+    });
   }
 
 
