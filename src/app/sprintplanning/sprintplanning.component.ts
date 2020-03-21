@@ -44,15 +44,13 @@ export class SprintplanningComponent implements OnInit {
 
   sprint: any;
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private authService: AuthService) {
+  constructor(private formBuilder: FormBuilder) {
     
   }
 
   ngOnInit() {
     this.initializeAddForm();
-    this.searchword = ""
+    this.searchword = "";
   }
 
   initializeAddForm() {

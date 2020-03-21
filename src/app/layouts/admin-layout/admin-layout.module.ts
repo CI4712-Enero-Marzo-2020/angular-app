@@ -36,8 +36,13 @@ import {
   MatFormFieldModule,
   MatTooltipModule,
   MatSelectModule,
-  MatDialogModule
+  MatDialogModule,
+  MatDatepickerModule, 
+  MatNativeDateModule,
+  MAT_DATE_FORMATS
 } from '@angular/material';
+
+
 import { LoggerComponent } from 'src/app/logger/logger.component';
 import { DialogComponent } from 'src/app/logger/dialog/dialog.component';
 import { SprintBacklogComponent } from 'src/app/sprint-backlog/sprint-backlog.component';
@@ -57,7 +62,9 @@ import { SprinttechnicalComponent } from 'src/app/sprinttechnical/sprinttechnica
     MatSelectModule,
     MatTooltipModule,
     FontAwesomeModule,
-    MatDialogModule
+    MatDialogModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   declarations: [
     // Agregar declaraciones de componentes aquí
@@ -73,6 +80,20 @@ import { SprinttechnicalComponent } from 'src/app/sprinttechnical/sprinttechnica
   ],
   providers: [
     LoginActivate,
+    {
+      provide: MAT_DATE_FORMATS,
+      useValue: {
+        parse: {
+          dateInput: ['l', 'LL'],
+        },
+        display: {
+          dateInput: 'L',
+          monthYearLabel: 'MMM YYYY',
+          dateA11yLabel: 'LL',
+          monthYearA11yLabel: 'MMMM YYYY',
+        },
+      },
+    }
   ]
 })
 
