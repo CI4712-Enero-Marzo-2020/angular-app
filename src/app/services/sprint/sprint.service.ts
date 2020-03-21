@@ -92,4 +92,8 @@ export class SprintService {
     return this.http.get(this.urlTasks + 'getbysprint/' + id);
   }
 
+  deleteTask(id) {
+    return this.http.post(this.urlTasks + 'delete/' + id, {});
+  }
+
 }

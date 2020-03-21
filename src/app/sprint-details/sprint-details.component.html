@@ -171,9 +171,9 @@
                                             <button type="button" class="btn btn-secondary" (click)="editTask(task)" >
                                               <fa-icon icon="edit"></fa-icon>
                                             </button>
-                                            <!-- <button type="button" class="btn btn-secondary" (click)="openDialog(log.id)" >
+                                            <button type="button" class="btn btn-secondary" (click)="openDialog(task.id)" >
                                               <fa-icon icon="times"></fa-icon>
-                                            </button> -->
+                                            </button>
                                         </div>
                                         </td>
                                     </tr>
@@ -428,6 +428,7 @@
               <label for="description">Descripción</label>
               <input type="text" class="form-control" id="description" formControlName="description" placeholder="">
             </div>
+            <p *ngIf="testError">Debe ser Product Owner</p>
             <div class="modal-footer">
               <button type="submit" class="btn btn-primary" >Agregar</button>
             </div>
@@ -445,7 +446,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="modalcriteria">Modal title</h5>
+          <h5 class="modal-title" id="modalcriteria">Agregar Criterio</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -456,6 +457,7 @@
               <label for="description">Descripción</label>
               <input type="text" class="form-control" id="description" formControlName="description" placeholder="">
             </div>
+            <p *ngIf="criteriaError">Debe ser parte del Scrum Team</p>
             <div class="modal-footer">
               <button type="submit" class="btn btn-primary" >Agregar</button>
             </div>

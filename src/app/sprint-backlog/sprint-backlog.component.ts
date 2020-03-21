@@ -40,9 +40,15 @@ export class SprintBacklogComponent implements OnInit {
   selected = false;
   seeAll = true;
   back = false;
+  error = false;
   storySelected: any;
   sprintTasks = [];
   sprint: any;
+  criteriaError = false;
+  messageCriteria = '';
+  messageTest = '';
+  testError = false;
+
 
   constructor(public sprintService: SprintService,
               public route: ActivatedRoute,
@@ -150,19 +156,24 @@ export class SprintBacklogComponent implements OnInit {
   }
 
   onSubmit() {
-    const jsonSprint = this.sprintForm.value;
-    this.initDate = this.sprintForm.value.init_date;
-    jsonSprint.init_date = this.getCurrentDate();
-    const endDateFormat = jsonSprint.end_date.split("-");
-    jsonSprint.end_date = '';
-    jsonSprint.end_date = endDateFormat[2] + "/" + endDateFormat[1] + "/" + endDateFormat[0];
-    this.endDate = jsonSprint.end_date;
+    this.error = false;
+    if (this.sprintForm.value.end_date !== '' && this.sprintForm.value.description !== ''){
+      const jsonSprint = this.sprintForm.value;
+      this.initDate = this.sprintForm.value.init_date;
+      jsonSprint.init_date = this.getCurrentDate();
+      const endDateFormat = jsonSprint.end_date.split("-");
+      jsonSprint.end_date = '';
+      jsonSprint.end_date = endDateFormat[2] + "/" + endDateFormat[1] + "/" + endDateFormat[0];
+      this.endDate = jsonSprint.end_date;
 
-    this.sprintService.createSprint(jsonSprint).subscribe((res: any) => {
-      this.idSprint = res.id;
-      this.sprint = res;
-      this.calculateDuration();
-    });
+      this.sprintService.createSprint(jsonSprint).subscribe((res: any) => {
+        this.idSprint = res.id;
+        this.sprint = res;
+        this.calculateDuration();
+      });
+    } else {
+      this.error = true;
+    }
   }
 
 
@@ -185,9 +196,15 @@ export class SprintBacklogComponent implements OnInit {
 
   getTasks() {
     this.sprintService.getAllTasks(this.idSprint).subscribe((res: any) => {
-      this.sprintTasks = res;
-      this.calculateTime();
-      this.calculateFunctions();
+
+      if (res.server) {
+        this.sprintTasks = [];
+      } else {
+        this.sprintTasks = res;
+        this.calculateTime();
+        this.calculateFunctions();
+      }
+
     });
   }
 
@@ -231,21 +248,44 @@ export class SprintBacklogComponent implements OnInit {
   }
 
   addCriteria() {
-    this.sprintService.addCriteria(this.criteriaForm.value).subscribe(res => {
-      if (res === []) {
-        console.log("permiso denegado");
-      } else {
+    this.criteriaError = false;
+    this.messageCriteria = '';
+    if (this.criteriaForm.value.description !== '') {
+      this.sprintService.addCriteria(this.criteriaForm.value).subscribe(res => {
         this.criteriaList.push(res);
-      }
-    });
+        this.criteriaError = false;
+      },
+      (error) => {
+        if (error.status === 405) {
+          this.criteriaError = true;
+          this.messageCriteria = 'Debe ser Scrum Team';
+        }
+      });
+    } else {
+      this.messageCriteria = 'Indique una descripción';
+    }
+
   }
 
   addTest() {
-    console.log(this.testForm.value);
-    this.sprintService.addTest(this.testForm.value).subscribe(res => {
-      console.log(res);
-      this.testsList.push(res);
-    });
+    this.testError = false;
+    this.messageTest = '';
+    if (this.testForm.value.descripción !== '') {
+      this.sprintService.addTest(this.testForm.value).subscribe(res => {
+        this.testError = false;
+        this.testsList.push(res);
+      },
+      (error) => {
+        if (error.status === 405) {
+          this.testError = true;
+          this.messageTest = 'Debe ser Product Owner';
+
+        }
+      });
+    } else {
+      this.messageTest = 'Indique una descripción';
+
+    }
   }
 
   addToSprint(story) {
@@ -335,6 +375,7 @@ export class SprintBacklogComponent implements OnInit {
   }
 
   calculateTime() {
+    console.log("CALCULAR TIEMPO");
     let simples = 0;
     let medias = 0;
     let complex = 0;

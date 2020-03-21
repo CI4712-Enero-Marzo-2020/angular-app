@@ -5,6 +5,7 @@ export interface DialogData {
   message: string;
   operation: string;
   id: string;
+  type: number;
 }
 @Component({
   selector: 'app-dialog',
@@ -21,6 +22,7 @@ export class DialogComponent {
 
   onNoClick(): void {
     this.dialogRef.close();
+
   }
 
 }
