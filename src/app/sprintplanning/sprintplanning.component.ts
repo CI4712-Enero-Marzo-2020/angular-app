@@ -42,18 +42,20 @@ export class SprintplanningComponent implements OnInit {
   addMode = true;
   plan: Plan;
   searchword: string = '';
-
+  planningId: any;
   sprint: any;
 
   constructor(
     private planningService: SprintplanningService,
-    private formBuilder: FormBuilder,
-    private authService: AuthService) {
+    private formBuilder: FormBuilder) {
   }
 
   ngOnInit() {
     this.initializeAddForm();
     this.searchword = '';
+    this.sprint = '1';
+    this.planningId = '1';
+    // this.getAllResults();
   }
 
   async getAllResults() {
@@ -92,16 +94,12 @@ export class SprintplanningComponent implements OnInit {
 
   async createPlan() {
     const formData = new FormData();
-    formData.append('planning_id', '0');
+    formData.append('planning_id', this.planningId);
     formData.append('subject', this.addEditPlanForm.get('subject').value);
     formData.append('user_story_id', this.addEditPlanForm.get('user_story_id').value);
     formData.append('activity', this.addEditPlanForm.get('activity').value);
     formData.append('assigned', this.addEditPlanForm.get('assigned').value);
-    console.log(formData.get('subject'));
-    console.log(formData.get('user_story_id'));
-    console.log(formData.get('activity'));
-    console.log(formData.get('assigned'));
-    const newPlan: any = await this.planningService.create(formData);
+    const newPlan: any = await this.planningService.addPlan(this.planningId, formData);
     if (newPlan && newPlan.server !== 'ERROR') {
       this.plans.push(newPlan);
     }
@@ -111,17 +109,12 @@ export class SprintplanningComponent implements OnInit {
     const index = this.findIndexPlan();
     const formData = new FormData();
     formData.append('id', this.plan.id.toString());
-    formData.append('planning_id', '0');
+    formData.append('planning_id', this.planningId);
     formData.append('subject', this.addEditPlanForm.get('subject').value);
     formData.append('user_story_id', this.addEditPlanForm.get('user_story_id').value);
     formData.append('activity', this.addEditPlanForm.get('activity').value);
     formData.append('assigned', this.addEditPlanForm.get('assigned').value);
-    console.log(formData.get('id'));
-    console.log(formData.get('subject'));
-    console.log(formData.get('user_story_id'));
-    console.log(formData.get('activity'));
-    console.log(formData.get('assigned'));
-    this.planningService.editPlan(this.plan, formData).then((response: any) => {
+    this.planningService.editPlan(this.plan.id, formData).then((response: any) => {
       console.log(response);
       if (response && response.server !== 'ERROR') {
         this.plans = [...this.plans.slice(0, index), response, ...this.plans.slice(index + 1, this.plans.length)];
@@ -131,7 +124,7 @@ export class SprintplanningComponent implements OnInit {
 
   async removePlan() {
     const i = this.findIndexPlan();
-    await this.planningService.deletePlan(this.plan);
+    await this.planningService.deletePlan(this.plan.id);
     this.plans = [...this.plans.slice(0, i), ...this.plans.slice(i + 1, this.plans.length)];
 
   }

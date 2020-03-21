@@ -12,7 +12,7 @@ export class SprintplanningService {
 
   // Gets all planning info including planning result
   getPlanning(sprintID: any) {
-    return this.http.get(`${this.url}meetings/plannings/${sprintID}`)
+    return this.http.get(`${this.url}meetings/planning/${sprintID}`)
     .toPromise()
     .then(
       (response: any[]) => {
@@ -72,8 +72,8 @@ export class SprintplanningService {
     );
   }
 
-  editPlan(resultId: any, form: any) {
-    return this.http.put(`${this.url}meetings/planning/results/${resultId}`, form)
+  editPlan(planId: any, form: any) {
+    return this.http.put(`${this.url}meetings/planning/results/${planId}`, form)
     .toPromise()
     .then(
       (response) => {
@@ -85,8 +85,8 @@ export class SprintplanningService {
     );
   }
 
-  deletePlan(resultId: any) {
-    return this.http.delete(`${this.url}meetings/planning/results/delete/${resultId}`)
+  deletePlan(planId: any) {
+    return this.http.delete(`${this.url}meetings/planning/results/delete/${planId}`)
     .toPromise()
     .then(
       (response) => {

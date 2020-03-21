@@ -181,7 +181,7 @@ export class ProductbacklogComponent implements OnInit {
 
   generateSprint() {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    this.router.navigate(['sprint', this.projectId], {queryParams: {'user_id': currentUser.userId}});
+    this.router.navigate(['sprint', this.projectId], {queryParams: {user_id: currentUser.userId}});
   }
 
   sprintDetail() {
