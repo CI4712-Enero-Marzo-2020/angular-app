@@ -8,20 +8,21 @@
                         <div class="row">
                             <div class="col-xs-12 col-md-6 text-left">
                                 <h4 class="card-title ">Reunión de Retrospectiva</h4>
-                                <p class="card-category">Sprint 1</p>
+                                <p class="card-category">Sprint {{sprint_id}}</p>
                             </div>
                             <div class="col-xs-12 col-md-6 text-right">
                                 <div class="input-group">
-                                    <input type="text" placeholder="Buscar" [(ngModel)]="id" class="form-control"
-                                        (ngModelChange)="resetStoriesList()">
+                                    <input type="text" placeholder="Buscar" [(ngModel)]="searchword"
+                                        class="form-control">
                                     <span class="input-group-btn">
                                         <button id="but1" mat-raised-button type="submit" class="btn pull-right"
-                                            (click)="Search()">
+                                            (click)="true">
                                             <fa-icon icon="search"></fa-icon>
                                         </button>
                                         <span class="input-group-btn">
                                             <button id="but2" mat-raised-button type="submit" class="btn pull-right"
-                                                data-toggle="modal" data-target="#addEdit" (click)="initializeAddForm()">
+                                                data-toggle="modal" data-target="#addEdit"
+                                                (click)="initializeAddForm()">
                                                 <fa-icon icon="plus-circle"></fa-icon>
                                             </button>
                                         </span>
@@ -79,11 +80,12 @@
                                         <td class="text-right">
                                             <div class="btn-group" role="group">
                                                 <button type="button" class="btn btn-secondary" data-toggle="modal"
-                                                    data-target="#addEdit" (click)="true">
+                                                    data-target="#addEdit" (click)="initializeEditForm(retrospective)">
                                                     <fa-icon icon="edit"></fa-icon>
                                                 </button>
                                                 <button type="button" class="btn btn-secondary" data-toggle="modal"
-                                                    data-target="#eliminar" (click)="true">
+                                                    data-target="#eliminar"
+                                                    (click)="initializeDeleteForm(retrospective)">
                                                     <fa-icon icon="times"></fa-icon>
                                                 </button>
                                             </div>
@@ -97,4 +99,84 @@
             </div>
         </div>
     </div>
+
+    <div class="modal modal-angular fade" id="addEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 *ngIf="addMode" class="modal-title">Agregar Reunión de Retrospectiva</h5>
+                    <h5 *ngIf="!addMode" class="modal-title">Editar Reunión de Retrospectiva {{retrospective.id}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form [formGroup]="addEditForm">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <mat-form-field>
+                                        <input formControlName="date" matInput [matDatepicker]="picker"
+                                            placeholder="Fecha">
+                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker disabled="false"></mat-datepicker>
+                                    </mat-form-field>
+                                    <mat-form-field>
+                                        <input formControlName="method" type="text" matInput class="form-control"
+                                            placeholder="Técnica">
+                                    </mat-form-field>
+                                    <mat-form-field>
+                                        <input formControlName="positive" type="text" matInput class="form-control"
+                                            placeholder="Resultados Positivos">
+                                    </mat-form-field>
+                                    <mat-form-field>
+                                        <input formControlName="negative" type="text" matInput class="form-control"
+                                            placeholder="Resultados Negativos">
+                                    </mat-form-field>
+                                    <mat-form-field>
+                                        <input formControlName="negative" type="text" matInput class="form-control"
+                                            placeholder="Resultados Negativos">
+                                    </mat-form-field>
+                                    <mat-form-field>
+                                        <input formControlName="decision" type="text" matInput class="form-control"
+                                            placeholder="Decisión">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button *ngIf="addMode" type="button" class="btn btn-primary" data-toggle="modal"
+                        data-dismiss="modal" (click)="createRetrospective()">Crear Reunión</button>
+                    <button *ngIf="!addMode" type="button" class="btn btn-primary" data-toggle="modal"
+                        data-dismiss="modal" (click)="editRetrospective()">Editar Reunión</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal modal-angular fade" id="eliminar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="margin-top">
+                        ¿Está seguro que desea eliminar la reunión de retrospectiva
+                        {{retrospective?retrospective.id:""}}?
+                    </h4>
+                    <a class="modal-button" data-dismiss="modal" (click)="removeRetrospective()" target="_blank">
+                        <div class="product-type">Si</div>
+                    </a>
+                    <a class="modal-button" data-dismiss="modal" target="_blank">
+                        <div class="product-type">No</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 </div>

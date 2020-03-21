@@ -72,7 +72,7 @@ export class SprinttechnicalComponent implements OnInit {
   async createTechnical() {
     const formData = new FormData();
     formData.append('sprint_id', this.sprint_id.toString());
-    formData.append('date', this.addEditForm.get('date').value);
+    formData.append('date', new Date(this.addEditForm.get('date').value).toUTCString());
     formData.append('report', this.addEditForm.get('report').value);
     console.log(formData.get('sprint_id'));
     console.log(formData.get('date'));
@@ -83,7 +83,7 @@ export class SprinttechnicalComponent implements OnInit {
     const formData = new FormData();
     formData.append('id', this.technical.id.toString());
     formData.append('sprint_id', this.technical.sprint_id.toString());
-    formData.append('date', this.addEditForm.get('date').value);
+    formData.append('date', new Date(this.addEditForm.get('date').value).toUTCString());
     formData.append('report', this.addEditForm.get('report').value);
     console.log(formData.get('id'));
     console.log(formData.get('sprint_id'));
