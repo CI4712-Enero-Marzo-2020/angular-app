@@ -65,10 +65,13 @@ describe("Hacer login", function(){
 		nombreHist.sendKeys('Epica Prueba 1');
 		browser.sleep(500);
 		var epica = browser.findElement(protractor.by.css('[class="check"]'));
-		browser.sleep(10000);
+		browser.sleep(500);
 		epica.click();
-		browser.sleep(10000);
+		browser.sleep(500);
 		submit.click();
+		//browser.sleep(100000);
+		
+
 
 	});
 });
