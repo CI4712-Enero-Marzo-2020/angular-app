@@ -41,8 +41,8 @@ export class SprintDailyService {
     );
   }
 
-  edit(meeting: any, form: any) {
-    return this.http.put(`${this.url}meetings/dailies/${meeting.id}`, form)
+  edit(meetingId: any, form: any) {
+    return this.http.put(`${this.url}meetings/dailies/${meetingId}`, form)
     .toPromise()
     .then(
       (response) => {

@@ -61,7 +61,8 @@ export class SprintplanningComponent implements OnInit {
   async getAllResults() {
     this.planningService.getPlanning(this.sprint).then((response) => {
       if (response && response.server !== 'NO_CONTENT' && response.server !== 'ERROR') {
-        this.plans = response;
+        this.plans = response.results;
+        this.planningId = response.planning.id;
       }
       console.log(response);
     });
