@@ -374,7 +374,6 @@ export class SprintBacklogComponent implements OnInit {
   }
 
   calculateTime() {
-    console.log("CALCULAR TIEMPO");
     let simples = 0;
     let medias = 0;
     let complex = 0;

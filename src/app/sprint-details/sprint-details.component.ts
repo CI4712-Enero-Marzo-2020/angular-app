@@ -343,7 +343,6 @@ export class SprintDetailsComponent implements OnInit {
             }
     });
     modalDialog.afterClosed().subscribe(result => {
-      console.log("!QLQ");
       this.getTasks();
     });
   }
