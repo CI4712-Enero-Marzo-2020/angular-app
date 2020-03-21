@@ -56,8 +56,8 @@ export class SprintplanningComponent implements OnInit {
     this.searchword = '';
   }
 
-  async getAllPlans() {
-    this.planningService.getAll(this.sprint).then((response) => {
+  async getAllResults() {
+    this.planningService.getPlanning(this.sprint).then((response) => {
       if (response && response.server !== 'NO_CONTENT' && response.server !== 'ERROR') {
         this.plans = response;
       }
@@ -121,7 +121,7 @@ export class SprintplanningComponent implements OnInit {
     console.log(formData.get('user_story_id'));
     console.log(formData.get('activity'));
     console.log(formData.get('assigned'));
-    this.planningService.edit(this.plan, formData).then((response: any) => {
+    this.planningService.editPlan(this.plan, formData).then((response: any) => {
       console.log(response);
       if (response && response.server !== 'ERROR') {
         this.plans = [...this.plans.slice(0, index), response, ...this.plans.slice(index + 1, this.plans.length)];
@@ -130,6 +130,10 @@ export class SprintplanningComponent implements OnInit {
   }
 
   async removePlan() {
+    const i = this.findIndexPlan();
+    await this.planningService.deletePlan(this.plan);
+    this.plans = [...this.plans.slice(0, i), ...this.plans.slice(i + 1, this.plans.length)];
+
   }
 
   filterPlans(id: string) {

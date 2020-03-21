@@ -10,7 +10,8 @@ export class SprintplanningService {
   url = environment.api;
   constructor(private http: HttpClient) { }
 
-  getAll(sprintID: any) {
+  // Gets all planning info including planning result
+  getPlanning(sprintID: any) {
     return this.http.get(`${this.url}meetings/plannings/${sprintID}`)
     .toPromise()
     .then(
@@ -54,7 +55,7 @@ export class SprintplanningService {
     );
   }
 
-  addResultToPlanning(planningId: any, form: any) {
+  addPlan(planningId: any, form: any) {
     return this.http.post(`${this.url}meetings/planning/${planningId}/results/add`, form)
     .toPromise()
     .then(
@@ -71,7 +72,7 @@ export class SprintplanningService {
     );
   }
 
-  editPlanningResult(resultId: any, form: any) {
+  editPlan(resultId: any, form: any) {
     return this.http.put(`${this.url}meetings/planning/results/${resultId}`, form)
     .toPromise()
     .then(
@@ -84,7 +85,7 @@ export class SprintplanningService {
     );
   }
 
-  deletePlanningResult(resultId: any) {
+  deletePlan(resultId: any) {
     return this.http.delete(`${this.url}meetings/planning/results/delete/${resultId}`)
     .toPromise()
     .then(
