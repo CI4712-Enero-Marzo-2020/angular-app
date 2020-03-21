@@ -101,7 +101,7 @@ export class SprinttechnicalComponent implements OnInit {
     const formData = new FormData();
     formData.append('id', this.technical.id.toString());
     formData.append('sprint_id', this.technical.sprint_id.toString());
-    formData.append('date', this.addEditForm.get('date').value);
+    formData.append('date', new Date(this.addEditForm.get('date').value).toUTCString());
     formData.append('report', this.addEditForm.get('report').value);
     console.log(formData.get('id'));
     console.log(formData.get('sprint_id'));

@@ -5,4 +5,5 @@ export interface Retrospective {
     positive: string;
     negative: string;
     decision: string;
+    sprint_id: number;
 }

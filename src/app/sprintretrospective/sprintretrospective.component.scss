@@ -9,3 +9,7 @@
     border-width: 1px 1px 1px 0px;
     border-color: rgba(0,0,0,0.06);
 }
+
+::ng-deep .cdk-overlay-container{
+    z-index:2000;
+  }
