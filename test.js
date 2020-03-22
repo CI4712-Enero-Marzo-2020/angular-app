@@ -74,13 +74,12 @@ describe("Hacer login", function(){
         browser.sleep(400);
         agregar2.click();
         browser.sleep(400);
-        var input = browser.findElement(protractor.by.css('[class="form-check-input"]'))
+        var input = $$('[class="form-check-input"]');
         input.click();
         browser.sleep(500);
         var submit1 = browser.findElement(protractor.by.css('[id="asignar"]'));
         browser.sleep(400);
         submit1.click();
-        browser.sleep(10000);
 
 
 
