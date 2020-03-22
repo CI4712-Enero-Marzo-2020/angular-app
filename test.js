@@ -73,7 +73,15 @@ describe("Hacer login", function(){
 		var agregar2 = browser.findElement(protractor.by.css('[id="agregar2"]'));
         browser.sleep(400);
         agregar2.click();
-        browser.sleep(100000);
+        browser.sleep(400);
+        var input = browser.findElement(protractor.by.css('[class="form-check-input"]'))
+        input.click();
+        browser.sleep(500);
+        var submit1 = browser.findElement(protractor.by.css('[class="btn btn-primary"]'));
+        browser.sleep(400);
+        submit1.click();
+        browser.sleep(10000);
+
 
 
 
