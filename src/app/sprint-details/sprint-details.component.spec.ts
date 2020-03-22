@@ -5,6 +5,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { MatTabsModule, MatDialogModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('SprintDetailsComponent', () => {
   let component: SprintDetailsComponent;
@@ -13,7 +15,9 @@ describe('SprintDetailsComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ SprintDetailsComponent ],
-      imports: [FontAwesomeModule, FormsModule,ReactiveFormsModule, RouterTestingModule, HttpClientTestingModule],
+      imports: [FontAwesomeModule, MatTabsModule, MatDialogModule,
+                FormsModule, ReactiveFormsModule, RouterTestingModule,
+                BrowserAnimationsModule, HttpClientTestingModule],
 
     })
     .compileComponents();

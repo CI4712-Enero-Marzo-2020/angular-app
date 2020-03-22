@@ -5,6 +5,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { MatTabsModule, MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 describe('TasksComponent', () => {
   let component: TasksComponent;
@@ -13,7 +15,13 @@ describe('TasksComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ TasksComponent ],
-      imports: [FontAwesomeModule, FormsModule,ReactiveFormsModule, RouterTestingModule, HttpClientTestingModule],
+      imports: [FontAwesomeModule, MatTabsModule, FormsModule,
+        ReactiveFormsModule, RouterTestingModule, MatDialogModule,
+        NgSelectModule, HttpClientTestingModule],
+        providers: [
+          { provide: MatDialogRef, useValue: {} },
+          { provide: MAT_DIALOG_DATA, useValue: [] },
+        ]
 
     })
     .compileComponents();
