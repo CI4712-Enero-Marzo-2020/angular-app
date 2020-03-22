@@ -10,7 +10,7 @@ describe("Hacer login", function(){
 		password.sendKeys('1');
 
 		submit.click();
-		browser.sleep(500);
+		browser.sleep(400);
 		
 	});
 
@@ -18,57 +18,65 @@ describe("Hacer login", function(){
 		browser.get("http://localhost:4200/projects");
 		var agregar = browser.findElement(protractor.by.css('[id="but2"]'));
 		agregar.click();
-		browser.sleep(500);
+		browser.sleep(400);
 		var nombreProy = browser.findElement(protractor.by.css('[id="recipient-name"]'));
 		nombreProy.sendKeys('Proyecto Prueba');
-		browser.sleep(500);
+		browser.sleep(400);
 		var submit = browser.findElement(protractor.by.css('[class="btn btn-primary"]'));
 		submit.click();
-		browser.sleep(500);
+		browser.sleep(400);
 		agregar.click();
-		browser.sleep(500);
+		browser.sleep(400);
 		nombreProy.clear();
 		nombreProy.sendKeys('Proyecto Prueba 2');
-		browser.sleep(500);
+		browser.sleep(400);
 		submit.click();
-		browser.sleep(500);
+		browser.sleep(400);
 		agregar.click();
-		browser.sleep(500);
+		browser.sleep(400);
 		nombreProy.clear();
 		nombreProy.sendKeys('Proyecto Prueba 3');
-		browser.sleep(500);
+		browser.sleep(400);
 		submit.click();
-		browser.sleep(500);
+		browser.sleep(400);
 	});
 
 	it("agregar Historias", function(){
 		browser.get("http://localhost:4200/productbacklog/1");
-		browser.sleep(500);
+		browser.sleep(400);
 		var agregar2 = browser.findElement(protractor.by.css('[id="but2"]'));
 		agregar2.click();
-		browser.sleep(500);
+		browser.sleep(400);
 		var nombreHist = browser.findElement(protractor.by.css('[id="addEditDescription"]'));
-		browser.sleep(500);
+		browser.sleep(400);
 		nombreHist.sendKeys('Historia Prueba 1');
-		browser.sleep(500);
+		browser.sleep(400);
 		var submit = browser.findElement(protractor.by.css('[class="btn btn-primary"]'));
 		submit.click();
-		browser.sleep(500);
+		browser.sleep(400);
 		agregar2.click();
-		browser.sleep(500);
+		browser.sleep(400);
 		nombreHist.sendKeys('Historia Prueba 2');
-		browser.sleep(500);
+		browser.sleep(400);
 		submit.click()
-		browser.sleep(500);
+		browser.sleep(400);
 		agregar2.click();
-		browser.sleep(500);
+		browser.sleep(400);
 		nombreHist.sendKeys('Epica Prueba 1');
-		browser.sleep(500);
+		browser.sleep(400);
 		var epica = browser.findElement(protractor.by.css('[class="check"]'));
-		browser.sleep(500);
+		browser.sleep(400);
 		epica.click();
-		browser.sleep(500);
+		browser.sleep(400);
 		submit.click();
+		browser.sleep(400);
+		var agregar2 = browser.findElement(protractor.by.css('[id="agregar2"]'));
+        browser.sleep(400);
+        agregar2.click();
+        browser.sleep(100000);
+
+
+
 		//browser.sleep(100000);
 		
 
