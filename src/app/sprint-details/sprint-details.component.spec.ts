@@ -1,29 +1,30 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SprintBacklogComponent } from './sprint-backlog.component';
+import { SprintDetailsComponent } from './sprint-details.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MatTabsModule, MatDialogModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-describe('SprintBacklogComponent', () => {
-  let component: SprintBacklogComponent;
-  let fixture: ComponentFixture<SprintBacklogComponent>;
+describe('SprintDetailsComponent', () => {
+  let component: SprintDetailsComponent;
+  let fixture: ComponentFixture<SprintDetailsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SprintBacklogComponent ],
-      imports: [FontAwesomeModule, MatTabsModule, FormsModule,
-                MatDialogModule, ReactiveFormsModule, RouterTestingModule,
-                HttpClientTestingModule],
+      declarations: [ SprintDetailsComponent ],
+      imports: [FontAwesomeModule, MatTabsModule, MatDialogModule,
+                FormsModule, ReactiveFormsModule, RouterTestingModule,
+                BrowserAnimationsModule, HttpClientTestingModule],
 
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SprintBacklogComponent);
+    fixture = TestBed.createComponent(SprintDetailsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

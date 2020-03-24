@@ -16,14 +16,17 @@ export const ROUTES_NOT_LOGGIN: RouteInfo[] = [
 // Agregar información de iconos del sidebar con rutas aquí
 export const ROUTES: RouteInfo[] = [
     { path: '/projects', title: 'Portafolio de Proyectos',  icon:'dashboard', class: '' },
-    { path: '/logger', title: 'Logger de Eventos',  icon:'dashboard', class: '' }
+    { path: '/documents', title: 'Documentos de Proyectos',  icon:'dashboard', class: '' },
+    { path: '/create-users', title: "Perfiles de Usuarios", icon: "person", class: ''},
+    { path: '/logger', title: 'Logger de Eventos',  icon:'dashboard', class: '' },
+
 ];
 
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css'],
-  
+
 })
 export class SidebarComponent implements OnInit {
   menuItems: any[];

@@ -1,29 +1,34 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SprintBacklogComponent } from './sprint-backlog.component';
+import { TasksComponent } from './tasks.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { MatTabsModule, MatDialogModule } from '@angular/material';
+import { MatTabsModule, MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { NgSelectModule } from '@ng-select/ng-select';
 
-describe('SprintBacklogComponent', () => {
-  let component: SprintBacklogComponent;
-  let fixture: ComponentFixture<SprintBacklogComponent>;
+describe('TasksComponent', () => {
+  let component: TasksComponent;
+  let fixture: ComponentFixture<TasksComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SprintBacklogComponent ],
+      declarations: [ TasksComponent ],
       imports: [FontAwesomeModule, MatTabsModule, FormsModule,
-                MatDialogModule, ReactiveFormsModule, RouterTestingModule,
-                HttpClientTestingModule],
+        ReactiveFormsModule, RouterTestingModule, MatDialogModule,
+        NgSelectModule, HttpClientTestingModule],
+        providers: [
+          { provide: MatDialogRef, useValue: {} },
+          { provide: MAT_DIALOG_DATA, useValue: [] },
+        ]
 
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SprintBacklogComponent);
+    fixture = TestBed.createComponent(TasksComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

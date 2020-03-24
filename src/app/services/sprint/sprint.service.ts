@@ -11,9 +11,10 @@ export class SprintService {
   urlSprint = 'http://localhost:5000/sprint/';
   urlCriterios = 'http://localhost:5000/criteria/';
   urlPruebas = 'http://localhost:5000/tests/';
+  urlTasks = 'http://localhost:5000/tasks/';
+  urlDocs = 'http://localhost:5000/docs/';
 
   createSprint(params) {
-    console.log(params);
     return this.http.post(this.urlSprint + 'add', params, {headers: {'Content-Type': 'application/json',
                                                                       'Access-Control-Allow-Origin': '*',
                                                                       }});
@@ -77,6 +78,26 @@ export class SprintService {
 
   deleteCriteria(citeriaId) {
     return this.http.post(this.urlCriterios + 'delete/' + citeriaId, []);
+  }
+
+  createTask(params) {
+    return this.http.post( this.urlTasks + 'add', params);
+  }
+
+  editTask(id,params) {
+    return this.http.post(this.urlTasks + 'update/' + id, params);
+  }
+
+  getAllTasks(id) {
+    return this.http.get(this.urlTasks + 'getbysprint/' + id);
+  }
+
+  deleteTask(id) {
+    return this.http.post(this.urlTasks + 'delete/' + id, {});
+  }
+
+  getTeams() {
+    return this.http.get(this.urlDocs + 'getall/team');
   }
 
 }

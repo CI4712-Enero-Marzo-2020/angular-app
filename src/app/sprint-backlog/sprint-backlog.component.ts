@@ -3,6 +3,8 @@ import { SprintService } from '../services/sprint/sprint.service';
 import { Route, ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl } from '@angular/forms';
 import { element } from 'protractor';
+import { MatDialog } from '@angular/material';
+import { TasksComponent } from '../tasks/tasks.component';
 
 @Component({
   selector: 'app-sprint-backlog',
@@ -16,6 +18,13 @@ export class SprintBacklogComponent implements OnInit {
   idStory = 0;
   idTest = 0;
   idCriteria = 0;
+  estimatedTime = 0;
+  durationTime = 0;
+  initDate = '';
+  endDate = '';
+  currentDate = '';
+  currentHour = '';
+  dateFormat = '';
   sprintForm: FormGroup;
   testForm: FormGroup;
   criteriaForm: FormGroup;
@@ -24,20 +33,29 @@ export class SprintBacklogComponent implements OnInit {
 
   testsList = [];
   criteriaList = [];
-  selected = false;
-
   sprintStories = [];
   sprintStoriesToAdd = [];
   storiesList = [];
+
+  selected = false;
   seeAll = true;
   back = false;
+  error = false;
   storySelected: any;
+  sprintTasks = [];
+  sprint: any;
+  criteriaError = false;
+  messageCriteria = '';
+  messageTest = '';
+  testError = false;
+
+
   constructor(public sprintService: SprintService,
               public route: ActivatedRoute,
-              public router: Router) {
+              public router: Router,
+              private matDialog: MatDialog) {
 
     this.idProject = parseInt(this.route.snapshot.paramMap.get('id'), 10);
-    this.getSprint();
     this.route.queryParams.subscribe(res => {
       this.idUser = parseInt(res.user_id, 10);
     });
@@ -46,6 +64,7 @@ export class SprintBacklogComponent implements OnInit {
     this.formTest();
     this.formCriteriaEdit();
     this.formTestEdit();
+
   }
 
 
@@ -56,13 +75,50 @@ export class SprintBacklogComponent implements OnInit {
 
 
   formSprint() {
+    this.getCurrentDate();
     this.sprintForm = new FormGroup({
       project_id : new FormControl(this.idProject),
       description: new FormControl(''),
+      init_date: new FormControl(this.dateFormat),
+      end_date: new FormControl(''),
       user_id: new FormControl(this.idUser)
     });
   }
 
+  getCurrentDate() {
+    const dateObj = new Date();
+    let today = dateObj.getDate().toString() ;
+    let mounth = (dateObj.getMonth() + 1).toString() ;
+    let hour = '';
+    let minutes = '';
+    let miliseg = '';
+
+    if (dateObj.getDate() <= 9) {
+      today = '0' + today.toString();
+    }
+    if ((dateObj.getMonth() + 1) <= 9) {
+      mounth = '0' + mounth.toString();
+    }
+    if (dateObj.getHours() <= 9) {
+      hour = '0' + dateObj.getHours().toString();
+    } else {
+      hour = dateObj.getHours().toString();
+    }
+    if (dateObj.getMinutes() <= 9) {
+      minutes = '0' + dateObj.getMinutes().toString();
+    } else {
+      minutes = dateObj.getMinutes().toString();
+    }
+    if (dateObj.getSeconds() <= 9) {
+      miliseg = '0' + dateObj.getSeconds().toString();
+    } else {
+      miliseg = dateObj.getSeconds().toString();
+    }
+    this.dateFormat = today + '/' + mounth + '/' + dateObj.getFullYear();
+    this.currentDate = dateObj.getFullYear() + '-' + mounth + '-' + today;
+    this.currentHour = hour + ':' + minutes + ':' + miliseg;
+    return this.dateFormat + ' ' + this.currentHour;
+  }
   formTest() {
     this.testForm = new FormGroup({
       story_id : new FormControl(''),
@@ -100,37 +156,66 @@ export class SprintBacklogComponent implements OnInit {
   }
 
   onSubmit() {
-    this.sprintService.createSprint(this.sprintForm.value).subscribe((res: any) => {
-      console.log(res.id);
-      this.idSprint = res.id;
-    });
+    this.error = false;
+    if (this.sprintForm.value.end_date !== '' && this.sprintForm.value.description !== ''){
+      const jsonSprint = this.sprintForm.value;
+      this.initDate = this.sprintForm.value.init_date;
+      jsonSprint.init_date = this.getCurrentDate();
+      const endDateFormat = jsonSprint.end_date.split("-");
+      jsonSprint.end_date = '';
+      jsonSprint.end_date = endDateFormat[2] + "/" + endDateFormat[1] + "/" + endDateFormat[0];
+      this.endDate = jsonSprint.end_date;
+
+      this.sprintService.createSprint(jsonSprint).subscribe((res: any) => {
+        this.idSprint = res.id;
+        this.sprint = res;
+        this.calculateDuration();
+      });
+    } else {
+      this.error = true;
+    }
   }
 
-  createSprint() {
-    console.log();
-  }
-
-  getSprint() {
-    this.sprintService.getSprintByProject(this.idProject).subscribe(res => {
-      console.log(res);
-
-    });
-  }
 
   getStories() {
     this.storiesList = [];
-    console.log('jnhbggxcghbjmkl')
     this.sprintService.getProjectStories(this.idProject).subscribe((res: any) => {
 
       res.map((story: any) => {
         const find = this.sprintStories.findIndex(i => i.id === story.id);
-        console.log(find, '*---',story);
         if (find === -1) {
           story['added'] = false;
           this.storiesList.push(story);
         }
       });
 
+    });
+  }
+
+
+  getTasks() {
+    this.sprintService.getAllTasks(this.idSprint).subscribe((res: any) => {
+
+      if (res.server) {
+        this.sprintTasks = [];
+      } else {
+        this.sprintTasks = res;
+        this.calculateTime();
+        this.calculateFunctions();
+      }
+
+    });
+  }
+
+  calculateFunctions() {
+    this.sprintTasks.map(task => {
+      if (task.task_class === 'Sencilla') {
+       task.task_functions = 1;
+      } else if (task.task_class === 'Media') {
+        task.task_functions = 3;
+      } else if (task.task_class === 'Compleja') {
+        task.task_functions = 5;
+      }
     });
   }
 
@@ -141,11 +226,9 @@ export class SprintBacklogComponent implements OnInit {
   }
 
   editCriteria(criteria) {
-    console.log(criteria);
     this.editCriteriaForm.controls['approved'].setValue(criteria.approved);
     this.editCriteriaForm.controls['description'].setValue(criteria.description);
     this.idCriteria = criteria.id;
-    console.log(this.editCriteriaForm.value);
   }
 
 
@@ -164,22 +247,44 @@ export class SprintBacklogComponent implements OnInit {
   }
 
   addCriteria() {
-    this.sprintService.addCriteria(this.criteriaForm.value).subscribe(res => {
-      console.log('agregar criterio sin permiso', res);
-      if(res === []) {
-        console.log("permiso denegado");
-      }else {
+    this.criteriaError = false;
+    this.messageCriteria = '';
+    if (this.criteriaForm.value.description !== '') {
+      this.sprintService.addCriteria(this.criteriaForm.value).subscribe(res => {
         this.criteriaList.push(res);
-      }
-    });
+        this.criteriaError = false;
+      },
+      (error) => {
+        if (error.status === 405) {
+          this.criteriaError = true;
+          this.messageCriteria = 'Debe ser Scrum Team';
+        }
+      });
+    } else {
+      this.messageCriteria = 'Indique una descripción';
+    }
+
   }
 
   addTest() {
-    console.log(this.testForm.value);
-    this.sprintService.addTest(this.testForm.value).subscribe(res => {
-      console.log(res);
-      this.testsList.push(res);
-    });
+    this.testError = false;
+    this.messageTest = '';
+    if (this.testForm.value.descripción !== '') {
+      this.sprintService.addTest(this.testForm.value).subscribe(res => {
+        this.testError = false;
+        this.testsList.push(res);
+      },
+      (error) => {
+        if (error.status === 405) {
+          this.testError = true;
+          this.messageTest = 'Debe ser Product Owner';
+
+        }
+      });
+    } else {
+      this.messageTest = 'Indique una descripción';
+
+    }
   }
 
   addToSprint(story) {
@@ -252,6 +357,48 @@ export class SprintBacklogComponent implements OnInit {
       });
     }
   }
+
+  createTask() {
+    const modalDialog = this.matDialog.open(TasksComponent, {
+      width: '65%',
+      data: {
+        title: 'Crear Tarea',
+        operation: 1,
+        idProject: this.sprint.id,
+        idUser: this.idUser
+      }
+    });
+    modalDialog.afterClosed().subscribe(result => {
+      this.getTasks();
+    });
+  }
+
+  calculateTime() {
+    let simples = 0;
+    let medias = 0;
+    let complex = 0;
+    this.sprintTasks.map(task => {
+      if (task.task_class === 'Sencilla') {
+        simples += 1;
+      } else if (task.task_class === 'Media') {
+        medias += 1;
+      } else if (task.task_class === 'Compleja') {
+        complex += 1;
+      }
+    });
+
+    this.estimatedTime = simples + (medias * 3) + (complex * 5);
+  }
+
+  calculateDuration() {
+    const fechaInicio = new Date(this.sprint.init_date).getTime();
+    const fechaFin    = new Date(this.sprint.end_date).getTime();
+
+    const diff = fechaFin - fechaInicio;
+    this.durationTime = parseInt((diff / (1000 * 60 * 60 * 24)).toString(), 10) + 1;
+  }
+
+
 
 
 }

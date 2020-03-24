@@ -26,8 +26,13 @@ import {
 // Agregar componentes aquí
 import { ProjectsComponent } from '../../projects/projects.component';
 import { ProductbacklogComponent } from '../../productbacklog/productbacklog.component';
+import { DocumentsComponent } from '../../documents/documents.component';
+import { IntroComponent } from '../../intro/intro.component';
 import {LoginComponent} from '../../login/login.component';
 import { LoginActivate } from '../../login/login-activate';
+import { CreateUsersComponent } from 'src/app/create-users/create-users.component';
+import { RegisterComponent } from 'src/app/register/register.component';
+
 
 import {
   MatButtonModule,
@@ -40,6 +45,8 @@ import {
   MatDatepickerModule, 
   MatNativeDateModule,
   MAT_DATE_FORMATS
+  MatTabGroup,
+  MatTabsModule
 } from '@angular/material';
 
 
@@ -49,6 +56,9 @@ import { SprintBacklogComponent } from 'src/app/sprint-backlog/sprint-backlog.co
 import { SprintplanningComponent } from 'src/app/sprintplanning/sprintplanning.component';
 import { SprintretrospectiveComponent } from 'src/app/sprintretrospective/sprintretrospective.component';
 import { SprinttechnicalComponent } from 'src/app/sprinttechnical/sprinttechnical.component';
+import { SprintDetailsComponent } from 'src/app/sprint-details/sprint-details.component';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { TasksComponent } from 'src/app/tasks/tasks.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -65,6 +75,8 @@ import { SprinttechnicalComponent } from 'src/app/sprinttechnical/sprinttechnica
     MatDialogModule,
     MatDatepickerModule,
     MatNativeDateModule
+    MatTabsModule,
+    NgSelectModule
   ],
   declarations: [
     // Agregar declaraciones de componentes aquí
@@ -77,6 +89,12 @@ import { SprinttechnicalComponent } from 'src/app/sprinttechnical/sprinttechnica
     SprintplanningComponent,
     SprintretrospectiveComponent,
     SprinttechnicalComponent
+    SprintDetailsComponent,
+    TasksComponent,
+    DocumentsComponent,
+    IntroComponent,
+    CreateUsersComponent,
+    RegisterComponent
   ],
   providers: [
     LoginActivate,
