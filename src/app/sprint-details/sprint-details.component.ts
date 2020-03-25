@@ -157,7 +157,7 @@ export class SprintDetailsComponent implements OnInit {
       res.map((story: any) => {
         const find = this.sprintStories.findIndex(i => i.id === story.id);
         if (find === -1) {
-          story['added'] = false;
+          story.added = false;
           this.storiesList.push(story);
         }
       });
@@ -207,14 +207,14 @@ export class SprintDetailsComponent implements OnInit {
   }
 
   editTest(test) {
-    this.editTestForm.controls['approved'].setValue(test.approved);
-    this.editTestForm.controls['description'].setValue(test.description);
+    this.editTestForm.controls.approved.setValue(test.approved);
+    this.editTestForm.controls.description.setValue(test.description);
     this.idTest = test.id;
   }
 
   editCriteria(criteria) {
-    this.editCriteriaForm.controls['approved'].setValue(criteria.approved);
-    this.editCriteriaForm.controls['description'].setValue(criteria.description);
+    this.editCriteriaForm.controls.approved.setValue(criteria.approved);
+    this.editCriteriaForm.controls.description.setValue(criteria.description);
     this.idCriteria = criteria.id;
   }
 
@@ -258,12 +258,12 @@ export class SprintDetailsComponent implements OnInit {
   }
 
   addToSprint(story) {
-    story['added'] = true;
+    story.added = true;
     this.sprintStoriesToAdd.push(story);
   }
 
   deleteFromSprint(story) {
-    story['added'] = false;
+    story.added = false;
     this.sprintStoriesToAdd.splice(this.sprintStoriesToAdd.indexOf(story), 1);
   }
 
@@ -280,10 +280,10 @@ export class SprintDetailsComponent implements OnInit {
     this.seeAll = false;
     this.back = true;
     this.storySelected = story;
-    this.testForm.controls['user_id'].setValue(this.sprint.user.id);
-    this.testForm.controls['story_id'].setValue(this.storySelected.id);
-    this.criteriaForm.controls['user_id'].setValue(this.sprint.user.id);
-    this.criteriaForm.controls['story_id'].setValue(this.storySelected.id);
+    this.testForm.controls.user_id.setValue(this.sprint.user.id);
+    this.testForm.controls.story_id.setValue(this.storySelected.id);
+    this.criteriaForm.controls.user_id.setValue(this.sprint.user.id);
+    this.criteriaForm.controls.story_id.setValue(this.storySelected.id);
     this.getCriterias();
     this.getTest();
   }
@@ -328,7 +328,7 @@ export class SprintDetailsComponent implements OnInit {
   }
 
   close() {
-    this.sprintService.editSprint(this.sprint.id, {closed: true}).subscribe((res)=> {
+    this.sprintService.editSprint(this.sprint.id, {closed: true}).subscribe((res) => {
       this.router.navigate(['projects']);
     });
   }
@@ -411,15 +411,22 @@ export class SprintDetailsComponent implements OnInit {
     this.router.navigate(['sprintretrospective', this.idSprint]);
   }
 
-  async createPlanning(){
-    const formData = new FormData();
-    formData.append('date', new Date().toUTCString());
-    formData.append('sprint_id', this.idSprint.toString());
-    const planning: any = await this.planningService.create(formData);
-    if (planning && planning.server !== 'ERROR') {
-      // Lo dejo pasar a planning
-      this.sprintPlanning();
-    }
+  async createPlanning() {
+    this.planningService.getPlanning(this.idSprint).then(async (response) => {
+      if (response && response.server !== 'NO_CONTENT' && response.server !== 'ERROR') {
+        this.sprintPlanning();
+      } else {
+        const formData = new FormData();
+        formData.append('date', new Date().toUTCString());
+        formData.append('sprint_id', this.idSprint.toString());
+        const planning: any = await this.planningService.create(formData);
+        if (planning && planning.server !== 'ERROR') {
+          this.sprintPlanning();
+        }
+      }
+      console.log(response);
+    });
+
   }
 
 }

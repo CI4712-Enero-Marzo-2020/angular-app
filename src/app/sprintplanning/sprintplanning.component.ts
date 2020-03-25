@@ -42,7 +42,7 @@ export class SprintplanningComponent implements OnInit {
   addEditPlanForm: FormGroup;
   addMode = true;
   plan: Plan;
-  searchword: string = '';
+  searchword = '';
   planningId: any;
   sprint: any;
   sprint_id: any;
@@ -64,7 +64,9 @@ export class SprintplanningComponent implements OnInit {
   async getAllResults() {
     this.planningService.getPlanning(this.sprint_id).then((response) => {
       if (response && response.server !== 'NO_CONTENT' && response.server !== 'ERROR') {
-        this.plans = response.results;
+        if (response.results) {
+          this.plans = response.results;
+        }
         this.planningId = response.planning.id;
       }
       console.log(response);
