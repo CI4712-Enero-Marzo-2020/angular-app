@@ -79,7 +79,7 @@ export class ProductbacklogComponent implements OnInit {
     const formData = new FormData();
     formData.append('description', this.addEditStoryForm.get('description').value);
     formData.append('project_id', this.projectId.toString());
-    formData.append('priority', this.castingPriority(this.addEditStoryForm.get('priority').value));
+    formData.append('priority', this.addEditStoryForm.get('priority').value);
     formData.append('epic', this.addEditStoryForm.get('epic').value);
     formData.append('done', this.addEditStoryForm.get('done').value);
     console.log(this.addEditStoryForm.get('epic'));
@@ -94,7 +94,7 @@ export class ProductbacklogComponent implements OnInit {
     const formData = new FormData();
     formData.append('description', this.addEditStoryForm.get('description').value);
     formData.append('project_id', this.projectId.toString());
-    formData.append('priority', this.castingPriority(this.addEditStoryForm.get('priority').value));
+    formData.append('priority', this.addEditStoryForm.get('priority').value);
     formData.append('epic', this.addEditStoryForm.get('epic').value);
     formData.append('done', this.addEditStoryForm.get('done').value);
     this.storiesService.edit(this.story, formData).then((response: any) => {
@@ -167,17 +167,6 @@ export class ProductbacklogComponent implements OnInit {
     }
   }
 
-  castingPriority(value: any) {
-    const priority = +value;
-    switch (priority) {
-      case 0:
-        return 'high';
-      case 1:
-        return 'medium';
-      case 2:
-        return 'low';
-    }
-  }
 
   generateSprint() {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
