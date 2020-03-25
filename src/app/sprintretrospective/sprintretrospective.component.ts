@@ -15,37 +15,7 @@ export class SprintretrospectiveComponent implements OnInit {
 
   @Input() sprint_id: number;
 
-  retrospectives: Retrospective[] =
-    [
-      {
-        id: 0,
-        date: new Date(Date.now()),
-        method: 'Preguntando',
-        positive: 'Todo salio de pinga',
-        negative: 'No trajeron cerveza',
-        decision: 'Pasemos al siguiente sprint',
-        sprint_id: 0
-      },
-      {
-        id: 1,
-        date: new Date(Date.now()),
-        method: 'Preguntando',
-        positive: 'Todo salio de pinga',
-        negative: 'No trajeron cerveza',
-        decision: 'Pasemos al siguiente sprint',
-        sprint_id: 0
-      },
-      {
-        id: 2,
-        date: new Date(Date.now()),
-        method: 'Preguntando',
-        positive: 'Todo salio de pinga',
-        negative: 'No trajeron cerveza',
-        decision: 'Pasemos al siguiente sprint',
-        sprint_id: 0
-      }
-    ];
-
+  retrospectives: Retrospective[];
   addEditForm: FormGroup;
   addMode = true;
   retrospective: Retrospective;
@@ -62,6 +32,7 @@ export class SprintretrospectiveComponent implements OnInit {
   ngOnInit() {
     this.initializeAddForm();
     this.searchword = '';
+    this.retrospectives = []
     this.getAll();
   }
 
