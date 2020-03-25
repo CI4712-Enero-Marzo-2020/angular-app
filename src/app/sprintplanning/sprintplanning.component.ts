@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Story } from '../productbacklog/story';
 import { AuthService } from '../services/users/auth.service';
 import { SprintplanningService } from '../services/meetings/sprintplanning/sprintplanning.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-sprintplanning',
@@ -44,11 +45,14 @@ export class SprintplanningComponent implements OnInit {
   searchword: string = '';
   planningId: any;
   sprint: any;
+  sprint_id: any;
 
   constructor(
     private planningService: SprintplanningService,
-    private formBuilder: FormBuilder) {
-  }
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute) {
+      this.sprint_id = this.route.snapshot.params.id;
+    }
 
   ngOnInit() {
     this.initializeAddForm();

@@ -188,14 +188,6 @@ export class ProductbacklogComponent implements OnInit {
     this.router.navigate(['sprint/details', this.sprintId]);
   }
 
-  sprintPlanning() {
-    this.router.navigate(['sprintplanning']);
-  }
-
-  sprintRetrospective() {
-    this.router.navigate(['sprintretrospective']);
-  }
-
   getSprint() {
     this.sprintService.getSprintActive(this.projectId).subscribe((res: any) => {
       if (res.server) {
@@ -205,10 +197,6 @@ export class ProductbacklogComponent implements OnInit {
         this.sprintId = res[0].id;
       }
     });
-  }
-
-  sprintTechnical() {
-    this.router.navigate(['sprinttechnical']);
   }
 
 }

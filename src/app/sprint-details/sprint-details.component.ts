@@ -397,4 +397,16 @@ export class SprintDetailsComponent implements OnInit {
     });
   }
 
+  sprintTechnical() {
+    this.router.navigate(['sprinttechnical', this.idSprint]);
+  }
+
+  sprintPlanning() {
+    this.router.navigate(['sprintplanning', this.idSprint]);
+  }
+
+  sprintRetrospective() {
+    this.router.navigate(['sprintretrospective', this.idSprint]);
+  }
+
 }

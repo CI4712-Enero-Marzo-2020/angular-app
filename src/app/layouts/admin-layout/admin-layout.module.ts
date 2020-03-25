@@ -44,7 +44,7 @@ import {
   MatDialogModule,
   MatDatepickerModule, 
   MatNativeDateModule,
-  MAT_DATE_FORMATS
+  MAT_DATE_FORMATS,
   MatTabGroup,
   MatTabsModule
 } from '@angular/material';
@@ -74,7 +74,7 @@ import { TasksComponent } from 'src/app/tasks/tasks.component';
     FontAwesomeModule,
     MatDialogModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
     MatTabsModule,
     NgSelectModule
   ],
@@ -88,7 +88,7 @@ import { TasksComponent } from 'src/app/tasks/tasks.component';
     SprintBacklogComponent,
     SprintplanningComponent,
     SprintretrospectiveComponent,
-    SprinttechnicalComponent
+    SprinttechnicalComponent,
     SprintDetailsComponent,
     TasksComponent,
     DocumentsComponent,

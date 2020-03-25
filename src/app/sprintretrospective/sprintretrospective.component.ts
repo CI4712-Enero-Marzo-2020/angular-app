@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Retrospective } from './retrospective';
 import { DatePipe } from '@angular/common';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SprintRetrospectiveService } from '../services/meetings/sprintRetrospective/sprint-retrospective.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-sprintretrospective',
@@ -11,6 +12,8 @@ import { SprintRetrospectiveService } from '../services/meetings/sprintRetrospec
   providers: [DatePipe]
 })
 export class SprintretrospectiveComponent implements OnInit {
+
+  @Input() sprint_id: number;
 
   retrospectives: Retrospective[] =
     [
@@ -47,12 +50,14 @@ export class SprintretrospectiveComponent implements OnInit {
   addMode = true;
   retrospective: Retrospective;
   searchword = '';
-  sprint_id = 1;
 
   constructor(
       public datepipe: DatePipe,
       private formBuilder: FormBuilder,
-      private retrospectiveService: SprintRetrospectiveService) { }
+      private retrospectiveService: SprintRetrospectiveService,
+      private route: ActivatedRoute) {
+        this.sprint_id = this.route.snapshot.params.id;
+      }
 
   ngOnInit() {
     this.initializeAddForm();

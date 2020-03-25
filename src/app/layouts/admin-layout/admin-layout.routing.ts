@@ -27,14 +27,14 @@ export const AdminLayoutRoutes: Routes = [
       path: 'delete', component: DialogComponent
     }] },
     { path: 'sprint/:id', component: SprintBacklogComponent},
-    { path: 'sprint/details/:id', component: SprintDetailsComponent, children: [{
-      path: 'task/create', component: TasksComponent
-    }]},
+    { path: 'sprint/details/:id', component: SprintDetailsComponent, children: [
+      { path: 'task/create', component: TasksComponent },
+    ]},
     { path: 'documents',       component: DocumentsComponent, canActivate: [LoginActivate]},
     { path: 'intro',       component: IntroComponent, canActivate: [LoginActivate]},
     { path: 'create-users', component: CreateUsersComponent},
-    { path: 'register', component: RegisterComponent}
-    { path: 'sprintplanning', component: SprintplanningComponent},
-    { path: 'sprintretrospective', component: SprintretrospectiveComponent},
-    { path: 'sprinttechnical', component: SprinttechnicalComponent}
+    { path: 'register', component: RegisterComponent},
+    { path: 'sprintplanning/:id', component: SprintplanningComponent},
+    { path: 'sprintretrospective/:id', component: SprintretrospectiveComponent},
+    { path: 'sprinttechnical/:id', component: SprinttechnicalComponent}
 ];

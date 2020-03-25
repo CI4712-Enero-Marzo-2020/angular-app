@@ -3,6 +3,7 @@ import { Technical } from './technical';
 import { DatePipe } from '@angular/common';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SprintDailyService } from '../services/meetings/sprintDaily/sprint-daily.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-sprinttechnical',
@@ -36,15 +37,18 @@ export class SprinttechnicalComponent implements OnInit {
     }
     ];
 
-    addEditForm: FormGroup;
-    addMode: boolean = true;
-    technical: Technical;
-    searchword: string = '';
-    sprint_id: number = 1;
+  addEditForm: FormGroup;
+  addMode: boolean = true;
+  technical: Technical;
+  searchword: string = '';
+  sprint_id: number;
 
   constructor(public datepipe: DatePipe,
-              private formBuilder: FormBuilder,
-              private technicalService: SprintDailyService) {}
+    private formBuilder: FormBuilder,
+    private technicalService: SprintDailyService,
+    private route: ActivatedRoute) {
+    this.sprint_id = this.route.snapshot.params.id;
+  }
 
   ngOnInit() {
     this.initializeAddForm();
@@ -55,7 +59,7 @@ export class SprinttechnicalComponent implements OnInit {
   initializeAddForm() {
     this.addMode = true;
     this.addEditForm = this.formBuilder.group({
-      date: [{value: new Date(Date.now()), disabled: true}, Validators.required],
+      date: [{ value: new Date(Date.now()), disabled: true }, Validators.required],
       report: ['', Validators.required]
     });
   }
@@ -64,7 +68,7 @@ export class SprinttechnicalComponent implements OnInit {
     this.addMode = false;
     this.technical = technical;
     this.addEditForm = this.formBuilder.group({
-      date: [{value: technical.date, disabled: true}, Validators.required],
+      date: [{ value: technical.date, disabled: true }, Validators.required],
       report: [technical.report, Validators.required]
     });
   }
