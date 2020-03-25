@@ -6,6 +6,7 @@ import { AuthService } from '../services/users/auth.service';
 import { MatDialogConfig, MatDialog } from '@angular/material';
 import { TasksComponent } from '../tasks/tasks.component';
 import { DialogComponent } from '../logger/dialog/dialog.component';
+import { SprintplanningService } from '../services/meetings/sprintplanning/sprintplanning.service';
 
 @Component({
   selector: 'app-sprint-details',
@@ -50,7 +51,8 @@ export class SprintDetailsComponent implements OnInit {
   constructor(public sprintService: SprintService,
               public route: ActivatedRoute,
               public router: Router,
-              public authService: AuthService, private matDialog: MatDialog) {
+              public authService: AuthService, private matDialog: MatDialog,
+              public planningService: SprintplanningService) {
 
     this.idSprint = parseInt(this.route.snapshot.paramMap.get('id'), 10);
     this.getSprint();
@@ -407,6 +409,17 @@ export class SprintDetailsComponent implements OnInit {
 
   sprintRetrospective() {
     this.router.navigate(['sprintretrospective', this.idSprint]);
+  }
+
+  async createPlanning(){
+    const formData = new FormData();
+    formData.append('date', new Date().toUTCString());
+    formData.append('sprint_id', this.idSprint.toString());
+    const planning: any = await this.planningService.create(formData);
+    if (planning && planning.server !== 'ERROR') {
+      // Lo dejo pasar a planning
+      this.sprintPlanning();
+    }
   }
 
 }

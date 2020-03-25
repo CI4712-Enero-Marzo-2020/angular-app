@@ -30,13 +30,13 @@ export class SprintplanningService {
     .toPromise()
     .then(
       (response) => {
-        console.log('RESPONSE');
+        console.log('RESPONSE PLANNING');
         console.log(response);
         return response;
       },
       (error) => {
         // Devuelvo null
-        console.log('RESPONSE');
+        console.log('RESPONSE PLANNING');
         console.log(error);
       }
     );

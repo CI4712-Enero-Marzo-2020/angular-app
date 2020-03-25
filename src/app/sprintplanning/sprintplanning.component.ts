@@ -57,13 +57,12 @@ export class SprintplanningComponent implements OnInit {
   ngOnInit() {
     this.initializeAddForm();
     this.searchword = '';
-    this.sprint = '1';
-    this.planningId = '1';
-    // this.getAllResults();
+    this.plans = [];
+    this.getAllResults();
   }
 
   async getAllResults() {
-    this.planningService.getPlanning(this.sprint).then((response) => {
+    this.planningService.getPlanning(this.sprint_id).then((response) => {
       if (response && response.server !== 'NO_CONTENT' && response.server !== 'ERROR') {
         this.plans = response.results;
         this.planningId = response.planning.id;

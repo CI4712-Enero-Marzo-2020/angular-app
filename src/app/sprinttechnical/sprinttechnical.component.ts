@@ -13,33 +13,11 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class SprinttechnicalComponent implements OnInit {
 
-  technicals: Technical[] =
-    [{
-      id: 0,
-      date: new Date(Date.now()),
-      report: 'KARANAVAAAAAIRAS',
-      sprint_id: 0
-    }, {
-      id: 1,
-      date: new Date(Date.now()),
-      report: 'SOS',
-      sprint_id: 0
-    }, {
-      id: 2,
-      date: new Date(Date.now()),
-      report: 'SEND HELP!',
-      sprint_id: 0
-    }, {
-      id: 3,
-      date: new Date(Date.now()),
-      report: 'Stay safe :(',
-      sprint_id: 0
-    }
-    ];
 
   addEditForm: FormGroup;
   addMode: boolean = true;
   technical: Technical;
+  technicals: Technical[];
   searchword: string = '';
   sprint_id: number;
 
@@ -53,6 +31,7 @@ export class SprinttechnicalComponent implements OnInit {
   ngOnInit() {
     this.initializeAddForm();
     this.searchword = '';
+    this.technicals = [];
     this.getAll();
   }
 
