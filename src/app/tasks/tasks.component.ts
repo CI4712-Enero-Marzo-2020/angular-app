@@ -34,17 +34,19 @@ export class TasksComponent implements OnInit {
   }
   ngOnInit() {
     this.formTask();
+    console.log(this.data.task);
     if (this.data.operation === 1) {
       this.taskForm.controls['task_type'].setValue('develop');
       this.taskForm.controls['task_class'].setValue('easy');
       this.taskForm.controls['task_status'].setValue('init');
       this.taskForm.controls['task_functions'].setValue(1);
     } else if (this.data.operation === 2) {
+      console.log();
       this.taskForm.controls['id'].setValue(this.data.task.task.id);
       this.taskForm.controls['description'].setValue(this.data.task.task.description);
-      this.taskForm.controls['task_type'].setValue(this.data.task.task.task_type);
-      this.taskForm.controls['task_class'].setValue(this.data.task.task.task_class);
-      this.taskForm.controls['task_status'].setValue(this.data.task.task.task_status);
+      this.setType();
+      this.setClass();
+      this.setStatus();
       this.taskForm.controls['task_functions'].setValue(this.data.task.task.task_functions);
       this.taskForm.controls['users'].setValue(this.data.task.task.users);
     }
@@ -91,6 +93,42 @@ export class TasksComponent implements OnInit {
 
     }
   }
+
+  setType() {
+    if (this.data.task.task.task_type === 'Desarrollo') {
+      this.taskForm.controls['task_type'].setValue('develop');
+    } else if (this.data.task.task.task_type === 'Diseño') {
+      this.taskForm.controls['task_type'].setValue('design');
+    } else if (this.data.task.task.task_type === 'Reparar') {
+      this.taskForm.controls['task_type'].setValue('fix');
+    } else if (this.data.task.task.task_type === 'Refactor') {
+      this.taskForm.controls['task_type'].setValue('refact');
+    }
+
+  }
+
+  setStatus() {
+    if (this.data.task.task.task_status === 'Nueva') {
+      this.taskForm.controls['task_status'].setValue('new');
+    } else if (this.data.task.task.task_status === 'Iniciada') {
+      this.taskForm.controls['task_status'].setValue('init');
+    } else if (this.data.task.task.task_status === 'Lista para Pruebas') {
+      this.taskForm.controls['task_status'].setValue('to_test');
+    } else if (this.data.task.task.task_status === 'Culminada') {
+      this.taskForm.controls['task_status'].setValue('ended');
+    }
+  }
+
+  setClass() {
+    if (this.data.task.task.task_class === 'Sencilla') {
+      this.taskForm.controls['task_class'].setValue('easy');
+    } else if (this.data.task.task.task_class === 'Media') {
+      this.taskForm.controls['task_class'].setValue('middle');
+    } else if (this.data.task.task.task_class === 'Compleja') {
+      this.taskForm.controls['task_class'].setValue('hard');
+    }
+  }
+
 
   getUsers() {
     this.sprintService.getTeams().subscribe(res => {

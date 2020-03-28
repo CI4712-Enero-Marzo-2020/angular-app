@@ -15,10 +15,12 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { Location } from '@angular/common';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { SprintGraphsComponent } from './sprint-graphs/sprint-graphs.component';
 @NgModule({
   declarations: [
     AppComponent,
     AdminLayoutComponent,
+    SprintGraphsComponent,
   ],
   imports: [
     BrowserAnimationsModule,
