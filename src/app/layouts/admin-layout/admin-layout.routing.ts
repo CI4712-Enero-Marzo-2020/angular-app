@@ -17,6 +17,8 @@ import { DocumentsComponent } from '../../documents/documents.component';
 import { IntroComponent } from '../../intro/intro.component';
 import { CreateUsersComponent } from 'src/app/create-users/create-users.component';
 import { RegisterComponent } from 'src/app/register/register.component';
+import { SprintUnitTestComponent } from 'src/app/sprint-unit-test/sprint-unit-test.component';
+import { SprintUiTestComponent } from 'src/app/sprint-ui-test/sprint-ui-test.component';
 
 export const AdminLayoutRoutes: Routes = [
     // Agregar path y respectivo componente aquí
@@ -36,5 +38,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'register', component: RegisterComponent},
     { path: 'sprintplanning/:id', component: SprintplanningComponent},
     { path: 'sprintretrospective/:id', component: SprintretrospectiveComponent},
-    { path: 'sprinttechnical/:id', component: SprinttechnicalComponent}
+    { path: 'sprinttechnical/:id', component: SprinttechnicalComponent},
+    { path: 'sprintunittest/:id', component: SprintUnitTestComponent},
+    { path: 'sprintuitest/:id', component: SprintUiTestComponent}
 ];

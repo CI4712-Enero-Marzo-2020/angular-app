@@ -1,0 +1,195 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6 text-left">
+                                <h4 class="card-title ">Pruebas Unitarias Desarrolladas</h4>
+                                <p class="card-category">Sprint {{sprint_id}}</p>
+                            </div>
+                            <div class="col-xs-12 col-md-6 text-right">
+                                <div class="input-group">
+                                    <input type="text" placeholder="Buscar" [(ngModel)]="searchword"
+                                        class="form-control">
+                                    <span class="input-group-btn">
+                                        <button id="but1" mat-raised-button type="submit" class="btn pull-right"
+                                            (click)="true">
+                                            <fa-icon icon="search"></fa-icon>
+                                        </button>
+                                        <span class="input-group-btn">
+                                            <button id="but2" mat-raised-button type="submit" class="btn pull-right"
+                                                data-toggle="modal" data-target="#addEdit"
+                                                (click)="initializeAddForm()">
+                                                <fa-icon icon="plus-circle"></fa-icon>
+                                            </button>
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table text-center">
+                                <thead class=" text-primary">
+                                    <th class="narrow-column">
+                                        ID
+                                    </th>
+                                    <th class="narrow-column">
+                                        Fecha
+                                    </th>
+                                    <th>
+                                        Módulo
+                                    </th>
+                                    <th>
+                                        Componente
+                                    </th>
+                                    <th>
+                                        Nombre
+                                    </th>
+                                    <th>
+                                        Cantidad
+                                    </th>
+                                    <th class="narrow-column">
+                                        Opciones
+                                    </th>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let unitTest of filterUnitTests(searchword, fromDate, toDate); index as i">
+                                        <td class="text-center">
+                                            {{unitTest.id}}
+                                        </td>
+                                        <td>
+                                            {{datepipe.transform(unitTest.date, 'dd/MM/yyyy')}}
+                                        </td>
+                                        <td>
+                                            {{unitTest.module}}
+                                        </td>
+                                        <td>
+                                            {{unitTest.component}}
+                                        </td>
+                                        <td>
+                                            {{unitTest.name}}
+                                        </td>
+                                        <td>
+                                            {{unitTest.amount}}
+                                        </td>
+                                        <td class="text-right">
+                                            <div class="btn-group" role="group">
+                                                <button type="button" class="btn btn-secondary" data-toggle="modal"
+                                                    data-target="#addEdit" (click)="initializeEditForm(unitTest)">
+                                                    <fa-icon icon="edit"></fa-icon>
+                                                </button>
+                                                <button type="button" class="btn btn-secondary" data-toggle="modal"
+                                                    data-target="#eliminar" (click)="initializeDeleteForm(unitTest)">
+                                                    <fa-icon icon="times"></fa-icon>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-12">
+                            <div class="input-group">
+                                <mat-form-field style="margin:auto">
+                                    <input matInput [matDatepicker]="from" placeholder="Desde" [(ngModel)]="fromDate"
+                                        disabled>
+                                    <mat-datepicker-toggle matSuffix [for]="from"></mat-datepicker-toggle>
+                                    <mat-datepicker #from disabled="false"></mat-datepicker>
+                                </mat-form-field>
+                                <mat-form-field style="margin:auto">
+                                    <input matInput [matDatepicker]="to" placeholder="Hasta" [(ngModel)]="toDate"
+                                        disabled>
+                                    <mat-datepicker-toggle matSuffix [for]="to"></mat-datepicker-toggle>
+                                    <mat-datepicker #to disabled="false"></mat-datepicker>
+                                </mat-form-field>
+                                <mat-form-field style="margin:auto">
+                                    <input matInput type="text" placeholder="Total" [(ngModel)]="unitTests.length"
+                                        disabled>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal modal-angular fade" id="addEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 *ngIf="addMode" class="modal-title">Agregar Prueba Unitaria</h5>
+                    <h5 *ngIf="!addMode" class="modal-title">Editar Prueba Unitaria {{unitTest.id}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form [formGroup]="addEditForm">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <mat-form-field>
+                                        <input formControlName="date" matInput [matDatepicker]="picker"
+                                            placeholder="Fecha">
+                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker disabled="false"></mat-datepicker>
+                                    </mat-form-field>
+                                    <mat-form-field>
+                                        <input formControlName="module" type="text" matInput class="form-control"
+                                            placeholder="Módulo">
+                                    </mat-form-field>
+                                    <mat-form-field>
+                                        <input formControlName="component" type="text" matInput class="form-control"
+                                            placeholder="Componente">
+                                    </mat-form-field>
+                                    <mat-form-field>
+                                        <input formControlName="name" type="text" matInput class="form-control"
+                                            placeholder="Nombre">
+                                    </mat-form-field>
+                                    <mat-form-field>
+                                        <input formControlName="amount" type="number" matInput class="form-control"
+                                            placeholder="Cantidad">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button *ngIf="addMode" type="button" class="btn btn-primary" data-toggle="modal"
+                        data-dismiss="modal" (click)="createUnitTest()">Crear Prueba</button>
+                    <button *ngIf="!addMode" type="button" class="btn btn-primary" data-toggle="modal"
+                        data-dismiss="modal" (click)="editUnitTest()">Editar Prueba</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal modal-angular fade" id="eliminar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="margin-top">
+                        ¿Está seguro que desea eliminar la prueba unitaria
+                        {{unitTest?unitTest.id:""}}?
+                    </h4>
+                    <a class="modal-button" data-dismiss="modal" (click)="removeUnitTest()" target="_blank">
+                        <div class="product-type">Si</div>
+                    </a>
+                    <a class="modal-button" data-dismiss="modal" target="_blank">
+                        <div class="product-type">No</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

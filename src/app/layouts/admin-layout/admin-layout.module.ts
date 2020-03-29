@@ -59,6 +59,8 @@ import { SprinttechnicalComponent } from 'src/app/sprinttechnical/sprinttechnica
 import { SprintDetailsComponent } from 'src/app/sprint-details/sprint-details.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { TasksComponent } from 'src/app/tasks/tasks.component';
+import { SprintUiTestComponent } from 'src/app/sprint-ui-test/sprint-ui-test.component';
+import { SprintUnitTestComponent } from 'src/app/sprint-unit-test/sprint-unit-test.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -94,7 +96,9 @@ import { TasksComponent } from 'src/app/tasks/tasks.component';
     DocumentsComponent,
     IntroComponent,
     CreateUsersComponent,
-    RegisterComponent
+    RegisterComponent,
+    SprintUnitTestComponent,
+    SprintUiTestComponent
   ],
   providers: [
     LoginActivate,
