@@ -104,10 +104,15 @@ describe("Hacer login", function(){
 		var verSprint = browser.findElement(protractor.by.css('[class="btn btn-primary sprint"]'));
 		verSprint.click();
 		browser.sleep(400);
-		var planificacion = verSprint = browser.findElement(protractor.by.css('[id="planificacion"]'));
+		var planificacion =  browser.findElement(protractor.by.css('[id="planificacion"]'));
 		planificacion.click();
-		browser.sleep(10000);
-
+		browser.sleep(400);
+		agregarPlan = browser.findElement(protractor.by.css('[id="but2"]'));
+		agregarPlan.click();
+		var tema = browser.findElement(protractor.by.css('[id="tema"]'));
+		browser.sleep(400);
+		tema.sendKeys("Tema 1");
+		browser.sleep(4000);
 
 
 		//browser.sleep(100000);
