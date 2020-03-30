@@ -65,7 +65,7 @@ export class ProjectsService {
 
   changeStatus(project: any,  action: string) {
     const url = action === 'pause' ? `${this.url}projects/pause/${project.id}` : `${this.url}projects/reactivate/${project.id}`;
-    return this.http.get(url)
+    return this.http.patch(url, {})
     .toPromise()
     .then(
       (response) => {
