@@ -97,4 +97,22 @@ describe("Hacer login", function(){
 
 
 	});
+
+
+	it("ver sprint", function(){
+		browser.get("http://localhost:4200/productbacklog/1");
+		var verSprint = browser.findElement(protractor.by.css('[class="btn btn-primary sprint"]'));
+		verSprint.click();
+		browser.sleep(400);
+		var planificacion = verSprint = browser.findElement(protractor.by.css('[id="planificacion"]'));
+		planificacion.click();
+		browser.sleep(10000);
+
+
+
+		//browser.sleep(100000);
+		
+
+
+	});
 });
