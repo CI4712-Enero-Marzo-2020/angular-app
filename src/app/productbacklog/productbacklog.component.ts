@@ -187,4 +187,8 @@ export class ProductbacklogComponent implements OnInit {
     this.router.navigate(['sprint/details', this.sprintId]);
   }
 
+  sprintGraphs() {
+    this.router.navigate(['sprint/graphs', this.projectId]);
+  }
+
 }

@@ -96,10 +96,15 @@
             </div>
         </div>
     </div>
-    <button *ngIf="newSprint" class="btn mat-raised-button sprint" (click)="generateSprint()">Generar Sprint</button>
-    <button *ngIf="!newSprint" class="btn btn-primary sprint" (click)="sprintDetail()">Ver Sprint</button>
-
-
+    <div class="row">
+      <div class="col">
+        <button class="btn btn-primary sprint" (click)="sprintGraphs()">Graficas del Proyecto</button>
+      </div>
+      <div class="col">
+        <button *ngIf="newSprint" class="btn mat-raised-button sprint" (click)="generateSprint()">Generar Sprint</button>
+        <button *ngIf="!newSprint" class="btn btn-primary sprint" (click)="sprintDetail()">Ver Sprint</button>
+      </div>
+    </div>
 
     <div class="modal modal-angular fade" id="addEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">

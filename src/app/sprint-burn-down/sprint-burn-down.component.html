@@ -6,7 +6,7 @@
 
                   <div class="row">
                       <div class="col-xs-12 col-md-6 text-left">
-                          <h4 class="card-title ">Sprints del Proyecto</h4>
+                          <h4 class="card-title ">Burn Up</h4>
                       </div>
                       <!-- <div class="col-xs-12 col-md-6 text-right">
                         <div class="input-group">
@@ -27,23 +27,20 @@
                               ID
                             </th>
                             <th>
-                              Desarrollador
+                              Dia
                             </th>
                             <th>
-                              Tester
+                              Trabajo
                             </th>
                             <th>
-                              Dias
+                              Disponibles
                             </th>
-                            <th>
-                              Objetivo
-                            </th>
-                            <th>
+                            <!-- <th>
                               Historia
                             </th>
                             <th class="options-column">
                                 Opciones
-                            </th>
+                            </th> -->
                         </thead>
                         <tbody>
                           <tr *ngFor="let sprint of sprints">
@@ -51,30 +48,27 @@
                                   {{sprint.id}}
                                 </td>
                                 <td>
-                                  {{sprint.developers}}
+                                  {{sprint.day}}
                                 </td>
                                 <td>
-                                  {{sprint.tester}}
+                                  {{sprint.work}}
                                 </td>
                                 <td>
-                                  {{sprint.days}}
+                                  {{sprint.available}}
                                 </td>
-                                <td>
-                                  {{sprint.object}}
-                                </td>
-                                <td>
+                                <!-- <td>
                                   {{sprint.history}}
                                 </td>
                                 <td>
                                   <div class="btn-group" role="group">
-                                      <button type="button" class="btn btn-secondary" (click)="burnDown(sprint.id)" >
+                                      <button type="button" class="btn btn-secondary" (click)="burnDown()" >
                                         <fa-icon icon="edit"></fa-icon>
                                       </button>
-                                      <button type="button" class="btn btn-secondary" (click)="burnUp(sprint.id)" >
+                                      <button type="button" class="btn btn-secondary" (click)="burnUp()" >
                                         <fa-icon icon="edit"></fa-icon>
                                       </button>
                                   </div>
-                                </td>
+                                </td> -->
                             </tr>
                         </tbody>
                     </table>
@@ -82,6 +76,19 @@
               </div>
           </div>
       </div>
+  </div>
+
+  <!-------------------------------------------- Grafico Burn Down -------------------------------------------------->
+
+  <div class="chart-wrapper">
+    <canvas baseChart
+    [datasets]="barChartData"
+    [labels]="barChartLabels"
+    [options]="barChartOptions"
+    [plugins]="barChartPlugins"
+    [legend]="barChartLegend"
+    [chartType]="barChartType">
+    </canvas>
   </div>
 </div>
 
