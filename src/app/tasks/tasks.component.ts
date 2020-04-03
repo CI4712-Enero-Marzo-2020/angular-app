@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { SprintService } from '../services/sprint/sprint.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { UsersService } from '../services/users/users.service';
 export interface DialogTaskData {
   title: string;
   operation: number;
@@ -17,12 +18,16 @@ export interface DialogTaskData {
 export class TasksComponent implements OnInit {
   idSprint = 0;
   idUser = 0;
+
   storySelected: any;
-  users = [{id: 1, name: 'jguzman'}, {id: 2, name: 'nairelyshz'}];
+  users = [];
+  allUsers = [];
   selectedUser = [];
   taskForm: FormGroup;
 
+
   constructor(private sprintService: SprintService,
+              private userService: UsersService,
               public dialogRef: MatDialogRef<TasksComponent>,
               @Inject(MAT_DIALOG_DATA) public data: DialogTaskData) {
                 this.idSprint = data.idProject;
@@ -41,7 +46,6 @@ export class TasksComponent implements OnInit {
       this.taskForm.controls['task_status'].setValue('init');
       this.taskForm.controls['task_functions'].setValue(1);
     } else if (this.data.operation === 2) {
-      console.log();
       this.taskForm.controls['id'].setValue(this.data.task.task.id);
       this.taskForm.controls['description'].setValue(this.data.task.task.description);
       this.setType();
@@ -49,6 +53,12 @@ export class TasksComponent implements OnInit {
       this.setStatus();
       this.taskForm.controls['task_functions'].setValue(this.data.task.task.task_functions);
       this.taskForm.controls['users'].setValue(this.data.task.task.users);
+      this.taskForm.controls['bestCase'].setValue(this.data.task.task.bestCase);
+      this.taskForm.controls['worstCase'].setValue(this.data.task.task.worstCase);
+      this.taskForm.controls['mostLikely'].setValue(this.data.task.task.mostLikely);
+      this.taskForm.controls['est_time'].setValue(this.data.task.task.est_time);
+      this.taskForm.controls['users'].setValue(this.data.task.task.users);
+
     }
     this.getUsers();
   }
@@ -63,16 +73,22 @@ export class TasksComponent implements OnInit {
       task_status: new FormControl(''),
       user_id: new FormControl(this.idUser),
       users: new FormControl([], Validators.required),
-      task_functions: new FormControl()
+      task_functions: new FormControl(),
+        worstCase: new FormControl(),
+        mostLikely: new FormControl(),
+        bestCase: new FormControl(),
+      est_time: new FormControl()
     });
   }
 
   onSubmit() {
+    this.calculateEstimation();
     if (this.data.operation === 1) {
       this.sprintService.createTask(this.taskForm.value).subscribe(res => {
         this.onNoClick();
 
       });
+      console.log(this.taskForm.value);
     } else {
       this.sprintService.editTask(this.taskForm.value.id, this.taskForm.value).subscribe(res => {
         this.onNoClick();
@@ -129,10 +145,18 @@ export class TasksComponent implements OnInit {
     }
   }
 
+  calculateEstimation() {
+    let e = this.taskForm.value.worstCase + (4 * this.taskForm.value.mostLikely) + this.taskForm.value.bestCase;
+    e = e / 6;
+    let sd = this.taskForm.value.worstCase - this.taskForm.value.bestCase;
+    sd = Math.round(e + sd);
+    this.taskForm.controls['est_time'].setValue(sd);
+  }
 
   getUsers() {
-    this.sprintService.getTeams().subscribe(res => {
+    this.userService.getAll().subscribe((res: any) => {
       console.log(res);
+      this.allUsers = res;
     });
   }
 

@@ -17,10 +17,12 @@ import { Location } from '@angular/common';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { SprintBurnUpComponent } from './sprint-burn-up/sprint-burn-up.component';
 import { SprintBurnDownComponent } from './sprint-burn-down/sprint-burn-down.component';
+import { AddDayComponent } from './add-day/add-day.component';
 @NgModule({
   declarations: [
     AppComponent,
-    AdminLayoutComponent
+    AdminLayoutComponent,
+    AddDayComponent
   ],
   imports: [
     BrowserAnimationsModule,
