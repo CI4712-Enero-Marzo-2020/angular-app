@@ -169,6 +169,7 @@ export class SprintBacklogComponent implements OnInit {
       this.sprintService.createSprint(jsonSprint).subscribe((res: any) => {
         this.idSprint = res.id;
         this.sprint = res;
+        this.sprintForm.controls['end_date'].disable();
         this.calculateDuration();
       });
     } else {

@@ -1,0 +1,90 @@
+<div class="container">
+  <div class="row">
+      <div class="col-md-12">
+          <div class="card">
+              <div class="card-header card-header-danger">
+
+                  <div class="row">
+                      <div class="col-xs-12 col-md-6 text-left">
+                          <h4 class="card-title ">Burn Down</h4>
+                      </div>
+                      <div class="col-xs-12 col-md-6 text-right">
+                        <div class="input-group">
+                            <span class="input-group-btn">
+                                <button id="but1" mat-raised-button type="submit" class="btn pull-right" (click)="addDay()">
+                                    <fa-icon icon="arrow-alt-circle-up"></fa-icon>
+                                </button>
+                            </span>
+                        </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead class=" text-primary">
+                            <th>
+                              ID
+                            </th>
+                            <th>
+                              Dia
+                            </th>
+                            <th>
+                              Trabajo
+                            </th>
+                            <th>
+                              Disponibles
+                            </th>
+                            <th class="options-column">
+                                Opciones
+                            </th>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let day of days">
+                                <td>
+                                  {{day.id}}
+                                </td>
+                                <td>
+                                  {{day.day}}
+                                </td>
+                                <td>
+                                  {{day.work}}
+                                </td>
+                                <td>
+                                  {{day.available}}
+                                </td>
+
+                                <td>
+                                  <div class="btn-group" role="group">
+                                      <button type="button" class="btn btn-secondary" (click)="editDay()" >
+                                        <fa-icon icon="edit"></fa-icon>
+                                      </button>
+                                      <button type="button" class="btn btn-secondary" (click)="deleteDay()" >
+                                        <fa-icon icon="times"></fa-icon>
+                                      </button>
+                                  </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <!-------------------------------------------- Grafico Burn Down -------------------------------------------------->
+
+  <div class="chart-wrapper">
+    <canvas baseChart
+    [datasets]="barChartData"
+    [labels]="barChartLabels"
+    [options]="barChartOptions"
+    [plugins]="barChartPlugins"
+    [legend]="barChartLegend"
+    [chartType]="barChartType">
+    </canvas>
+  </div>
+</div>
+
+

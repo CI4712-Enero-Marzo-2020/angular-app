@@ -1,0 +1,88 @@
+<div class="container">
+  <div class="row">
+      <div class="col-md-12">
+          <div class="card">
+              <div class="card-header card-header-danger">
+
+                  <div class="row">
+                      <div class="col-xs-12 col-md-6 text-left">
+                          <h4 class="card-title ">Sprints del Proyecto</h4>
+                      </div>
+                      <!-- <div class="col-xs-12 col-md-6 text-right">
+                        <div class="input-group">
+                            <span class="input-group-btn">
+                                <button id="but1" mat-raised-button type="submit" class="btn pull-right" data-toggle="modal" data-target="#modalCriteria">
+                                    <fa-icon icon="arrow-alt-circle-up"></fa-icon>
+                                </button>
+                            </span>
+                        </div>
+                      </div> -->
+                  </div>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead class=" text-primary">
+                            <th>
+                              ID
+                            </th>
+                            <th>
+                              Desarrollador
+                            </th>
+                            <th>
+                              Tester
+                            </th>
+                            <th>
+                              Dias
+                            </th>
+                            <th>
+                              Objetivo
+                            </th>
+                            <th>
+                              Historia
+                            </th>
+                            <th class="options-column">
+                                Opciones
+                            </th>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let sprint of sprints">
+                                <td>
+                                  {{sprint.id}}
+                                </td>
+                                <td>
+                                  {{sprint.developers.length}}
+                                </td>
+                                <td>
+                                  {{sprint.developers.length}}
+                                </td>
+                                <td>
+                                  {{sprint.duration}}
+                                </td>
+                                <td>
+                                  {{sprint.object}}
+                                </td>
+                                <td>
+                                  {{sprint.storiesAccount}}
+                                </td>
+                                <td>
+                                  <div class="btn-group" role="group">
+                                      <button type="button" class="btn btn-secondary" (click)="burnDown(sprint.id)" >
+                                        <fa-icon icon="arrow-alt-circle-down"></fa-icon>
+                                      </button>
+                                      <button type="button" class="btn btn-secondary" (click)="burnUp(sprint.id)" >
+                                        <fa-icon icon="arrow-alt-circle-up"></fa-icon>
+                                      </button>
+                                  </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+

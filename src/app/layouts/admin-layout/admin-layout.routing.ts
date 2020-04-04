@@ -17,6 +17,10 @@ import { DocumentsComponent } from '../../documents/documents.component';
 import { IntroComponent } from '../../intro/intro.component';
 import { CreateUsersComponent } from 'src/app/create-users/create-users.component';
 import { RegisterComponent } from 'src/app/register/register.component';
+import { SprintGraphsComponent } from 'src/app/sprint-graphs/sprint-graphs.component';
+import { SprintBurnUpComponent } from 'src/app/sprint-burn-up/sprint-burn-up.component';
+import { SprintBurnDownComponent } from 'src/app/sprint-burn-down/sprint-burn-down.component';
+import { AddDayComponent } from 'src/app/add-day/add-day.component';
 
 export const AdminLayoutRoutes: Routes = [
     // Agregar path y respectivo componente aquí
@@ -27,9 +31,16 @@ export const AdminLayoutRoutes: Routes = [
       path: 'delete', component: DialogComponent
     }] },
     { path: 'sprint/:id', component: SprintBacklogComponent},
-    { path: 'sprint/details/:id', component: SprintDetailsComponent, children: [
-      { path: 'task/create', component: TasksComponent },
-    ]},
+    { path: 'sprint/graphs/:id', component: SprintGraphsComponent},
+    { path: 'sprint/graphs/:id/burnUp/:idSprint', component: SprintBurnUpComponent, children: [{
+      path: 'day/create', component: AddDayComponent
+    }] },
+    { path: 'sprint/graphs/:id/burnDown/:idSprint', component: SprintBurnDownComponent, children: [{
+      path: 'day/create', component: AddDayComponent
+    }]},
+    { path: 'sprint/details/:id', component: SprintDetailsComponent, children: [{
+      path: 'task/create', component: TasksComponent
+    }]},
     { path: 'documents',       component: DocumentsComponent, canActivate: [LoginActivate]},
     { path: 'intro',       component: IntroComponent, canActivate: [LoginActivate]},
     { path: 'create-users', component: CreateUsersComponent},

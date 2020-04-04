@@ -47,7 +47,8 @@ export class ProductbacklogComponent implements OnInit {
       description: ['', Validators.required],
       priority: [0],
       epic: [false],
-      done: [false]
+      done: [false],
+      estimation: [0]
     });
   }
 
@@ -82,6 +83,7 @@ export class ProductbacklogComponent implements OnInit {
     formData.append('priority', this.addEditStoryForm.get('priority').value);
     formData.append('epic', this.addEditStoryForm.get('epic').value);
     formData.append('done', this.addEditStoryForm.get('done').value);
+    formData.append('estimation', this.addEditStoryForm.get('estimation').value);
     console.log(this.addEditStoryForm.get('epic'));
     const newStory: any = await this.storiesService.create(formData);
     if (newStory && newStory.server !== 'ERROR') {
@@ -97,6 +99,7 @@ export class ProductbacklogComponent implements OnInit {
     formData.append('priority', this.addEditStoryForm.get('priority').value);
     formData.append('epic', this.addEditStoryForm.get('epic').value);
     formData.append('done', this.addEditStoryForm.get('done').value);
+    formData.append('estimation', this.addEditStoryForm.get('estimation').value);
     this.storiesService.edit(this.story, formData).then((response: any) => {
       console.log(response);
       if (response && response.server !== 'ERROR') {
@@ -186,6 +189,10 @@ export class ProductbacklogComponent implements OnInit {
         this.sprintId = res[0].id;
       }
     });
+  }
+
+  sprintGraphs() {
+    this.router.navigate(['sprint/graphs', this.projectId]);
   }
 
 }

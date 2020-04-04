@@ -6,50 +6,76 @@
           <label for="description">Descripción</label>
           <input type="text" class="form-control" id="description" formControlName="description" placeholder="">
         </div>
-        <div class="form-row">
-          <div class="col">
-            <label for="">Tipo</label>
-            <select class="form-control" formControlName="task_type">
-              <option value="develop" >Desarrollo</option>
-              <option value="design">Diseño</option>
-              <option value="fix">Reparar</option>
-              <option value="refact">Refactor</option>
-            </select>
+          <div class="form-row">
+            <div class="col">
+              <label for="">Tipo</label>
+              <select class="form-control" formControlName="task_type">
+                <option value="develop" >Desarrollo</option>
+                <option value="design">Diseño</option>
+                <option value="fix">Reparar</option>
+                <option value="refact">Refactor</option>
+              </select>
+            </div>
+            <div class="col">
+              <label for="">Estado</label>
+              <select class="form-control" formControlName="task_status">
+                <option value="new" >Nueva</option>
+                <option value="init">Iniciada</option>
+                <option value="to_test">Lista para Pruebas</option>
+                <option value="ended">Culminada</option>
+              </select>
+            </div>
           </div>
-          <div class="col">
-            <label for="">Estado</label>
-            <select class="form-control" formControlName="task_status">
-              <option value="new" >Nueva</option>
-              <option value="init">Iniciada</option>
-              <option value="to_test">Lista para Pruebas</option>
-              <option value="ended">Culminada</option>
-            </select>
+          <div class="form-row">
+            <div class="col">
+              <label for="">Clase</label>
+              <select class="form-control" formControlName="task_class" (change)="selectClass()">
+                <option value="easy" >Sencilla</option>
+                <option value="middle">Media</option>
+                <option value="hard">Compleja</option>
+              </select>
+            </div>
+            <div class="col">
+              <label for="">Funciones</label>
+              <input type="number" class="input taskFunction" min="1" formControlName="task_functions" disabled>
+            </div>
           </div>
-        </div>
-        <div class="form-row">
-          <div class="col">
-            <label for="">Clase</label>
-            <select class="form-control" formControlName="task_class" (change)="selectClass()">
-              <option value="easy" >Sencilla</option>
-              <option value="middle">Media</option>
-              <option value="hard">Compleja</option>
-            </select>
+          <div class="row seperate">
+            <p>Estimación: Tres puntos</p>
           </div>
-          <div class="col">
-            <label for="">Funciones</label>
-            <input type="number" class="input taskFunction" min="1" formControlName="task_functions" disabled>
+          <div class="row">
+            <div class="col-4">
+                <label for="">Mejor caso</label>
+                <input type="number" formControlName="bestCase" class="form-control">
+            </div>
+            <div class="col-4">
+              <label for="">Caso más probable</label>
+              <input class="form-control" type="number" formControlName="mostLikely">
+            </div>
+            <div class="col-4">
+                <label for="">Peor Caso</label>
+                <input class="form-control" type="number" formControlName="worstCase">
+            </div>
           </div>
-        </div>
+          <div class="row seperate">
+            <div class="col-4">
+                <button type="button" class="btn btn-primary" (click)="calculateEstimation()">Calcular Estimacion</button>
+            </div>
+            <div class="col-4"></div>
+            <div class="col-4 ">
+                <input class="form-control" type="number" placeholder="Estimación..." formControlName="est_time" disabled>
+            </div>
+          </div>
         <div class="form-group">
-          <label for="nay">Usuarios</label>
-          <ng-select bindLabel="nay"
+          <label for="ngSelect">Usuarios</label>
+          <ng-select bindLabel="username"
               placeholder=""
               appendTo="body"
               multiple="true"
               maxSelectedItems=2
               formControlName="users">
-              <ng-option  value="{{ user.id }}" *ngFor="let user of users">
-                  {{user.name}}
+              <ng-option  value="{{ user.id }}" *ngFor="let user of allUsers">
+                  {{user.username}}
               </ng-option>
           </ng-select>
         </div>

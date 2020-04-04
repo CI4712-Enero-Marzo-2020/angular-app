@@ -20,7 +20,9 @@ import {
   faAddressBook,
   faScroll,
   faCheck,
-  faEraser
+  faEraser,
+  faSignal,
+  faArrowAltCircleDown
 } from '@fortawesome/free-solid-svg-icons';
 
 // Agregar componentes aquí
@@ -59,6 +61,11 @@ import { SprinttechnicalComponent } from 'src/app/sprinttechnical/sprinttechnica
 import { SprintDetailsComponent } from 'src/app/sprint-details/sprint-details.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { TasksComponent } from 'src/app/tasks/tasks.component';
+import { SprintGraphsComponent } from 'src/app/sprint-graphs/sprint-graphs.component';
+import { SprintBurnDownComponent } from 'src/app/sprint-burn-down/sprint-burn-down.component';
+import { SprintBurnUpComponent } from 'src/app/sprint-burn-up/sprint-burn-up.component';
+import { ChartsModule } from 'ng2-charts';
+import { AddDayComponent } from 'src/app/add-day/add-day.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -76,7 +83,8 @@ import { TasksComponent } from 'src/app/tasks/tasks.component';
     MatDatepickerModule,
     MatNativeDateModule,
     MatTabsModule,
-    NgSelectModule
+    NgSelectModule,
+    ChartsModule
   ],
   declarations: [
     // Agregar declaraciones de componentes aquí
@@ -94,7 +102,11 @@ import { TasksComponent } from 'src/app/tasks/tasks.component';
     DocumentsComponent,
     IntroComponent,
     CreateUsersComponent,
-    RegisterComponent
+    RegisterComponent,
+    SprintGraphsComponent,
+    SprintBurnDownComponent,
+    SprintBurnUpComponent,
+    AddDayComponent
   ],
   providers: [
     LoginActivate,
@@ -132,6 +144,6 @@ export class AdminLayoutModule {
                     faPlusCircle,
                     faSearch,
                     faAddressBook,
-                    faScroll, faCheck);
+                    faScroll, faCheck, faSignal, faArrowAltCircleDown);
   }
 }
