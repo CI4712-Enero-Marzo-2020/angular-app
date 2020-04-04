@@ -219,19 +219,19 @@
       </mat-tab>
     </mat-tab-group>
 
-    <div class="row" style="padding: 10px;">
-      <button class="btn btn-primary sprint" (click)="createPlanning()">Reunión de Planificación</button>
-      <button class="btn btn-primary sprint" (click)="sprintTechnical()">Reunión Técnica</button>
-      <button class="btn btn-primary sprint" (click)="sprintRetrospective()">Reunión de Retrospectiva</button>
-    </div>
-
-
     <div *ngIf="sprintStories.length > 0 && back" class="row back">
       <button class="btn btn-warning" style="float: right" (click)="seeAllstories()">
         Volver
       </button>
     </div>
 
+    <div class="row" style="padding: 10px;">
+      <button class="btn btn-primary sprint" (click)="createPlanning()">Reunión de Planificación</button>
+      <button class="btn btn-primary sprint" (click)="sprintTechnical()">Reunión Técnica</button>
+      <button class="btn btn-primary sprint" (click)="sprintRetrospective()">Reunión de Retrospectiva</button>
+      <button class="btn btn-primary sprint" (click)="sprintUnitTest()">Pruebas Unitarias</button>
+      <button class="btn btn-primary sprint" (click)="sprintUITest()">Pruebas de Interfaz</button>
+    </div>
 
     <div *ngIf="seeAll" class="row close-btn">
       <button class="btn" (click)="close()"> Finalizar Sprint</button>

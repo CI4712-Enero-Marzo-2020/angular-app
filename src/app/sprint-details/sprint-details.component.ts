@@ -411,6 +411,14 @@ export class SprintDetailsComponent implements OnInit {
     this.router.navigate(['sprintretrospective', this.idSprint]);
   }
 
+  sprintUITest() {
+    this.router.navigate(['sprintuitest', this.idSprint]);
+  }
+
+  sprintUnitTest() {
+    this.router.navigate(['sprintunittest', this.idSprint]);
+  }
+
   async createPlanning() {
     this.planningService.getPlanning(this.idSprint).then(async (response) => {
       if (response && response.server !== 'NO_CONTENT' && response.server !== 'ERROR') {
