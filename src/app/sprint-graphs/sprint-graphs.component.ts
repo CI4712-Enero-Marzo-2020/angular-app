@@ -9,7 +9,7 @@ import { element } from 'protractor';
   styleUrls: ['./sprint-graphs.component.scss']
 })
 export class SprintGraphsComponent implements OnInit {
-  sprints: any;
+  sprints: any = [];
 
   idProject: number;
   constructor(private sprintService: SprintService,
@@ -24,32 +24,53 @@ export class SprintGraphsComponent implements OnInit {
   }
 
   getSprints() {
-    this.sprintService.getSprintByProject(this.idProject).subscribe(res => {
-      console.log(res);
-      this.sprints = res;
+    this.sprintService.getSprintByProject(this.idProject).subscribe((res: any) => {
+      res.forEach(sp => {
+        sp['developers'] = [];
+        sp['object'] = 0;
+        sp['storiesAccount'] = 0;
+        this.sprints.push(sp);
+
+      });
       this.getStoriesAccount();
     });
   }
 
   getStoriesAccount() {
-    this.sprints.forEach(element => {
-      this.sprintService.getSprintStories(element.id).subscribe((res: any) => {
-        element['storiesAccount'] = res.length;
-        element['duration'] = this.calculateDuration(element.init_date, element.end_date);
-        let total = 0;
-        res.forEach(story => {
-          total += story.estimation;
-        });
-        element['object'] = total;
+    this.sprints.forEach(sp => {
+      this.sprintService.getSprintStories(sp.id).subscribe((res: any) => {
+        sp['storiesAccount'] = 0;
+        if(res.length > 0) {
+          sp['storiesAccount'] = res.length;
+        }
+        sp['duration'] = this.calculateDuration(sp.init_date, sp.end_date);
+        if (res.length > 0) {
+          let total = 0;
+          res.forEach(e => {
+            total += e.estimation;
+          });
+          sp['object'] = total;
+        } else {
+          sp['object'] = 0;
+        }
       });
     });
     this.getTasksEstimation();
   }
 
   getTasksEstimation() {
-    this.sprints.forEach(element => {
-      this.sprintService.getAllTasks(element.id).subscribe((res: any) => {
-
+    this.sprints.forEach(s => {
+      this.sprintService.getAllTasks(s.id).subscribe((res: any) => {
+        s['developers'] = [];
+        if (res.length > 0) {
+          res.forEach(task => {
+            task.users.forEach(user => {
+              if ( !s.developers.includes(user)) {
+                s.developers.push(user);
+              }
+            });
+          });
+        }
       });
     });
   }
