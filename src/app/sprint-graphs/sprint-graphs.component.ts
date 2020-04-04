@@ -36,6 +36,11 @@ export class SprintGraphsComponent implements OnInit {
       this.sprintService.getSprintStories(element.id).subscribe((res: any) => {
         element['storiesAccount'] = res.length;
         element['duration'] = this.calculateDuration(element.init_date, element.end_date);
+        let total = 0;
+        res.forEach(story => {
+          total += story.estimation;
+        });
+        element['object'] = total;
       });
     });
     this.getTasksEstimation();
@@ -44,11 +49,7 @@ export class SprintGraphsComponent implements OnInit {
   getTasksEstimation() {
     this.sprints.forEach(element => {
       this.sprintService.getAllTasks(element.id).subscribe((res: any) => {
-        let total = 0;
-        res.forEach(task => {
-          total += task.est_time;
-        });
-        element['object'] = total;
+
       });
     });
   }

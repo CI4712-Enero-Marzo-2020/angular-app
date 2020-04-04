@@ -80,7 +80,13 @@ export class SprintBurnUpComponent implements OnInit {
   }
 
   getDaysBySprint() {
+    let count = 1;
+    let values = [];
+    this.days.forEach(element => {
+      this.barChartLabels.push((count++).toString());
+      values.push(element.worked);
 
+    });
+    this.barChartData.push({ data: values, label: 'Burn Up' });
   }
-
 }
