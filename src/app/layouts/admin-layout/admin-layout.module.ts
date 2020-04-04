@@ -21,7 +21,8 @@ import {
   faScroll,
   faCheck,
   faEraser,
-  faSignal
+  faSignal,
+  faArrowAltCircleDown
 } from '@fortawesome/free-solid-svg-icons';
 
 // Agregar componentes aquí
@@ -116,6 +117,6 @@ export class AdminLayoutModule {
                     faPlusCircle,
                     faSearch,
                     faAddressBook,
-                    faScroll, faCheck, faSignal);
+                    faScroll, faCheck, faSignal, faArrowAltCircleDown);
   }
 }

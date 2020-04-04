@@ -18,14 +18,12 @@ export class SprintBurnUpComponent implements OnInit {
   barChartOptions: ChartOptions = {
     responsive: true,
   };
-  barChartLabels: Label[] = ['Apple', 'Banana', 'Kiwifruit', 'Blueberry', 'Orange', 'Grapes'];
+  barChartLabels: Label[] = [];
   barChartType: ChartType = 'bar';
   barChartLegend = true;
   barChartPlugins = [];
 
-  barChartData: ChartDataSets[] = [
-    { data: [45, 37, 60, 70, 46, 33], label: 'Best Fruits' }
-  ];
+  barChartData: ChartDataSets[] = [];
 
   days = [{id:1,day:1,done:1,estimated:3,needed:4},
     {id:2,day:2,done:5,estimated:7,needed:9},
@@ -36,6 +34,7 @@ export class SprintBurnUpComponent implements OnInit {
     this.idProject = parseInt(this.route.snapshot.paramMap.get('id'), 10);
     this.idSprint = parseInt(this.route.snapshot.paramMap.get('idSprint'), 10);
     this.getSprint();
+    this.getDaysBySprint();
 
   }
 
@@ -55,7 +54,8 @@ export class SprintBurnUpComponent implements OnInit {
       data: {
               title: 'Agregar Dia',
               operation: 1,
-              idProject: this.sprint.id,
+              type: 'up',
+              idSprint: this.sprint.id,
               // idUser: this.idUser
             }
     });
@@ -70,7 +70,8 @@ export class SprintBurnUpComponent implements OnInit {
       data: {
               title: 'Editar Dia',
               operation: 2,
-              idProject: this.sprint.id,
+              type: 'up',
+              idSprint: this.sprint.id,
               // idUser: this.idUser
             }
     });
@@ -81,12 +82,25 @@ export class SprintBurnUpComponent implements OnInit {
 
   getDaysBySprint() {
     let count = 1;
-    let values = [];
+    let valuesDone = [];
+    let valuesEstimated = [];
+    let valuesNeeded = [];
+    this.barChartLabels =[];
+    this.barChartData = [];
     this.days.forEach(element => {
       this.barChartLabels.push((count++).toString());
-      values.push(element.worked);
+      valuesDone.push(element.done);
+      valuesEstimated.push(element.estimated);
+      valuesNeeded.push(element.needed);
 
     });
-    this.barChartData.push({ data: values, label: 'Burn Up' });
+
+    this.barChartData.push({data:valuesNeeded, type:'line', label:'Necesitadas'},
+                          {data:valuesEstimated, type:'line', label:'Estimadas'},
+                          { data: valuesDone, label: 'Burn Up' });
+  }
+
+  deleteDay() {
+
   }
 }

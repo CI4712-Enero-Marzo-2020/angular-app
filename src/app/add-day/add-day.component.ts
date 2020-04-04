@@ -10,6 +10,7 @@ export interface DialogDayData {
   idSprint: number;
   duration: number;
   daysAccount: number;
+  type: string;
 }
 @Component({
   selector: 'app-add-day',
@@ -24,6 +25,7 @@ export class AddDayComponent implements OnInit {
               public dialogRef: MatDialogRef<AddDayComponent>,
               @Inject(MAT_DIALOG_DATA) public data: DialogDayData) {
                 this.idSprint = data.idSprint;
+                this.formDay();
               }
 
   ngOnInit() {
@@ -33,7 +35,7 @@ export class AddDayComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  formTask() {
+  formDay() {
     this.dayForm = new FormGroup({
       id: new FormControl(''),
       description : new FormControl(''),

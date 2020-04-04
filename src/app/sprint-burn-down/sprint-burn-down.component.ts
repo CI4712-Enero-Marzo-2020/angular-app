@@ -59,7 +59,8 @@ export class SprintBurnDownComponent implements OnInit {
       data: {
               title: 'Crear Tarea',
               operation: 1,
-              idProject: this.sprint.id,
+              type: 'down',
+              idSprint: this.sprint.id,
               // idUser: this.idUser
             }
     });
@@ -74,7 +75,8 @@ export class SprintBurnDownComponent implements OnInit {
       data: {
               title: 'Editar Dia',
               operation: 2,
-              idProject: this.sprint.id,
+              type: 'down',
+              idSprint: this.sprint.id,
               // idUser: this.idUser
             }
     });
