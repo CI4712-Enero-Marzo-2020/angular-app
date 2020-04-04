@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SprintService } from '../services/sprint/sprint.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { element } from 'protractor';
 
 @Component({
   selector: 'app-sprint-graphs',
@@ -35,6 +36,19 @@ export class SprintGraphsComponent implements OnInit {
       this.sprintService.getSprintStories(element.id).subscribe((res: any) => {
         element['storiesAccount'] = res.length;
         element['duration'] = this.calculateDuration(element.init_date, element.end_date);
+      });
+    });
+    this.getTasksEstimation();
+  }
+
+  getTasksEstimation() {
+    this.sprints.forEach(element => {
+      this.sprintService.getAllTasks(element.id).subscribe((res: any) => {
+        let total = 0;
+        res.forEach(task => {
+          total += task.est_time;
+        });
+        element['object'] = total;
       });
     });
   }

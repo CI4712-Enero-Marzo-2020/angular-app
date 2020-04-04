@@ -56,6 +56,7 @@ import { SprintGraphsComponent } from 'src/app/sprint-graphs/sprint-graphs.compo
 import { SprintBurnDownComponent } from 'src/app/sprint-burn-down/sprint-burn-down.component';
 import { SprintBurnUpComponent } from 'src/app/sprint-burn-up/sprint-burn-up.component';
 import { ChartsModule } from 'ng2-charts';
+import { AddDayComponent } from 'src/app/add-day/add-day.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -90,7 +91,8 @@ import { ChartsModule } from 'ng2-charts';
     RegisterComponent,
     SprintGraphsComponent,
     SprintBurnDownComponent,
-    SprintBurnUpComponent
+    SprintBurnUpComponent,
+    AddDayComponent
   ],
   providers: [
     LoginActivate,

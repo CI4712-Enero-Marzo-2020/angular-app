@@ -22,7 +22,6 @@ import { AddDayComponent } from './add-day/add-day.component';
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-    AddDayComponent
   ],
   imports: [
     BrowserAnimationsModule,
