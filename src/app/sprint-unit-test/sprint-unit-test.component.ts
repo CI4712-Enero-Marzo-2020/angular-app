@@ -16,10 +16,10 @@ export class SprintUnitTestComponent implements OnInit {
 
   @Input() sprint_id: number;
 
-  unitTests: UnitTest[] = [];
+  unitTests: any[] = [];
   addEditForm: FormGroup;
   addMode = true;
-  unitTest: UnitTest;
+  unitTest: any;
   searchword = '';
 
   fromDate: Date;
@@ -50,11 +50,11 @@ export class SprintUnitTestComponent implements OnInit {
     });
   }
 
-  initializeEditForm(unitTest: UnitTest) {
+  initializeEditForm(unitTest: any) {
     this.addMode = false;
     this.unitTest = unitTest;
     this.addEditForm = this.formBuilder.group({
-      date: [{ value: unitTest.date, disabled: true }, Validators.required],
+      date: [this.datepipe.transform(unitTest.date_created, 'dd/MM/yyyy'), Validators.required],
       module: [unitTest.module, Validators.required],
       component: [unitTest.component, Validators.required],
       description: [unitTest.description, Validators.required],
