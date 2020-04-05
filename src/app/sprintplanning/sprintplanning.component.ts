@@ -5,11 +5,13 @@ import { Story } from '../productbacklog/story';
 import { AuthService } from '../services/users/auth.service';
 import { SprintplanningService } from '../services/meetings/sprintplanning/sprintplanning.service';
 import { ActivatedRoute } from '@angular/router';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-sprintplanning',
   templateUrl: './sprintplanning.component.html',
-  styleUrls: ['./sprintplanning.component.scss']
+  styleUrls: ['./sprintplanning.component.scss'],
+  providers: [DatePipe]
 })
 export class SprintplanningComponent implements OnInit {
 
@@ -24,6 +26,7 @@ export class SprintplanningComponent implements OnInit {
   planningDate: any;
 
   constructor(
+    public datepipe: DatePipe,
     private planningService: SprintplanningService,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute) {
