@@ -43,11 +43,11 @@
                   <div class="card">
                       <div class="card-header card-header-danger">
 
-                          <div class="row">
+                          <div class="row justify-content-between">
                               <div class="col-xs-12 col-md-6 text-left">
                                   <h4 class="card-title ">Sprint backlog</h4>
                               </div>
-                              <div class="col-xs-12 col-md-6 text-right">
+                              <div class="col-xs-12 col-md-2 text-right">
                                 <div class="input-group">
                                     <span class="input-group-btn">
                                         <button id="but1" mat-raised-button type="submit" class="btn pull-right" data-toggle="modal" data-target="#modalStories" (click)="getStories()">
@@ -112,126 +112,125 @@
       </mat-tab>
       <mat-tab label="Tareas">
         <ng-template matTabContent>
-                  <!-- Lista de tareas del Sprint Backlog -->
-                  <div class="row">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-header card-header-danger">
-                                <div class="row">
-                                    <div class="col-xs-12 col-md-6 text-left">
-                                        <h4 class="card-title ">Tareas</h4>
-                                    </div>
-                                    <div class="col-xs-12 col-md-6 text-right">
-                                      <div class="input-group">
-                                          <span class="input-group-btn">
-                                              <button id="but1" mat-raised-button type="submit" class="btn pull-right" (click)="createTask()">
-                                                  <fa-icon icon="arrow-alt-circle-up"></fa-icon>
-                                              </button>
-                                          </span>
-                                      </div>
-                                    </div>
-                                </div>
+          <!-- Lista de tareas del Sprint Backlog -->
+          <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6 text-left">
+                                <h4 class="card-title ">Tareas</h4>
                             </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <thead class=" text-primary">
-                                          <th>
-                                            ID
-                                          </th>
-                                          <th>
-                                            Descripción
-                                          </th>
-                                          <th>
-                                            Tipo
-                                          </th>
-                                          <th>
-                                            Estado
-                                          </th>
-                                          <th>
-                                            Asignada
-                                          </th>
-                                          <th>
-                                            Clase
-                                          </th>
-                                          <th>
-                                            Funciones
-                                          </th>
-                                          <th class="options-column">
-                                              Opciones
-                                          </th>
-                                        </thead>
-                                        <tbody>
-                                            <tr *ngFor="let task of sprintTasks">
-                                              <td>
-                                                {{task.id}}
-                                              </td>
-                                              <td>
-                                                {{task.description}}
-                                              </td>
-                                              <td>
-                                                {{task.task_type}}
-                                              </td>
-                                              <td>
-                                                {{task.task_status}}
-                                              </td>
-                                              <td>
-                                                  <p *ngFor="let user of task.users">
-                                                      {{user.username}}
-
-                                                  </p>
-                                              </td>
-                                              <td>
-                                                {{task.task_class}}
-                                              </td>
-                                              <td>
-                                                {{task.task_functions}}
-                                              </td>
-                                              <td>
-                                                <div class="btn-group" role="group">
-                                                    <button type="button" class="btn btn-secondary" (click)="seeDetails(task)" >
-                                                      <fa-icon icon="edit"></fa-icon>
-                                                    </button>
-                                                    <!-- <button type="button" class="btn btn-secondary" (click)="openDialog(log.id)" >
-                                                      <fa-icon icon="times"></fa-icon>
-                                                    </button> -->
-                                                </div>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                            <div class="col-xs-12 col-md-6 text-right">
+                              <div class="input-group">
+                                  <span class="input-group-btn">
+                                      <button id="but1" mat-raised-button type="submit" class="btn pull-right" (click)="createTask()">
+                                          <fa-icon icon="arrow-alt-circle-up"></fa-icon>
+                                      </button>
+                                  </span>
+                              </div>
                             </div>
                         </div>
                     </div>
-                  </div>
-                  <p *ngIf="sprintTasks.length === 0"> No existen tareas definidos para esta historia</p>
-                  <div class="row">
-                      <div class="col-3">
-                        <div class="form-group">
-                          <label for="">Inicio</label>
-                          <input type="text" class="input" [(ngModel)]="initDate" disabled>
-                        </div>
-                      </div>
-                      <div class="col-3">
-                        <div class="form-group">
-                          <label for="">Cierre</label>
-                          <input type="text" class="input" [(ngModel)]="endDate" disabled>
-                        </div>            </div>
-                      <div class="col-3">
-                        <div class="form-group">
-                          <label for="">Duración</label>
-                          <input type="number" min="0" [(ngModel)]="durationTime" class="input" disabled>(días)
-                        </div>
-                      </div>
-                      <div class="col-3">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                  <th>
+                                    ID
+                                  </th>
+                                  <th>
+                                    Descripción
+                                  </th>
+                                  <th>
+                                    Tipo
+                                  </th>
+                                  <th>
+                                    Estado
+                                  </th>
+                                  <th>
+                                    Asignada
+                                  </th>
+                                  <th>
+                                    Clase
+                                  </th>
+                                  <th>
+                                    Funciones
+                                  </th>
+                                  <th class="options-column">
+                                      Opciones
+                                  </th>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let task of sprintTasks">
+                                      <td>
+                                        {{task.id}}
+                                      </td>
+                                      <td>
+                                        {{task.description}}
+                                      </td>
+                                      <td>
+                                        {{task.task_type}}
+                                      </td>
+                                      <td>
+                                        {{task.task_status}}
+                                      </td>
+                                      <td>
+                                          <p *ngFor="let user of task.users">
+                                              {{user.username}}
 
-                        <div class="form-group">
-                          <label for="">Tiempo estimado</label>
-                          <input type="number" class="input" [(ngModel)]="estimatedTime" disabled> (horas)
+                                          </p>
+                                      </td>
+                                      <td>
+                                        {{task.task_class}}
+                                      </td>
+                                      <td>
+                                        {{task.task_functions}}
+                                      </td>
+                                      <td>
+                                        <div class="btn-group" role="group">
+                                            <button type="button" class="btn btn-secondary" (click)="seeDetails(task)" >
+                                              <fa-icon icon="edit"></fa-icon>
+                                            </button>
+                                            <!-- <button type="button" class="btn btn-secondary" (click)="openDialog(log.id)" >
+                                              <fa-icon icon="times"></fa-icon>
+                                            </button> -->
+                                        </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
-                      </div>
                     </div>
+                </div>
+            </div>
+          </div>
+          <p *ngIf="sprintTasks.length === 0"> No existen tareas definidos para esta historia</p>
+          <div class="row">
+            <div class="col-3">
+              <div class="form-group">
+                <label for="">Inicio</label>
+                <input type="text" class="input" [(ngModel)]="initDate" disabled>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="form-group">
+                <label for="">Cierre</label>
+                <input type="text" class="input" [(ngModel)]="endDate" disabled>
+              </div>            </div>
+            <div class="col-3">
+              <div class="form-group">
+                <label for="">Duración</label>
+                <input type="number" min="0" [(ngModel)]="durationTime" class="input" disabled>(días)
+              </div>
+            </div>
+            <div class="col-3">
+            <div class="form-group">
+              <label for="">Tiempo estimado</label>
+              <input type="number" class="input" [(ngModel)]="estimatedTime" disabled> (horas)
+            </div>
+            </div>
+          </div>
 
         </ng-template>
       </mat-tab>

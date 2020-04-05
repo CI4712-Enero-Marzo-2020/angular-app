@@ -1,91 +1,97 @@
 <div class="container">
+  <mat-tab-group >
+    <mat-tab label="Datos del Burn Down">
+      <ng-template matTabContent>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
 
-  <div class="row">
-      <div class="col-md-12">
-          <div class="card">
-              <div class="card-header card-header-danger">
-
-                  <div class="row">
-                      <div class="col-xs-12 col-md-6 text-left">
-                          <h4 class="card-title ">Burn Down</h4>
-                      </div>
-                      <div class="col-xs-12 col-md-6 text-right">
-                        <div class="input-group">
-                            <span class="input-group-btn">
-                                <button id="but1" mat-raised-button type="submit" class="btn pull-right" (click)="addDay()">
-                                    <fa-icon icon="arrow-alt-circle-up"></fa-icon>
-                                </button>
-                            </span>
+                        <div class="row justify-content-between">
+                            <div class="col-xs-12 col-md-6 text-left">
+                                <h4 class="card-title ">Burn Down</h4>
+                            </div>
+                            <div class="col-xs-12 col-md-2 text-right">
+                              <div class="input-group">
+                                  <span class="input-group-btn">
+                                      <button id="but1" mat-raised-button type="submit" class="btn pull-right" (click)="addDay()">
+                                          <fa-icon icon="arrow-alt-circle-up"></fa-icon>
+                                      </button>
+                                  </span>
+                              </div>
+                            </div>
                         </div>
+                    </div>
+                    <div class="card-body">
+                      <div class="table-responsive">
+                          <table class="table">
+                              <thead class=" text-primary">
+                                  <th>
+                                    ID
+                                  </th>
+                                  <th>
+                                    Dia
+                                  </th>
+                                  <th>
+                                    Trabajo
+                                  </th>
+                                  <th>
+                                    Disponibles
+                                  </th>
+                                  <th class="options-column">
+                                      Opciones
+                                  </th>
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let day of days">
+                                      <td>
+                                        {{day.id}}
+                                      </td>
+                                      <td>
+                                        {{day.dia}}
+                                      </td>
+                                      <td>
+                                        {{day.trabajo}}
+                                      </td>
+                                      <td>
+                                        {{day.disponible}}
+                                      </td>
+
+                                      <td>
+                                        <div class="btn-group" role="group">
+                                            <button type="button" class="btn btn-secondary" (click)="editDay(day)" >
+                                              <fa-icon icon="edit"></fa-icon>
+                                            </button>
+                                            <button type="button" class="btn btn-secondary" (click)="deleteDay(day)" >
+                                              <fa-icon icon="times"></fa-icon>
+                                            </button>
+                                        </div>
+                                      </td>
+                                  </tr>
+                              </tbody>
+                          </table>
                       </div>
-                  </div>
-              </div>
-              <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead class=" text-primary">
-                            <th>
-                              ID
-                            </th>
-                            <th>
-                              Dia
-                            </th>
-                            <th>
-                              Trabajo
-                            </th>
-                            <th>
-                              Disponibles
-                            </th>
-                            <th class="options-column">
-                                Opciones
-                            </th>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let day of days">
-                                <td>
-                                  {{day.id}}
-                                </td>
-                                <td>
-                                  {{day.dia}}
-                                </td>
-                                <td>
-                                  {{day.trabajo}}
-                                </td>
-                                <td>
-                                  {{day.disponible}}
-                                </td>
-
-                                <td>
-                                  <div class="btn-group" role="group">
-                                      <button type="button" class="btn btn-secondary" (click)="editDay(day)" >
-                                        <fa-icon icon="edit"></fa-icon>
-                                      </button>
-                                      <button type="button" class="btn btn-secondary" (click)="deleteDay(day)" >
-                                        <fa-icon icon="times"></fa-icon>
-                                      </button>
-                                  </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    </div>
                 </div>
-              </div>
-          </div>
-      </div>
-  </div>
-
-  <!-------------------------------------------- Grafico Burn Down -------------------------------------------------->
-
-  <div *ngIf="days.length > 0" class="chart-wrapper">
-    <canvas baseChart
-    [datasets]="barChartData"
-    [labels]="barChartLabels"
-    [options]="barChartOptions"
-    [plugins]="barChartPlugins"
-    [legend]="barChartLegend"
-    [chartType]="barChartType">
-    </canvas>
-  </div>
+            </div>
+        </div>
+      </ng-template>
+    </mat-tab>
+    <mat-tab label="Gráfica">
+      <ng-template matTabContent>
+        <!-------------------------------------------- Grafico Burn Down -------------------------------------------------->
+        <div class="graph" *ngIf="days.length > 0" class="chart-wrapper graph">
+          <canvas baseChart
+          [datasets]="barChartData"
+          [labels]="barChartLabels"
+          [options]="barChartOptions"
+          [plugins]="barChartPlugins"
+          [legend]="barChartLegend"
+          [chartType]="barChartType">
+          </canvas>
+        </div>
+      </ng-template>
+    </mat-tab>
+  </mat-tab-group>
 </div>
-
 
