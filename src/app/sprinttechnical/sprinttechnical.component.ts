@@ -22,9 +22,9 @@ export class SprinttechnicalComponent implements OnInit {
   sprint_id: number;
 
   constructor(public datepipe: DatePipe,
-    private formBuilder: FormBuilder,
-    private technicalService: SprintDailyService,
-    private route: ActivatedRoute) {
+              private formBuilder: FormBuilder,
+              private technicalService: SprintDailyService,
+              private route: ActivatedRoute) {
     this.sprint_id = this.route.snapshot.params.id;
   }
 

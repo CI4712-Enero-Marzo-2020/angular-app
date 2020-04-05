@@ -14,24 +14,24 @@ export class SprintUiTestComponent implements OnInit {
 
   @Input() sprint_id: number;
 
-  uiTests : UITest[] = [
+  uiTests: UITest[] = [
     {
       id: 0,
       sprint_id: 1,
       date: new Date(Date.now()),
-      functionality: "No se..."
+      functionality: 'No se...'
     },
     {
       id: 1,
       sprint_id: 1,
       date: new Date(Date.now() - 86400000),
-      functionality: "Nada..."
+      functionality: 'Nada...'
     },
     {
       id: 2,
       sprint_id: 1,
       date: new Date(Date.now() - 86400000 * 2),
-      functionality: "Auxilio..."
+      functionality: 'Auxilio...'
     },
   ];
   addEditForm: FormGroup;
@@ -39,13 +39,13 @@ export class SprintUiTestComponent implements OnInit {
   uiTest: UITest;
   searchword = '';
 
-  fromDate : Date;
-  toDate : Date;
+  fromDate: Date;
+  toDate: Date;
 
   constructor(
       public datepipe: DatePipe,
       private formBuilder: FormBuilder,
-      //private uiTestService: UITestService,
+      // private uiTestService: UITestService,
       private route: ActivatedRoute) {
         this.sprint_id = this.route.snapshot.params.id;
       }
@@ -53,7 +53,7 @@ export class SprintUiTestComponent implements OnInit {
   ngOnInit() {
     this.initializeAddForm();
     this.searchword = '';
-    //this.uiTests = [];
+    // this.uiTests = [];
     this.getAll();
   }
 
@@ -122,11 +122,11 @@ export class SprintUiTestComponent implements OnInit {
 
   }
 
-  filterUITests(id: string, from : Date, to : Date) {
+  filterUITests(id: string, from: Date, to: Date) {
     return this.uiTests.filter((element, index, array) => {
-      if (id.length && !element.id.toString().includes(id)) return false;
-      if (from && element.date < from) return false;
-      if (to && element.date > new Date(to.getTime() + 86400000)) return false;
+      if (id.length && !element.id.toString().includes(id)) { return false; }
+      if (from && element.date < from) { return false; }
+      if (to && element.date > new Date(to.getTime() + 86400000)) { return false; }
       return true;
     });
   }

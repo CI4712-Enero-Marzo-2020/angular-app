@@ -3,6 +3,7 @@ import { UnitTest } from './unittest';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
+import { UnitTestsService } from '../services/tests/UnitTests/tests.service';
 
 
 @Component({
@@ -15,19 +16,19 @@ export class SprintUnitTestComponent implements OnInit {
 
   @Input() sprint_id: number;
 
-  unitTests : UnitTest[] = [];
+  unitTests: UnitTest[] = [];
   addEditForm: FormGroup;
   addMode = true;
   unitTest: UnitTest;
   searchword = '';
 
-  fromDate : Date;
-  toDate : Date;
+  fromDate: Date;
+  toDate: Date;
 
   constructor(
       public datepipe: DatePipe,
       private formBuilder: FormBuilder,
-      //private unitTestService: UnitTestService,
+      private unitTestService: UnitTestsService,
       private route: ActivatedRoute) {
         this.sprint_id = this.route.snapshot.params.id;
       }
@@ -35,7 +36,6 @@ export class SprintUnitTestComponent implements OnInit {
   ngOnInit() {
     this.initializeAddForm();
     this.searchword = '';
-    //this.unitTests = [];
     this.getAll();
   }
 
@@ -45,7 +45,7 @@ export class SprintUnitTestComponent implements OnInit {
       date: [{ value: new Date(Date.now()), disabled: true }, Validators.required],
       module: ['', Validators.required],
       component: ['', Validators.required],
-      name: ['', Validators.required],
+      description: ['', Validators.required],
       amount: ['', Validators.required]
     });
   }
@@ -57,7 +57,7 @@ export class SprintUnitTestComponent implements OnInit {
       date: [{ value: unitTest.date, disabled: true }, Validators.required],
       module: [unitTest.module, Validators.required],
       component: [unitTest.component, Validators.required],
-      name: [unitTest.name, Validators.required],
+      description: [unitTest.description, Validators.required],
       amount: [unitTest.amount, Validators.required]
     });
   }
@@ -67,12 +67,12 @@ export class SprintUnitTestComponent implements OnInit {
   }
 
   async getAll() {
-    // this.retrospectiveService.getAll(this.sprint_id).then((response) => {
-    //   if (response && response.server !== 'NO_CONTENT' && response.server !== 'ERROR') {
-    //     this.retrospectives = response;
-    //   }
-    //   console.log(response);
-    // });
+    this.unitTestService.getAll(this.sprint_id).then((response) => {
+      if (response && response.server !== 'NO_CONTENT' && response.server !== 'ERROR') {
+        this.unitTests = response;
+      }
+      console.log(response);
+    });
   }
 
   async createUnitTest() {
@@ -81,54 +81,55 @@ export class SprintUnitTestComponent implements OnInit {
     formData.append('date', new Date(this.addEditForm.get('date').value).toUTCString());
     formData.append('module', this.addEditForm.get('module').value);
     formData.append('component', this.addEditForm.get('component').value);
-    formData.append('name', this.addEditForm.get('name').value);
+    formData.append('description', this.addEditForm.get('description').value);
     formData.append('amount', this.addEditForm.get('amount').value.toString());
-    // const newRetrospective: any = await this.retrospectiveService.create(formData);
-    // console.log(newRetrospective);
-    // if (newRetrospective && newRetrospective.server !== 'ERROR') {
-    //   this.retrospectives.push(newRetrospective);
-    // }
+    const newTest: any = await this.unitTestService.create(formData);
+    console.log(newTest);
+    if (newTest && newTest.server !== 'ERROR') {
+      this.unitTests.push(newTest);
+    }
   }
 
   async editUnitTest() {
-    const index = this.findIndexRet();
+    const index = this.findIndex();
     const formData = new FormData();
     formData.append('id', this.unitTest.id.toString());
     formData.append('sprint_id', this.unitTest.sprint_id.toString());
     formData.append('date', new Date(this.addEditForm.get('date').value).toUTCString());
     formData.append('module', this.addEditForm.get('module').value);
     formData.append('component', this.addEditForm.get('component').value);
-    formData.append('name', this.addEditForm.get('name').value);
+    formData.append('description', this.addEditForm.get('description').value);
     formData.append('amount', this.addEditForm.get('amount').value.toString());
-    // this.retrospectiveService.edit(this.retrospective.id, formData).then((response: any) => {
-    //   console.log(response);
-    //   if (response && response.server !== 'ERROR') {
-    //     this.retrospectives = [...this.retrospectives.slice(0, index), response,
-    //       ...this.retrospectives.slice(index + 1, this.retrospectives.length)];
-    //   }
-    // });
+    this.unitTestService.edit(this.unitTest.id, formData).then((response: any) => {
+      console.log(response);
+      if (response && response.server !== 'ERROR') {
+        this.unitTests = [...this.unitTests.slice(0, index), response,
+          ...this.unitTests.slice(index + 1, this.unitTests.length)];
+      }
+    });
   }
 
   async removeUnitTest() {
-    // const i = this.findIndexRet();
-    // await this.retrospectiveService.delete(this.retrospective.id);
-    // this.retrospectives = [...this.retrospectives.slice(0, i), ...this.retrospectives.slice(i + 1, this.retrospectives.length)];
-
+    const i = this.findIndex();
+    const response: any = await this.unitTestService.delete(this.unitTest.id);
+    if (response.server !== 'ERROR') {
+      this.unitTests = [...this.unitTests.slice(0, i), ...this.unitTests.slice(i + 1, this.unitTests.length)];
+    }
   }
 
-  filterUnitTests(id: string, from : Date, to : Date) {
+  filterUnitTests(id: string, from: Date, to: Date) {
     return this.unitTests.filter((element, index, array) => {
-      if (id.length && !element.id.toString().includes(id)) return false;
-      if (from && element.date < from) return false;
-      if (to && element.date > new Date(to.getTime() + 86400000)) return false;
+      if (id.length && !element.id.toString().includes(id)) { return false; }
+      if (from && element.date < from) { return false; }
+      if (to && element.date > new Date(to.getTime() + 86400000)) { return false; }
       return true;
     });
   }
 
-  findIndexRet() {
-    // const getProjectIndex = (element) => element.id === this.retrospective.id;
-    // const index = this.retrospectives.findIndex(getProjectIndex);
-    // return index;
+  findIndex() {
+    const getIndex = (element) => element.id === this.unitTest.id;
+    const index = this.unitTests.findIndex(getIndex);
+    return index;
   }
 
 }

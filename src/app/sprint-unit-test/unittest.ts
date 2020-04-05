@@ -4,6 +4,6 @@ export interface UnitTest {
     date: Date,
     module: string,
     component: string,
-    name: string,
+    description: string,
     amount: number
 }

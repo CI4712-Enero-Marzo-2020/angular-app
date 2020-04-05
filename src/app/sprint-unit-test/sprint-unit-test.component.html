@@ -48,7 +48,7 @@
                                         Componente
                                     </th>
                                     <th>
-                                        Nombre
+                                        Descripción
                                     </th>
                                     <th>
                                         Cantidad
@@ -63,7 +63,7 @@
                                             {{unitTest.id}}
                                         </td>
                                         <td>
-                                            {{datepipe.transform(unitTest.date, 'dd/MM/yyyy')}}
+                                            {{datepipe.transform(unitTest.date_created, 'dd/MM/yyyy')}}
                                         </td>
                                         <td>
                                             {{unitTest.module}}
@@ -72,7 +72,7 @@
                                             {{unitTest.component}}
                                         </td>
                                         <td>
-                                            {{unitTest.name}}
+                                            {{unitTest.description}}
                                         </td>
                                         <td>
                                             {{unitTest.amount}}
@@ -138,19 +138,23 @@
                                         <input formControlName="date" matInput [matDatepicker]="picker"
                                             placeholder="Fecha">
                                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                        <mat-datepicker #picker disabled="false"></mat-datepicker>
+                                        <mat-datepicker #picker disabled="true"></mat-datepicker>
                                     </mat-form-field>
                                     <mat-form-field>
                                         <input formControlName="module" type="text" matInput class="form-control"
                                             placeholder="Módulo">
                                     </mat-form-field>
                                     <mat-form-field>
-                                        <input formControlName="component" type="text" matInput class="form-control"
-                                            placeholder="Componente">
+                                      <mat-label>Componente</mat-label>
+                                        <select formControlName="component" matNativeControl required>
+                                          <option value="vista">Vista</option>
+                                          <option value="modelo">Modelo</option>
+                                          <option value="vista_modelo">Vista/Modelo</option>
+                                        </select>
                                     </mat-form-field>
                                     <mat-form-field>
-                                        <input formControlName="name" type="text" matInput class="form-control"
-                                            placeholder="Nombre">
+                                        <input formControlName="description" type="text" matInput class="form-control"
+                                            placeholder="Descripción">
                                     </mat-form-field>
                                     <mat-form-field>
                                         <input formControlName="amount" type="number" matInput class="form-control"
