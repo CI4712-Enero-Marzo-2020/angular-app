@@ -100,7 +100,7 @@ export class SprintUiTestComponent implements OnInit {
   async removeUITest() {
     const i = this.findIndex();
     const response: any = await this.uiTestService.delete(this.uiTest.id);
-    if(response.server !== 'ERROR'){
+    if (response.server !== 'ERROR') {
       this.uiTests = [...this.uiTests.slice(0, i), ...this.uiTests.slice(i + 1, this.uiTests.length)];
     }
   }
