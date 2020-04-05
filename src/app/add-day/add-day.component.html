@@ -5,29 +5,29 @@
       <div class="form-row">
         <div class="col">
           <label for="">Dia</label>
-          <input type="number" class="form-control" formControlName="">
+          <input type="number" class="form-control" formControlName="dia" disabled>
         </div>
         <div class="col" *ngIf="data.type==='down'">
           <label for="">Trabajo</label>
-          <input type="nuClasember" class="form-control" formControlName="">
+          <input type="nuClasember" class="form-control" formControlName="trabajo">
         </div>
-        <div class="col" *ngIf="data.operation==='up'">
+        <div class="col" *ngIf="data.type==='up'">
           <label for="">Realizados</label>
-          <input type="nuClasember" class="form-control" formControlName="">
+          <input type="number" class="form-control" formControlName="realizados">
         </div>
       </div>
       <div class="form-row">
-        <div class="col" *ngIf="data.operation==='down'">
+        <div class="col-3" *ngIf="data.type==='down'">
           <label for="">Disponible</label>
-          <input type="number" class="form-control" formControlName="">
+          <input type="number" class="form-control" formControlName="disponible">
         </div>
-        <div class="col" *ngIf="data.operation==='up'">
+        <div class="col" *ngIf="data.type==='up'">
           <label for="">Estimados</label>
-          <input type="number" class="form-control" formControlName="">
+          <input type="number" class="form-control" formControlName="estimados">
         </div>
-        <div class="col" *ngIf="data.operation==='up'">
+        <div class="col" *ngIf="data.type==='up'">
           <label for="">Necesarios</label>
-          <input type="number" class="form-control" formControlName="">
+          <input type="number" class="form-control" formControlName="necesarios">
         </div>
 
       </div>

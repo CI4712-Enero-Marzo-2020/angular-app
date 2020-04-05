@@ -13,7 +13,8 @@ export class SprintService {
   urlPruebas = 'http://localhost:5000/tests/';
   urlTasks = 'http://localhost:5000/tasks/';
   urlDocs = 'http://localhost:5000/docs/';
-
+  urlBurnUp = 'http://localhost:5000/burnup/';
+  urlBurnDown = 'http://localhost:5000/burndown/';
   createSprint(params) {
     return this.http.post(this.urlSprint + 'add', params, {headers: {'Content-Type': 'application/json',
                                                                       'Access-Control-Allow-Origin': '*',
@@ -100,4 +101,35 @@ export class SprintService {
     return this.http.get(this.urlDocs + 'getall/team');
   }
 
+  getDaysBurnUp(id) {
+    return this.http.get(this.urlBurnUp + 'getbysprint/' + id);
+  }
+
+  getDaysBurnDown(id) {
+    return this.http.get(this.urlBurnDown + 'getbysprint/' + id);
+  }
+
+  addDayToBurnUp(params) {
+    return this.http.post(this.urlBurnUp + 'add', params);
+  }
+
+  addDayToBurnDown(params) {
+    return this.http.post(this.urlBurnDown + 'add', params);
+  }
+
+  editDayToBurnUp(id, params) {
+    return this.http.put(this.urlBurnUp + 'update/' + id, params);
+  }
+
+  editDayToBurnDown(id, params) {
+    return this.http.put(this.urlBurnDown + 'update/' + id, params);
+  }
+
+  deleteDayBurnUp(id) {
+    return this.http.post(this.urlBurnUp + 'delete/' + id, []);
+  }
+
+  deleteDayBurnDown(id) {
+    return this.http.post(this.urlBurnDown + 'delete/' + id, []);
+  }
 }

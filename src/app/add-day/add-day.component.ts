@@ -11,6 +11,8 @@ export interface DialogDayData {
   duration: number;
   daysAccount: number;
   type: string;
+  dayData: any;
+  dia: number;
 }
 @Component({
   selector: 'app-add-day',
@@ -20,6 +22,7 @@ export interface DialogDayData {
 export class AddDayComponent implements OnInit {
   dayForm: FormGroup;
   idSprint: number;
+  day: any;
   constructor(private sprintService: SprintService,
               private userService: UsersService,
               public dialogRef: MatDialogRef<AddDayComponent>,
@@ -38,25 +41,61 @@ export class AddDayComponent implements OnInit {
   formDay() {
     this.dayForm = new FormGroup({
       id: new FormControl(''),
-      description : new FormControl(''),
       sprint_id: new FormControl(this.idSprint),
-      task_type: new FormControl(''),
-      task_class: new FormControl(''),
-      task_status: new FormControl(''),
-      users: new FormControl([], Validators.required),
-      task_functions: new FormControl(),
-        worstCase: new FormControl(),
-        mostLikely: new FormControl(),
-        bestCase: new FormControl(),
-      est_time: new FormControl()
+      dia: new FormControl(this.data.dia),
+      realizados: new FormControl(0),
+      estimados: new FormControl(0),
+      necesarios: new FormControl(0),
+      trabajo: new FormControl(0),
+      disponible: new FormControl(0)
     });
+    if (this.data.operation === 2) {
+
+      this.fillForm();
+    }
+  }
+
+  fillForm() {
+    if (this.data.type === 'up') {
+      this.dayForm.controls['id'].setValue(this.data.dayData.id);
+      this.dayForm.controls['dia'].setValue(this.data.dayData.dia);
+      this.dayForm.controls['realizados'].setValue(this.data.dayData.realizados);
+      this.dayForm.controls['estimados'].setValue(this.data.dayData.estimados);
+      this.dayForm.controls['necesarios'].setValue(this.data.dayData.necesarios);
+    } else {
+
+      this.dayForm.controls['id'].setValue(this.data.dayData.id);
+      this.dayForm.controls['dia'].setValue(this.data.dayData.dia);
+      this.dayForm.controls['trabajo'].setValue(this.data.dayData.trabajo);
+      this.dayForm.controls['disponible'].setValue(this.data.dayData.disponible);
+    }
   }
 
   onSubmit() {
+
     if (this.data.operation === 1) {
+      if (this.data.type === 'up'){
 
+          this.sprintService.addDayToBurnUp(this.dayForm.value).subscribe(() => {
+            this.onNoClick();
+          });
+
+      } else {
+        this.sprintService.addDayToBurnDown(this.dayForm.value).subscribe(() => {
+          this.onNoClick();
+        });
+      }
     } else if (this.data.operation === 2) {
+      if (this.data.type === 'up') {
+        this.sprintService.editDayToBurnUp(this.dayForm.value.id, this.dayForm.value).subscribe(() => {
+          this.onNoClick();
+        });
 
+      } else {
+        this.sprintService.editDayToBurnDown(this.dayForm.value.id, this.dayForm.value).subscribe(() => {
+          this.onNoClick();
+        });
+      }
     }
   }
 

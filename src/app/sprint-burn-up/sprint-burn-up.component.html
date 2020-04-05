@@ -48,23 +48,23 @@
                                   {{day.id}}
                                 </td>
                                 <td>
-                                  {{day.day}}
+                                  {{day.dia}}
                                 </td>
                                 <td>
-                                  {{day.done}}
+                                  {{day.realizados}}
                                 </td>
                                 <td>
-                                  {{day.estimated}}
+                                  {{day.estimados}}
                                 </td>
                                 <td>
-                                  {{day.needed}}
+                                  {{day.necesarios}}
                                 </td>
                                 <td>
                                   <div class="btn-group" role="group">
-                                      <button type="button" class="btn btn-secondary" (click)="editDay()" >
+                                      <button type="button" class="btn btn-secondary" (click)="editDay(day)" >
                                         <fa-icon icon="edit"></fa-icon>
                                       </button>
-                                      <button type="button" class="btn btn-secondary" (click)="deleteDay()" >
+                                      <button type="button" class="btn btn-secondary" (click)="deleteDay(day)" >
                                         <fa-icon icon="times"></fa-icon>
                                       </button>
                                   </div>
@@ -79,7 +79,7 @@
   </div>
     <!-------------------------------------------- Grafico Burn Down -------------------------------------------------->
 
-    <div class="chart-wrapper">
+    <div *ngIf="days.length > 0" class="chart-wrapper">
       <canvas baseChart
       [datasets]="barChartData"
       [labels]="barChartLabels"

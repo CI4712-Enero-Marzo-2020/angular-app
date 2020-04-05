@@ -5,6 +5,7 @@ import { SprintService } from '../services/sprint/sprint.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AddDayComponent } from '../add-day/add-day.component';
 import { MatDialog } from '@angular/material';
+import { duration } from 'moment';
 @Component({
   selector: 'app-sprint-burn-down',
   templateUrl: './sprint-burn-down.component.html',
@@ -16,22 +17,22 @@ export class SprintBurnDownComponent implements OnInit {
   sprint: any;
   barChartOptions: ChartOptions = {
     responsive: true,
+    scales: {
+      yAxes: [{
+          ticks: {
+              beginAtZero: true
+          }
+      }]
+    }
   };
   barChartLabels: Label[] = [];
   barChartType: ChartType = 'bar';
   barChartLegend = true;
   barChartPlugins = [];
+  message = '';
 
   barChartData: ChartDataSets[] = [];
-  days = [{id:1,day:1,worked:276,available:3},
-    {id:2,day:2,worked:250,available:7},
-    {id:2,day:3,worked:220,available:10},
-    {id:2,day:3,worked:220,available:10},
-    {id:2,day:3,worked:220,available:10},
-    {id:2,day:3,worked:220,available:10},
-    {id:2,day:3,worked:220,available:10},
-    {id:2,day:3,worked:220,available:10},
-    {id:2,day:3,worked:220,available:10},]
+  days = [];
   constructor(private sprintService: SprintService,
               public route: ActivatedRoute,
               public router: Router, private matDialog: MatDialog) {
@@ -47,29 +48,46 @@ export class SprintBurnDownComponent implements OnInit {
   }
 
   getSprint() {
-    this.sprintService.getSprintByProject(this.idProject).subscribe((response: any) => {
-      this.sprint = response.filter((elem) => elem.id === this.idSprint);
-      console.log(this.sprint);
+    this.sprintService.getSprintByProject(this.idProject).subscribe(async (response: any) => {
+      this.sprint = await response.filter((elem) => elem.id === this.idSprint)[0];
+      this.sprint['duration'] = this.calculateDuration(this.sprint.init_date, this.sprint.end_date);
+      this.getDays();
     });
   }
 
-  addDay() {
-    const modalDialog = this.matDialog.open(AddDayComponent, {
-      width: '65%',
-      data: {
-              title: 'Crear Tarea',
-              operation: 1,
-              type: 'down',
-              idSprint: this.sprint.id,
-              // idUser: this.idUser
-            }
-    });
-    modalDialog.afterClosed().subscribe(result => {
+  getDays() {
+    this.days = [];
+    this.sprintService.getDaysBurnDown(this.sprint.id).subscribe((res: any) => {
+      if (res.length > 0) {
+        this.days = res;
+      }
       this.getDaysBySprint();
     });
   }
+  addDay() {
+    console.log(this.days.length);
+    if(this.days.length < this.sprint.duration){
+      const modalDialog = this.matDialog.open(AddDayComponent, {
+        width: '65%',
+        data: {
+                title: 'Añadir Día',
+                operation: 1,
+                type: 'down',
+                idSprint: this.sprint.id,
+                dia: this.days.length + 1
+                // idUser: this.idUser
+              }
+      });
+      modalDialog.afterClosed().subscribe(result => {
+        this.getDays();
+      });
+    } else {
+      alert("Ha alcanzado el limite de dias");
+    }
 
-  editDay() {
+  }
+
+  editDay(day) {
     const modalDialog = this.matDialog.open(AddDayComponent, {
       width: '65%',
       data: {
@@ -77,23 +95,59 @@ export class SprintBurnDownComponent implements OnInit {
               operation: 2,
               type: 'down',
               idSprint: this.sprint.id,
+              dayData: day
               // idUser: this.idUser
             }
     });
     modalDialog.afterClosed().subscribe(result => {
-      this.getDaysBySprint();
+      this.getDays();
     });
+  }
+
+  deleteDay(day) {
+    if (this.isLast(day.id)) {
+      this.sprintService.deleteDayBurnDown(day.id).subscribe((res)=>{
+        this.message = 'Dia eliminado';
+        this.getDays();
+      });
+    } else {
+      alert("Debe eliminar los dias mas recientes primero");
+    }
+  }
+
+  isLast(id) {
+    console.log("qlq");
+    const index = this.days.length - 1;
+    const lastElement = this.days[index];
+    if (id === lastElement.id) {
+      return true;
+    }
+    return false;
   }
 
   getDaysBySprint() {
     let count = 1;
-    let values = [];
+    this.barChartData = [];
+    this.barChartLabels = [];
+    const valuesWork = [];
+    const valuesAvailable = [];
     this.days.forEach(element => {
       this.barChartLabels.push((count++).toString());
-      values.push(element.worked);
+      valuesWork.push(element.trabajo);
+      valuesAvailable.push(element.disponible);
 
     });
-    this.barChartData.push({ data: values, label: 'Burn Down' });
+    this.barChartData.push({ data: valuesAvailable, fill: false, backgroundColor: '#e53935',
+                             label: 'Horas disponibles', type: 'line' },
+                             { data: valuesWork, label: 'Horas trabajadas', backgroundColor: '#9c27b0' });
+  }
+
+  calculateDuration(init, end) {
+    const fechaInicio = new Date(init).getTime();
+    const fechaFin    = new Date(end).getTime();
+
+    const diff = fechaFin - fechaInicio;
+    return parseInt((diff / (1000 * 60 * 60 * 24)).toString(), 10) + 1;
   }
 
 }
