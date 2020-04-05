@@ -7,4 +7,5 @@ export interface Story {
     done: boolean;
     date_created: Date;
     parent_id: number | null;
+    estimation: number;
 }

@@ -59,7 +59,8 @@ export class ProductbacklogComponent implements OnInit {
       description: [this.story.description, Validators.required],
       priority: [this.story.priority],
       epic: [this.story.epic],
-      done: [this.story.done]
+      done: [this.story.done],
+      estimation: [this.story.estimation]
     });
   }
 
