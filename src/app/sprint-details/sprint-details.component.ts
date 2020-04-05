@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { SprintService } from '../services/sprint/sprint.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../services/users/auth.service';
@@ -17,7 +17,7 @@ export class SprintDetailsComponent implements OnInit {
   idProject: number;
   idSprint: number;
 
-  sprint = {  id: 0, user: {id: 0}, project_id: 0, end_date: '', init_date: ''};
+  sprint = { id: 0, user: { id: 0 }, project_id: 0, end_date: '', init_date: '' };
 
   idUser = 0;
   idStory = 0;
@@ -29,6 +29,7 @@ export class SprintDetailsComponent implements OnInit {
   editTestForm: FormGroup;
   editCriteriaForm: FormGroup;
   taskForm: FormGroup;
+  planningForm: FormGroup;
 
   testsList = [];
   criteriaList = [];
@@ -42,23 +43,28 @@ export class SprintDetailsComponent implements OnInit {
   seeAll = true;
   back = false;
   storySelected: any;
-  users = [{id: 1, name: 'jguzman'}, {id: 2, name: 'nairelyshz'}, {id: 3, name: 'jjjjj'}, {id: 4, name: 'kkkk'}];
+  users = [{ id: 1, name: 'jguzman' }, { id: 2, name: 'nairelyshz' }, { id: 3, name: 'jjjjj' }, { id: 4, name: 'kkkk' }];
   selectedUser = [];
   initDate = '';
   endDate = '';
   criteriaError = false;
   testError = false;
+
+  planningResult = -1;
+
   constructor(public sprintService: SprintService,
-              public route: ActivatedRoute,
-              public router: Router,
-              public authService: AuthService, private matDialog: MatDialog,
-              public planningService: SprintplanningService) {
+    public route: ActivatedRoute,
+    public router: Router,
+    public authService: AuthService, private matDialog: MatDialog,
+    public planningService: SprintplanningService,
+    private formBuilder: FormBuilder) {
 
     this.idSprint = parseInt(this.route.snapshot.paramMap.get('id'), 10);
     this.getSprint();
     if (authService.getCurrentUser()) {
       this.idUser = authService.getCurrentUser().userId;
     }
+    this.initializePlanningForm();
     this.formSprint();
     this.formCriteria();
     this.formTest();
@@ -67,7 +73,9 @@ export class SprintDetailsComponent implements OnInit {
     this.formTask();
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.planningExists();
+  }
   /** informacion basica del sprint */
   getSprint() {
     this.sprintService.getSprintDetails(this.idSprint).subscribe((res: any) => {
@@ -96,51 +104,51 @@ export class SprintDetailsComponent implements OnInit {
 
   formSprint() {
     this.sprintForm = new FormGroup({
-    project_id : new FormControl(this.idProject),
-    description: new FormControl(''),
-    user_id: new FormControl(this.idUser)
+      project_id: new FormControl(this.idProject),
+      description: new FormControl(''),
+      user_id: new FormControl(this.idUser)
     });
   }
 
   formTest() {
     this.testForm = new FormGroup({
-    story_id : new FormControl(''),
-    description: new FormControl(''),
-    user_id: new FormControl(this.idUser)
+      story_id: new FormControl(''),
+      description: new FormControl(''),
+      user_id: new FormControl(this.idUser)
     });
   }
 
   formTestEdit() {
     this.editTestForm = new FormGroup({
-    story_id : new FormControl(''),
-    description: new FormControl(''),
-    user_id: new FormControl(this.idUser),
-    approved: new FormControl()
+      story_id: new FormControl(''),
+      description: new FormControl(''),
+      user_id: new FormControl(this.idUser),
+      approved: new FormControl()
     });
   }
 
 
   formCriteria() {
     this.criteriaForm = new FormGroup({
-    story_id : new FormControl(''),
-    description: new FormControl(''),
-    user_id: new FormControl(this.idUser)
+      story_id: new FormControl(''),
+      description: new FormControl(''),
+      user_id: new FormControl(this.idUser)
     });
   }
 
   formCriteriaEdit() {
     this.editCriteriaForm = new FormGroup({
-    story_id : new FormControl(''),
-    description: new FormControl(''),
-    user_id: new FormControl(this.idUser),
-    approved: new FormControl()
+      story_id: new FormControl(''),
+      description: new FormControl(''),
+      user_id: new FormControl(this.idUser),
+      approved: new FormControl()
 
     });
   }
 
   formTask() {
     this.taskForm = new FormGroup({
-      description : new FormControl(''),
+      description: new FormControl(''),
       sprint_id: new FormControl(this.idSprint),
       task_type: new FormControl(''),
       task_class: new FormControl(''),
@@ -181,7 +189,7 @@ export class SprintDetailsComponent implements OnInit {
   calculateFunctions() {
     this.sprintTasks.map(task => {
       if (task.task_class === 'Sencilla') {
-       task.task_functions = 1;
+        task.task_functions = 1;
       } else if (task.task_class === 'Media') {
         task.task_functions = 3;
       } else if (task.task_class === 'Compleja') {
@@ -228,8 +236,8 @@ export class SprintDetailsComponent implements OnInit {
 
   sendEditedCriteria() {
     this.sprintService.editCriteria(this.idCriteria, this.editCriteriaForm.value).subscribe((res: any) => {
-    const index = this.criteriaList.findIndex(i => i.id === res.id);
-    this.criteriaList[index] = res;
+      const index = this.criteriaList.findIndex(i => i.id === res.id);
+      this.criteriaList[index] = res;
     });
   }
 
@@ -239,22 +247,22 @@ export class SprintDetailsComponent implements OnInit {
       this.criteriaList.push(res);
 
     },
-    (error) => {
-      if (error.status === 405) {
-        this.criteriaError = true;
-      }
-    });
+      (error) => {
+        if (error.status === 405) {
+          this.criteriaError = true;
+        }
+      });
   }
 
   addTest() {
     this.sprintService.addTest(this.testForm.value).subscribe(res => {
       this.testsList.push(res);
     },
-    (error) => {
-      if (error.status === 405) {
-        this.testError = true;
-      }
-    });
+      (error) => {
+        if (error.status === 405) {
+          this.testError = true;
+        }
+      });
   }
 
   addToSprint(story) {
@@ -328,7 +336,7 @@ export class SprintDetailsComponent implements OnInit {
   }
 
   close() {
-    this.sprintService.editSprint(this.sprint.id, {closed: true}).subscribe((res) => {
+    this.sprintService.editSprint(this.sprint.id, { closed: true }).subscribe((res) => {
       this.router.navigate(['projects']);
     });
   }
@@ -338,11 +346,11 @@ export class SprintDetailsComponent implements OnInit {
     const modalDialog = this.matDialog.open(TasksComponent, {
       width: '65%',
       data: {
-              title: 'Crear Tarea',
-              operation: 1,
-              idProject: this.idSprint,
-              idUser: this.idUser
-            }
+        title: 'Crear Tarea',
+        operation: 1,
+        idProject: this.idSprint,
+        idUser: this.idUser
+      }
     });
     modalDialog.afterClosed().subscribe(result => {
       this.getTasks();
@@ -353,12 +361,12 @@ export class SprintDetailsComponent implements OnInit {
     const modalDialog = this.matDialog.open(TasksComponent, {
       width: '65%',
       data: {
-              title: 'Editar Tarea',
-              operation: 2,
-              idProject: this.idSprint,
-              idUser: this.idUser,
-              task: {task}
-            }
+        title: 'Editar Tarea',
+        operation: 2,
+        idProject: this.idSprint,
+        idUser: this.idUser,
+        task: { task }
+      }
     });
     modalDialog.afterClosed().subscribe(result => {
       this.getTasks();
@@ -367,7 +375,7 @@ export class SprintDetailsComponent implements OnInit {
 
   calculateDuration() {
     const fechaInicio = new Date(this.sprint.init_date).getTime();
-    const fechaFin    = new Date(this.sprint.end_date).getTime();
+    const fechaFin = new Date(this.sprint.end_date).getTime();
     const diff = fechaFin - fechaInicio;
     this.durationTime = parseInt((diff / (1000 * 60 * 60 * 24)).toString(), 10) + 1;
   }
@@ -377,12 +385,13 @@ export class SprintDetailsComponent implements OnInit {
     const dialogRef = this.matDialog.open(DialogComponent, {
       width: '60%',
       height: '30%',
-      data: {operation: 'delete',
-              type: 3,
-              title: 'Eliminar',
-              message: 'Estás seguro que desear eliminar esta tarea?',
-              id: idtask,
-            }
+      data: {
+        operation: 'delete',
+        type: 3,
+        title: 'Eliminar',
+        message: 'Estás seguro que desear eliminar esta tarea?',
+        id: idtask,
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -419,22 +428,31 @@ export class SprintDetailsComponent implements OnInit {
     this.router.navigate(['sprintunittest', this.idSprint]);
   }
 
-  async createPlanning() {
+  initializePlanningForm() {
+    this.planningForm = this.formBuilder.group({
+      date: [{ value: new Date(Date.now()), disabled: true }, Validators.required]
+    });
+  }
+
+  async planningExists() {
     this.planningService.getPlanning(this.idSprint).then(async (response) => {
       if (response && response.server !== 'NO_CONTENT' && response.server !== 'ERROR') {
-        this.sprintPlanning();
-      } else {
-        const formData = new FormData();
-        formData.append('date', new Date().toUTCString());
-        formData.append('sprint_id', this.idSprint.toString());
-        const planning: any = await this.planningService.create(formData);
-        if (planning && planning.server !== 'ERROR') {
-          this.sprintPlanning();
-        }
+        this.planningResult = 1;
       }
-      console.log(response);
+      else {
+        this.planningResult = 0;
+      }
     });
+  }
 
+  async createPlanning() {
+    const formData = new FormData();
+    formData.append('date', new Date(this.planningForm.get('date').value).toUTCString());
+    formData.append('sprint_id', this.idSprint.toString());
+    const planning: any = await this.planningService.create(formData);
+    if (planning && planning.server !== 'ERROR') {
+      this.sprintPlanning();
+    }
   }
 
 }
