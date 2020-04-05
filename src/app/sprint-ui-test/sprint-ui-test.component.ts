@@ -3,6 +3,7 @@ import { DatePipe } from '@angular/common';
 import { UITest } from './uitest';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { UITestsService } from '../services/tests/UITests/uitests.service';
 
 @Component({
   selector: 'app-sprint-ui-test',
@@ -14,26 +15,7 @@ export class SprintUiTestComponent implements OnInit {
 
   @Input() sprint_id: number;
 
-  uiTests: UITest[] = [
-    {
-      id: 0,
-      sprint_id: 1,
-      date: new Date(Date.now()),
-      functionality: 'No se...'
-    },
-    {
-      id: 1,
-      sprint_id: 1,
-      date: new Date(Date.now() - 86400000),
-      functionality: 'Nada...'
-    },
-    {
-      id: 2,
-      sprint_id: 1,
-      date: new Date(Date.now() - 86400000 * 2),
-      functionality: 'Auxilio...'
-    },
-  ];
+  uiTests: UITest[] = [];
   addEditForm: FormGroup;
   addMode = true;
   uiTest: UITest;
@@ -45,7 +27,7 @@ export class SprintUiTestComponent implements OnInit {
   constructor(
       public datepipe: DatePipe,
       private formBuilder: FormBuilder,
-      // private uiTestService: UITestService,
+      private uiTestService: UITestsService,
       private route: ActivatedRoute) {
         this.sprint_id = this.route.snapshot.params.id;
       }
@@ -79,12 +61,12 @@ export class SprintUiTestComponent implements OnInit {
   }
 
   async getAll() {
-    // this.retrospectiveService.getAll(this.sprint_id).then((response) => {
-    //   if (response && response.server !== 'NO_CONTENT' && response.server !== 'ERROR') {
-    //     this.retrospectives = response;
-    //   }
-    //   console.log(response);
-    // });
+    this.uiTestService.getAll(this.sprint_id).then((response) => {
+      if (response && response.server !== 'NO_CONTENT' && response.server !== 'ERROR') {
+        this.uiTests = response;
+      }
+      console.log(response);
+    });
   }
 
   async createUITest() {
@@ -92,34 +74,35 @@ export class SprintUiTestComponent implements OnInit {
     formData.append('sprint_id', this.sprint_id.toString());
     formData.append('date', new Date(this.addEditForm.get('date').value).toUTCString());
     formData.append('functionality', this.addEditForm.get('functionality').value);
-    // const newRetrospective: any = await this.retrospectiveService.create(formData);
-    // console.log(newRetrospective);
-    // if (newRetrospective && newRetrospective.server !== 'ERROR') {
-    //   this.retrospectives.push(newRetrospective);
-    // }
+    const newTest: any = await this.uiTestService.create(formData);
+    console.log(newTest);
+    if (newTest && newTest.server !== 'ERROR') {
+      this.uiTests.push(newTest);
+    }
   }
 
   async editUITest() {
-    const index = this.findIndexRet();
+    const index = this.findIndex();
     const formData = new FormData();
     formData.append('id', this.uiTest.id.toString());
     formData.append('sprint_id', this.uiTest.sprint_id.toString());
     formData.append('date', new Date(this.addEditForm.get('date').value).toUTCString());
     formData.append('functionality', this.addEditForm.get('functionality').value);
-    // this.retrospectiveService.edit(this.retrospective.id, formData).then((response: any) => {
-    //   console.log(response);
-    //   if (response && response.server !== 'ERROR') {
-    //     this.retrospectives = [...this.retrospectives.slice(0, index), response,
-    //       ...this.retrospectives.slice(index + 1, this.retrospectives.length)];
-    //   }
-    // });
+    this.uiTestService.edit(this.uiTest.id, formData).then((response: any) => {
+      console.log(response);
+      if (response && response.server !== 'ERROR') {
+        this.uiTests = [...this.uiTests.slice(0, index), response,
+          ...this.uiTests.slice(index + 1, this.uiTests.length)];
+      }
+    });
   }
 
   async removeUITest() {
-    // const i = this.findIndexRet();
-    // await this.retrospectiveService.delete(this.retrospective.id);
-    // this.retrospectives = [...this.retrospectives.slice(0, i), ...this.retrospectives.slice(i + 1, this.retrospectives.length)];
-
+    const i = this.findIndex();
+    const response: any = await this.uiTestService.delete(this.uiTest.id);
+    if(response.server !== 'ERROR'){
+      this.uiTests = [...this.uiTests.slice(0, i), ...this.uiTests.slice(i + 1, this.uiTests.length)];
+    }
   }
 
   filterUITests(id: string, from: Date, to: Date) {
@@ -131,10 +114,10 @@ export class SprintUiTestComponent implements OnInit {
     });
   }
 
-  findIndexRet() {
-    // const getProjectIndex = (element) => element.id === this.retrospective.id;
-    // const index = this.retrospectives.findIndex(getProjectIndex);
-    // return index;
+  findIndex() {
+    const getIndex = (element) => element.id === this.uiTest.id;
+    const index = this.uiTests.findIndex(getIndex);
+    return index;
   }
 
 }

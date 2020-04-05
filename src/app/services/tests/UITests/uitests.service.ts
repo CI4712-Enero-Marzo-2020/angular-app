@@ -41,8 +41,8 @@ export class UITestsService {
     );
   }
 
-  edit(test: any, form: any) {
-    return this.http.put(`${this.url}tests/user-interface/${test.id}`, form)
+  edit(testId: any, form: any) {
+    return this.http.put(`${this.url}tests/user-interface/${testId}`, form)
     .toPromise()
     .then(
       (response) => {
