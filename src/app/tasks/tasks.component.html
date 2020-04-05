@@ -4,7 +4,7 @@
       <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
         <div  class="form-group">
           <label for="description">Descripción</label>
-          <input type="text" class="form-control" id="description" formControlName="description" placeholder="">
+          <input type="text" class="form-control" id="description-task" formControlName="description" placeholder="">
         </div>
           <div class="form-row">
             <div class="col">
@@ -46,20 +46,20 @@
           <div class="row">
             <div class="col-4">
                 <label for="">Mejor caso</label>
-                <input type="number" formControlName="bestCase" class="form-control">
+                <input type="number" formControlName="bestCase" class="form-control" id="bestCase-task">
             </div>
             <div class="col-4">
               <label for="">Caso más probable</label>
-              <input class="form-control" type="number" formControlName="mostLikely">
+              <input class="form-control" type="number" formControlName="mostLikely" id="mostLikely-task">
             </div>
             <div class="col-4">
                 <label for="">Peor Caso</label>
-                <input class="form-control" type="number" formControlName="worstCase">
+                <input class="form-control" type="number" formControlName="worstCase" id="worstCase-task">
             </div>
           </div>
           <div class="row seperate">
             <div class="col-4">
-                <button type="button" class="btn btn-primary" (click)="calculateEstimation()">Calcular Estimacion</button>
+                <button type="button" class="btn btn-primary" id="calculateEstimation" (click)="calculateEstimation()">Calcular Estimacion</button>
             </div>
             <div class="col-4"></div>
             <div class="col-4 ">
@@ -68,7 +68,7 @@
           </div>
         <div class="form-group">
           <label for="ngSelect">Usuarios</label>
-          <ng-select bindLabel="username"
+          <ng-select id="ng-select" bindLabel="username"
               placeholder=""
               appendTo="body"
               multiple="true"
@@ -79,7 +79,7 @@
               </ng-option>
           </ng-select>
         </div>
-        <button type="submit" class="btn btn-primary"  cdkFocusInitial>{{ data.title }}</button>
+        <button id="sendForm" type="submit" class="btn btn-primary"  cdkFocusInitial>{{ data.title }}</button>
       </form>
     </div>
   </div>

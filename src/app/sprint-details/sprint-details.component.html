@@ -23,7 +23,6 @@
             <div class="col-md-12">
               <div class="card">
                 <div class="card-header card-header-danger">
-
                   <div class="row justify-content-between">
                     <div class="col-xs-12 col-md-6 text-left">
                       <h4 class="card-title ">Sprint backlog</h4>
@@ -90,7 +89,7 @@
           </div>
         </ng-template>
       </mat-tab>
-      <mat-tab label="Tareas">
+      <mat-tab name="task-tab" label="Tareas">
         <ng-template matTabContent #taskTab>
           <!-- Lista de tareas del Sprint Backlog -->
           <div class="row">
@@ -104,7 +103,7 @@
                     <div class="col-xs-12 col-md-2 text-right">
                       <div class="input-group">
                         <span class="input-group-btn">
-                          <button id="but1" mat-raised-button type="submit" class="btn pull-right"
+                          <button id="create-task" mat-raised-button type="submit" class="btn pull-right"
                             (click)="createTask()">
                             <fa-icon icon="arrow-alt-circle-up"></fa-icon>
                           </button>
@@ -170,10 +169,10 @@
                           </td>
                           <td>
                             <div class="btn-group" role="group">
-                              <button type="button" class="btn btn-secondary" (click)="editTask(task)">
+                              <button id="edit-task" type="button" class="btn btn-secondary" (click)="editTask(task)">
                                 <fa-icon icon="edit"></fa-icon>
                               </button>
-                              <button type="button" class="btn btn-secondary" (click)="openDialog(task.id)">
+                              <button id="delete-task" type="button" class="btn btn-secondary" (click)="openDialog(task.id)">
                                 <fa-icon icon="times"></fa-icon>
                               </button>
                             </div>
