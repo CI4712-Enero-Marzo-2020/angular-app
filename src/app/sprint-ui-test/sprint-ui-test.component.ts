@@ -15,7 +15,7 @@ export class SprintUiTestComponent implements OnInit {
 
   @Input() sprint_id: number;
 
-  uiTests: UITest[] = [];
+  uiTests : any[] = [];
   addEditForm: FormGroup;
   addMode = true;
   uiTest: UITest;
@@ -42,16 +42,16 @@ export class SprintUiTestComponent implements OnInit {
   initializeAddForm() {
     this.addMode = true;
     this.addEditForm = this.formBuilder.group({
-      date: [{ value: new Date(Date.now()), disabled: true }, Validators.required],
+      date_created: [{ value: new Date(Date.now()), disabled: true }, Validators.required],
       functionality: ['', Validators.required]
     });
   }
 
-  initializeEditForm(uiTest: UITest) {
+  initializeEditForm(uiTest: any) {
     this.addMode = false;
     this.uiTest = uiTest;
     this.addEditForm = this.formBuilder.group({
-      date: [{ value: uiTest.date, disabled: true }, Validators.required],
+      date_created: [{ value: uiTest.date_created, disabled: true }, Validators.required],
       functionality: [uiTest.functionality, Validators.required]
     });
   }
@@ -72,7 +72,7 @@ export class SprintUiTestComponent implements OnInit {
   async createUITest() {
     const formData = new FormData();
     formData.append('sprint_id', this.sprint_id.toString());
-    formData.append('date', new Date(this.addEditForm.get('date').value).toUTCString());
+    formData.append('date_created', new Date(this.addEditForm.get('date_created').value).toUTCString());
     formData.append('functionality', this.addEditForm.get('functionality').value);
     const newTest: any = await this.uiTestService.create(formData);
     console.log(newTest);
@@ -86,7 +86,7 @@ export class SprintUiTestComponent implements OnInit {
     const formData = new FormData();
     formData.append('id', this.uiTest.id.toString());
     formData.append('sprint_id', this.uiTest.sprint_id.toString());
-    formData.append('date', new Date(this.addEditForm.get('date').value).toUTCString());
+    formData.append('date_created', new Date(this.addEditForm.get('date_created').value).toUTCString());
     formData.append('functionality', this.addEditForm.get('functionality').value);
     this.uiTestService.edit(this.uiTest.id, formData).then((response: any) => {
       console.log(response);
