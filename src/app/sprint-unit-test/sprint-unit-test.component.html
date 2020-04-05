@@ -63,7 +63,7 @@
                                             {{unitTest.id}}
                                         </td>
                                         <td>
-                                            {{datepipe.transform(unitTest.date, 'dd/MM/yyyy')}}
+                                            {{datepipe.transform(unitTest.date_created, 'dd/MM/yyyy')}}
                                         </td>
                                         <td>
                                             {{unitTest.module}}
@@ -135,10 +135,10 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <mat-form-field>
-                                        <input formControlName="date" matInput [matDatepicker]="picker"
+                                        <input formControlName="date_created" matInput [matDatepicker]="picker"
                                             placeholder="Fecha">
                                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                        <mat-datepicker #picker disabled="false"></mat-datepicker>
+                                        <mat-datepicker #picker disabled></mat-datepicker>
                                     </mat-form-field>
                                     <mat-form-field>
                                         <input formControlName="module" type="text" matInput class="form-control"

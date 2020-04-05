@@ -1,7 +1,7 @@
 export interface UnitTest {
     id: number,
     sprint_id: number,
-    date: Date,
+    date_created: Date,
     module: string,
     component: string,
     description: string,

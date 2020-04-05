@@ -42,7 +42,7 @@ export class SprintUiTestComponent implements OnInit {
   initializeAddForm() {
     this.addMode = true;
     this.addEditForm = this.formBuilder.group({
-      date: [{ value: new Date(Date.now()), disabled: true }, Validators.required],
+      date_created: [{ value: new Date(Date.now()), disabled: true }, Validators.required],
       functionality: ['', Validators.required]
     });
   }
@@ -51,7 +51,7 @@ export class SprintUiTestComponent implements OnInit {
     this.addMode = false;
     this.uiTest = uiTest;
     this.addEditForm = this.formBuilder.group({
-      date: [{ value: uiTest.date, disabled: true }, Validators.required],
+      date_created: [{ value: new Date(uiTest.date_created), disabled: true }, Validators.required],
       functionality: [uiTest.functionality, Validators.required]
     });
   }
@@ -72,7 +72,7 @@ export class SprintUiTestComponent implements OnInit {
   async createUITest() {
     const formData = new FormData();
     formData.append('sprint_id', this.sprint_id.toString());
-    formData.append('date', new Date(this.addEditForm.get('date').value).toUTCString());
+    formData.append('date_created', new Date(this.addEditForm.get('date_created').value).toUTCString());
     formData.append('functionality', this.addEditForm.get('functionality').value);
     const newTest: any = await this.uiTestService.create(formData);
     console.log(newTest);
@@ -86,7 +86,7 @@ export class SprintUiTestComponent implements OnInit {
     const formData = new FormData();
     formData.append('id', this.uiTest.id.toString());
     formData.append('sprint_id', this.uiTest.sprint_id.toString());
-    formData.append('date', new Date(this.addEditForm.get('date').value).toUTCString());
+    formData.append('date_created', new Date(this.addEditForm.get('date_created').value).toUTCString());
     formData.append('functionality', this.addEditForm.get('functionality').value);
     this.uiTestService.edit(this.uiTest.id, formData).then((response: any) => {
       console.log(response);
@@ -108,8 +108,8 @@ export class SprintUiTestComponent implements OnInit {
   filterUITests(id: string, from: Date, to: Date) {
     return this.uiTests.filter((element, index, array) => {
       if (id.length && !element.id.toString().includes(id)) { return false; }
-      if (from && element.date < from) { return false; }
-      if (to && element.date > new Date(to.getTime() + 86400000)) { return false; }
+      if (from && element.date_created < from) { return false; }
+      if (to && element.date_created > new Date(to.getTime() + 86400000)) { return false; }
       return true;
     });
   }
