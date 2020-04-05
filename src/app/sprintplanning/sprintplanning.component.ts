@@ -21,6 +21,7 @@ export class SprintplanningComponent implements OnInit {
   planningId: any;
   sprint: any;
   sprint_id: any;
+  planningDate: any;
 
   constructor(
     private planningService: SprintplanningService,
@@ -43,6 +44,7 @@ export class SprintplanningComponent implements OnInit {
           this.plans = response.results;
         }
         this.planningId = response.planning.id;
+        this.planningDate = response.planning.date;
       }
       console.log(response);
     });
