@@ -54,7 +54,7 @@
                                             {{uiTest.id}}
                                         </td>
                                         <td>
-                                            {{datepipe.transform(uiTest.date, 'dd/MM/yyyy')}}
+                                            {{datepipe.transform(uiTest.date_created, 'dd/MM/yyyy')}}
                                         </td>
                                         <td>
                                             {{uiTest.functionality}}
@@ -120,7 +120,7 @@
                                         <input formControlName="date_created" matInput [matDatepicker]="picker"
                                             placeholder="Fecha">
                                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                        <mat-datepicker #picker disabled="false"></mat-datepicker>
+                                        <mat-datepicker #picker disabled></mat-datepicker>
                                     </mat-form-field>
                                     <mat-form-field>
                                         <input formControlName="functionality" type="text" matInput class="form-control"

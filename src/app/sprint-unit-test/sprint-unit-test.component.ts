@@ -42,7 +42,7 @@ export class SprintUnitTestComponent implements OnInit {
   initializeAddForm() {
     this.addMode = true;
     this.addEditForm = this.formBuilder.group({
-      date: [{ value: new Date(Date.now()), disabled: true }, Validators.required],
+      date_created: [{ value: new Date(Date.now()), disabled: true }, Validators.required],
       module: ['', Validators.required],
       component: ['', Validators.required],
       description: ['', Validators.required],
@@ -54,7 +54,7 @@ export class SprintUnitTestComponent implements OnInit {
     this.addMode = false;
     this.unitTest = unitTest;
     this.addEditForm = this.formBuilder.group({
-      date: [this.datepipe.transform(unitTest.date_created, 'dd/MM/yyyy'), Validators.required],
+      date_created: [{ value: new Date(unitTest.date_created), disabled: true }, Validators.required],
       module: [unitTest.module, Validators.required],
       component: [unitTest.component, Validators.required],
       description: [unitTest.description, Validators.required],
@@ -78,11 +78,12 @@ export class SprintUnitTestComponent implements OnInit {
   async createUnitTest() {
     const formData = new FormData();
     formData.append('sprint_id', this.sprint_id.toString());
-    formData.append('date', new Date(this.addEditForm.get('date').value).toUTCString());
+    formData.append('date_created', new Date(this.addEditForm.get('date_created').value).toUTCString());
     formData.append('module', this.addEditForm.get('module').value);
     formData.append('component', this.addEditForm.get('component').value);
     formData.append('description', this.addEditForm.get('description').value);
     formData.append('amount', this.addEditForm.get('amount').value.toString());
+    console.log("fecha: ", formData.get('date_created'));
     const newTest: any = await this.unitTestService.create(formData);
     console.log(newTest);
     if (newTest && newTest.server !== 'ERROR') {
@@ -95,11 +96,12 @@ export class SprintUnitTestComponent implements OnInit {
     const formData = new FormData();
     formData.append('id', this.unitTest.id.toString());
     formData.append('sprint_id', this.unitTest.sprint_id.toString());
-    formData.append('date', new Date(this.addEditForm.get('date').value).toUTCString());
+    formData.append('date_created', new Date(this.addEditForm.get('date_created').value).toUTCString());
     formData.append('module', this.addEditForm.get('module').value);
     formData.append('component', this.addEditForm.get('component').value);
     formData.append('description', this.addEditForm.get('description').value);
     formData.append('amount', this.addEditForm.get('amount').value.toString());
+    console.log("fecha: ", formData.get('date_created'));
     this.unitTestService.edit(this.unitTest.id, formData).then((response: any) => {
       console.log(response);
       if (response && response.server !== 'ERROR') {
@@ -120,8 +122,8 @@ export class SprintUnitTestComponent implements OnInit {
   filterUnitTests(id: string, from: Date, to: Date) {
     return this.unitTests.filter((element, index, array) => {
       if (id.length && !element.id.toString().includes(id)) { return false; }
-      if (from && element.date < from) { return false; }
-      if (to && element.date > new Date(to.getTime() + 86400000)) { return false; }
+      if (from && element.date_created < from) { return false; }
+      if (to && element.date_created > new Date(to.getTime() + 86400000)) { return false; }
       return true;
     });
   }
