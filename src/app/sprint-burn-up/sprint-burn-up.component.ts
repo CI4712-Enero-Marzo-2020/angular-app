@@ -51,7 +51,6 @@ export class SprintBurnUpComponent implements OnInit {
   getSprint() {
     this.sprintService.getSprintByProject(this.idProject).subscribe((response: any) => {
       this.sprint = response.filter((elem) => elem.id === this.idSprint)[0];
-      console.log(this.sprint);
       this.sprint['duration'] = this.calculateDuration(this.sprint.init_date, this.sprint.end_date);
       this.getDays();
     });
@@ -106,7 +105,6 @@ export class SprintBurnUpComponent implements OnInit {
   }
 
   getDaysBySprint() {
-    console.log(this.days);
     let count = 1;
     let valuesDone = [];
     let valuesEstimated = [];

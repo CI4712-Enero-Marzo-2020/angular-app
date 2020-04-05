@@ -424,7 +424,6 @@ export class SprintDetailsComponent implements OnInit {
           this.sprintPlanning();
         }
       }
-      console.log(response);
     });
 
   }

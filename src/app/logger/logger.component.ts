@@ -89,7 +89,6 @@ export class LoggerComponent implements OnInit {
 
   search() {
     this.logger = this.loggerCopy;
-    console.log(this.selectValue, this.searchValue);
     if (this.selectValue === 'id') {
       this.idFilter();
     } else if (this.selectValue === 'user') {

@@ -65,7 +65,6 @@ export class SprintBurnDownComponent implements OnInit {
     });
   }
   addDay() {
-    console.log(this.days.length);
     if(this.days.length < this.sprint.duration){
       const modalDialog = this.matDialog.open(AddDayComponent, {
         width: '65%',
@@ -116,7 +115,6 @@ export class SprintBurnDownComponent implements OnInit {
   }
 
   isLast(id) {
-    console.log("qlq");
     const index = this.days.length - 1;
     const lastElement = this.days[index];
     if (id === lastElement.id) {

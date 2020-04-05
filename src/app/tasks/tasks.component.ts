@@ -39,7 +39,6 @@ export class TasksComponent implements OnInit {
   }
   ngOnInit() {
     this.formTask();
-    console.log(this.data.task);
     if (this.data.operation === 1) {
       this.taskForm.controls['task_type'].setValue('develop');
       this.taskForm.controls['task_class'].setValue('easy');
@@ -88,7 +87,6 @@ export class TasksComponent implements OnInit {
         this.onNoClick();
 
       });
-      console.log(this.taskForm.value);
     } else {
       this.sprintService.editTask(this.taskForm.value.id, this.taskForm.value).subscribe(res => {
         this.onNoClick();
@@ -155,7 +153,6 @@ export class TasksComponent implements OnInit {
 
   getUsers() {
     this.userService.getAll().subscribe((res: any) => {
-      console.log(res);
       this.allUsers = res;
     });
   }

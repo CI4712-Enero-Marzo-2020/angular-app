@@ -11,13 +11,10 @@ import { ComponentsModule } from './components/components.module';
 import { NgSelectModule } from '@ng-select/ng-select';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { Location } from '@angular/common';
-import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { SprintBurnUpComponent } from './sprint-burn-up/sprint-burn-up.component';
-import { SprintBurnDownComponent } from './sprint-burn-down/sprint-burn-down.component';
-import { AddDayComponent } from './add-day/add-day.component';
+import { MatDialogModule } from '@angular/material/dialog';
+
 @NgModule({
   declarations: [
     AppComponent,
