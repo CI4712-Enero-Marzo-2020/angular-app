@@ -1,1 +1,50 @@
-<p>documents works!</p>
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-danger">
+
+                    <div class="row">
+                        <div class="col-xs-12 col-md-6 text-left">
+                            <h4 class="card-title ">Identificacion del Proyecto</h4>
+                            <p class="card-category">Generación del documento inicial</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form (ngSubmit)="saveDocument()" [formGroup]="saveDocumentForm">
+
+                        <div class="row">
+                            <div class="col-12 col-lg-2"><label for="">Nombre:</label></div>
+                            <div class="col-12 col-lg-10"><input style="width: 90%;" type="text" formControlName="name" name="name" id=""></div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-12 col-lg-2"><label for="">Metodo de Desarrollo:</label></div>
+                            <div class="col-12 col-lg-10"><input style="width: 90%;" type="text" formControlName="dev_met" name="dev_met" id=""></div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-12 col-lg-2"><label for="">Version:</label></div>
+                            <div class="col-12 col-lg-10"><input style="width: 10%;" type="number" formControlName="version" name="version" id=""></div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-12 col-lg-2"><label for="">Metafora del Proyecto:</label></div>
+                            <div class="col-12 col-lg-10"><input type="file" formControlName="image" (change)="onFileChange($event)"></div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-12 col-lg-2"><label for="">Nombre:</label></div>
+                            <div class="col-12 col-lg-10"><select formControlName="project_id" name="project_id" id="" *ngFor="let project of projects" style="width: 70%;" >
+                                                            <option value="{{project.id}}">{{project.description}}</option>
+                                                        </select>
+                        </div>
+                        </div>
+                        <div class="row mt-3 d-flex justify-content-center">
+                            <button type="submit" class="btn btn-danger btn-round">Enviar</button>
+                            <button type="button" class="btn btn-danger btn-round ml-3" (click)="limpiarCampos()">Limpiar campos</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -6,7 +6,7 @@ import { ProductbacklogComponent } from 'src/app/productbacklog/productbacklog.c
 import { LoggerComponent } from 'src/app/logger/logger.component';
 import { DialogComponent } from 'src/app/logger/dialog/dialog.component';
 import { LoginActivate } from 'src/app/login/login-activate';
-import { LoginComponent } from 'src/app/login/login.component';
+import { LoginComponent, LogoutComponent } from 'src/app/login/login.component';
 import { SprintBacklogComponent } from 'src/app/sprint-backlog/sprint-backlog.component';
 import { SprintplanningComponent } from 'src/app/sprintplanning/sprintplanning.component';
 import { SprintretrospectiveComponent } from 'src/app/sprintretrospective/sprintretrospective.component';
@@ -23,6 +23,7 @@ import { SprintBurnDownComponent } from 'src/app/sprint-burn-down/sprint-burn-do
 import { AddDayComponent } from 'src/app/add-day/add-day.component';
 import { SprintUnitTestComponent } from 'src/app/sprint-unit-test/sprint-unit-test.component';
 import { SprintUiTestComponent } from 'src/app/sprint-ui-test/sprint-ui-test.component';
+import { DocumentListComponent } from 'src/app/document-list/document-list.component';
 
 export const AdminLayoutRoutes: Routes = [
     // Agregar path y respectivo componente aquí
@@ -51,5 +52,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'sprintretrospective/:id', component: SprintretrospectiveComponent},
     { path: 'sprinttechnical/:id', component: SprinttechnicalComponent},
     { path: 'sprintunittest/:id', component: SprintUnitTestComponent},
-    { path: 'sprintuitest/:id', component: SprintUiTestComponent}
+    { path: 'sprintuitest/:id', component: SprintUiTestComponent},
+    { path: 'logout', component: LogoutComponent},
+    { path: 'document-list', component:DocumentListComponent},
 ];

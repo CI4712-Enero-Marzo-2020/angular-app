@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.username, this.password).subscribe(data => {
       if (data) {
         if (!data.error) {
+          console.log(data)
           sessionStorage.setItem('currentUser', JSON.stringify({ access_token: data.access_token,
                                                                 refresh_token: data.refresh_token,
                                                                 userId: data.userId}));
@@ -43,6 +44,26 @@ export class LoginComponent implements OnInit {
   limpiarCampos() {
     this.username = '';
     this.password = '';
+  }
+
+}
+
+@Component({
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss']
+})
+export class LogoutComponent implements OnInit{
+  constructor(private authService: AuthService, private router: Router) {
+  }
+
+  logout(){
+    this.authService.logout();
+  }
+
+  ngOnInit() {
+    this.logout();
+    this.router.navigate([''])
   }
 
 }

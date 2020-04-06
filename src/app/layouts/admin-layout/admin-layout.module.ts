@@ -34,6 +34,8 @@ import {LoginComponent} from '../../login/login.component';
 import { LoginActivate } from '../../login/login-activate';
 import { CreateUsersComponent } from 'src/app/create-users/create-users.component';
 import { RegisterComponent } from 'src/app/register/register.component';
+import { LogoutComponent } from 'src/app/login/login.component';
+import { DocumentListComponent} from 'src/app/document-list/document-list.component';
 
 
 import {
@@ -61,6 +63,7 @@ import { SprinttechnicalComponent } from 'src/app/sprinttechnical/sprinttechnica
 import { SprintDetailsComponent } from 'src/app/sprint-details/sprint-details.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { TasksComponent } from 'src/app/tasks/tasks.component';
+<<<<<<< HEAD
 import { SprintGraphsComponent } from 'src/app/sprint-graphs/sprint-graphs.component';
 import { SprintBurnDownComponent } from 'src/app/sprint-burn-down/sprint-burn-down.component';
 import { SprintBurnUpComponent } from 'src/app/sprint-burn-up/sprint-burn-up.component';
@@ -68,6 +71,9 @@ import { ChartsModule } from 'ng2-charts';
 import { AddDayComponent } from 'src/app/add-day/add-day.component';
 import { SprintUiTestComponent } from 'src/app/sprint-ui-test/sprint-ui-test.component';
 import { SprintUnitTestComponent } from 'src/app/sprint-unit-test/sprint-unit-test.component';
+=======
+import { from } from 'rxjs';
+>>>>>>> ced0bfa... Document list created
 @NgModule({
   imports: [
     CommonModule,
@@ -105,12 +111,17 @@ import { SprintUnitTestComponent } from 'src/app/sprint-unit-test/sprint-unit-te
     IntroComponent,
     CreateUsersComponent,
     RegisterComponent,
+<<<<<<< HEAD
     SprintGraphsComponent,
     SprintBurnDownComponent,
     SprintBurnUpComponent,
     AddDayComponent,
     SprintUnitTestComponent,
     SprintUiTestComponent
+=======
+    LogoutComponent,
+    DocumentListComponent,
+>>>>>>> ced0bfa... Document list created
   ],
   providers: [
     LoginActivate,
