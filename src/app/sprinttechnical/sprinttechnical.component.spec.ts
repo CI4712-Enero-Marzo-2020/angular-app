@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SprinttechnicalComponent } from './sprinttechnical.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { MatTabsModule, MatDialogModule, MatDialogRef, MAT_DIALOG_DATA, MatDatepicker, MatDatepickerModule, MatFormFieldModule, MatNativeDateModule, MatInputModule } from '@angular/material';
+import { MatDatepickerModule, MatFormFieldModule, MatNativeDateModule, MatInputModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgSelectModule } from '@ng-select/ng-select';
