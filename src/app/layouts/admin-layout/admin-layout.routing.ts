@@ -21,6 +21,8 @@ import { SprintGraphsComponent } from 'src/app/sprint-graphs/sprint-graphs.compo
 import { SprintBurnUpComponent } from 'src/app/sprint-burn-up/sprint-burn-up.component';
 import { SprintBurnDownComponent } from 'src/app/sprint-burn-down/sprint-burn-down.component';
 import { AddDayComponent } from 'src/app/add-day/add-day.component';
+import { SprintUnitTestComponent } from 'src/app/sprint-unit-test/sprint-unit-test.component';
+import { SprintUiTestComponent } from 'src/app/sprint-ui-test/sprint-ui-test.component';
 
 export const AdminLayoutRoutes: Routes = [
     // Agregar path y respectivo componente aquí
@@ -47,5 +49,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'register', component: RegisterComponent},
     { path: 'sprintplanning/:id', component: SprintplanningComponent},
     { path: 'sprintretrospective/:id', component: SprintretrospectiveComponent},
-    { path: 'sprinttechnical/:id', component: SprinttechnicalComponent}
+    { path: 'sprinttechnical/:id', component: SprinttechnicalComponent},
+    { path: 'sprintunittest/:id', component: SprintUnitTestComponent},
+    { path: 'sprintuitest/:id', component: SprintUiTestComponent}
 ];

@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { SprintService } from '../services/sprint/sprint.service';
 import { Route, ActivatedRoute, Router } from '@angular/router';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { element } from 'protractor';
 import { MatDialog } from '@angular/material';
 import { TasksComponent } from '../tasks/tasks.component';
+import { SprintplanningService } from '../services/meetings/sprintplanning/sprintplanning.service';
 
 @Component({
   selector: 'app-sprint-backlog',
@@ -49,10 +50,14 @@ export class SprintBacklogComponent implements OnInit {
   messageTest = '';
   testError = false;
 
+  planningResult = -1;
+  planningForm: FormGroup;
 
   constructor(public sprintService: SprintService,
               public route: ActivatedRoute,
               public router: Router,
+              public planningService: SprintplanningService,
+              private formBuilder: FormBuilder,
               private matDialog: MatDialog) {
 
     this.idProject = parseInt(this.route.snapshot.paramMap.get('id'), 10);
@@ -64,7 +69,7 @@ export class SprintBacklogComponent implements OnInit {
     this.formTest();
     this.formCriteriaEdit();
     this.formTestEdit();
-
+    this.initializePlanningForm();
   }
 
 
@@ -400,6 +405,41 @@ export class SprintBacklogComponent implements OnInit {
   }
 
 
+  sprintTechnical() {
+    this.router.navigate(['sprinttechnical', this.idSprint]);
+  }
 
+  sprintPlanning() {
+    this.router.navigate(['sprintplanning', this.idSprint]);
+  }
+
+  sprintRetrospective() {
+    this.router.navigate(['sprintretrospective', this.idSprint]);
+  }
+
+  sprintUITest() {
+    this.router.navigate(['sprintuitest', this.idSprint]);
+  }
+
+  sprintUnitTest() {
+    this.router.navigate(['sprintunittest', this.idSprint]);
+  }
+
+  initializePlanningForm() {
+    this.planningForm = this.formBuilder.group({
+      date: [{ value: new Date(Date.now()), disabled: true }, Validators.required]
+    });
+  }
+
+
+  async createPlanning() {
+    const formData = new FormData();
+    formData.append('date', new Date(this.planningForm.get('date').value).toUTCString());
+    formData.append('sprint_id', this.idSprint.toString());
+    const planning: any = await this.planningService.create(formData);
+    if (planning && planning.server !== 'ERROR') {
+      this.sprintPlanning();
+    }
+  }
 
 }

@@ -240,6 +240,13 @@
         Volver
       </button>
     </div>
+    <div *ngIf="seeAll && idSprint!=0" class="row" style="padding: 10px;">
+      <button class="btn btn-primary sprint" data-toggle="modal" data-target="#createPlanning">Crear Reunión de Planificación</button>
+      <button class="btn btn-primary sprint" (click)="sprintTechnical()">Reunión Técnica</button>
+      <button class="btn btn-primary sprint" (click)="sprintRetrospective()">Reunión de Retrospectiva</button>
+      <button class="btn btn-primary sprint" (click)="sprintUnitTest()">Pruebas Unitarias</button>
+      <button class="btn btn-primary sprint" (click)="sprintUITest()">Pruebas de Interfaz</button>
+    </div>
 
     <div *ngIf="!seeAll" class="card">
       <p class="description-title">{{storySelected.description}}</p>
@@ -555,6 +562,43 @@
           </form>
         </div>
 
+      </div>
+    </div>
+  </div>
+
+    <!-------------------------- Crear Plan -------------------->
+
+  <!-- Modal -->
+
+  <div class="modal fade" id="createPlanning" tabindex="-1" role="dialog" aria-labelledby="createPlanning" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Nueva Reunión de Planificación</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="planningForm">
+            <div class="row">
+              <div class="col-12">
+                <div class="form-group">
+                  <mat-form-field>
+                    <input formControlName="date" matInput [matDatepicker]="picker" placeholder="Fecha">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker disabled="false"></mat-datepicker>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-dismiss="modal"
+            (click)="createPlanning()">Crear Reunión</button>
+        </div>
       </div>
     </div>
   </div>

@@ -5,40 +5,17 @@ import { Story } from '../productbacklog/story';
 import { AuthService } from '../services/users/auth.service';
 import { SprintplanningService } from '../services/meetings/sprintplanning/sprintplanning.service';
 import { ActivatedRoute } from '@angular/router';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-sprintplanning',
   templateUrl: './sprintplanning.component.html',
-  styleUrls: ['./sprintplanning.component.scss']
+  styleUrls: ['./sprintplanning.component.scss'],
+  providers: [DatePipe]
 })
 export class SprintplanningComponent implements OnInit {
 
-  plans: Plan[] = [
-    {
-      id: 0,
-      planning_id: 0,
-      subject: 'Tema 1',
-      user_story_id: '0, 2, 5',
-      activity: 'Actividad 1',
-      assigned: 'Pedro Pérez, María Grimaldi'
-    },
-    {
-      id: 1,
-      planning_id: 0,
-      subject: 'Tema 2',
-      user_story_id: '1, 3, 4',
-      activity: 'Actividad 2',
-      assigned: 'María Grimaldi'
-    },
-    {
-      id: 2,
-      planning_id: 0,
-      subject: 'Tema 3',
-      user_story_id: '6, 7, 8',
-      activity: 'Actividad 3',
-      assigned: 'Pedro Pérez, María Grimaldi, Julio Pérez'
-    }
-  ];
+  plans: Plan[] = [];
   addEditPlanForm: FormGroup;
   addMode = true;
   plan: Plan;
@@ -46,8 +23,10 @@ export class SprintplanningComponent implements OnInit {
   planningId: any;
   sprint: any;
   sprint_id: any;
+  planningDate: any;
 
   constructor(
+    public datepipe: DatePipe,
     private planningService: SprintplanningService,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute) {
@@ -68,6 +47,7 @@ export class SprintplanningComponent implements OnInit {
           this.plans = response.results;
         }
         this.planningId = response.planning.id;
+        this.planningDate = response.planning.date;
       }
       console.log(response);
     });

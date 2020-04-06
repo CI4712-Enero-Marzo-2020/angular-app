@@ -31,3 +31,7 @@ button {
   width: 40%;
   margin: 0 auto;
 }
+
+::ng-deep .cdk-overlay-container{
+  z-index:2000;
+}

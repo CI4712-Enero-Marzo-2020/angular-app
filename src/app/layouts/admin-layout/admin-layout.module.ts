@@ -44,7 +44,7 @@ import {
   MatTooltipModule,
   MatSelectModule,
   MatDialogModule,
-  MatDatepickerModule, 
+  MatDatepickerModule,
   MatNativeDateModule,
   MAT_DATE_FORMATS,
   MatTabGroup,
@@ -66,6 +66,8 @@ import { SprintBurnDownComponent } from 'src/app/sprint-burn-down/sprint-burn-do
 import { SprintBurnUpComponent } from 'src/app/sprint-burn-up/sprint-burn-up.component';
 import { ChartsModule } from 'ng2-charts';
 import { AddDayComponent } from 'src/app/add-day/add-day.component';
+import { SprintUiTestComponent } from 'src/app/sprint-ui-test/sprint-ui-test.component';
+import { SprintUnitTestComponent } from 'src/app/sprint-unit-test/sprint-unit-test.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -106,7 +108,9 @@ import { AddDayComponent } from 'src/app/add-day/add-day.component';
     SprintGraphsComponent,
     SprintBurnDownComponent,
     SprintBurnUpComponent,
-    AddDayComponent
+    AddDayComponent,
+    SprintUnitTestComponent,
+    SprintUiTestComponent
   ],
   providers: [
     LoginActivate,

@@ -7,12 +7,13 @@
 
                         <div class="row">
                             <div class="col-xs-12 col-md-6 text-left">
-                                <h4 class="card-title ">Reunión de Planificación</h4>
-                                <p class="card-category">Sprint {{sprint_id}} - {{datepipe.transform(planningDate, 'dd/MM/yyyy')}}</p>
+                                <h4 class="card-title ">Pruebas Unitarias Desarrolladas</h4>
+                                <p class="card-category">Sprint {{sprint_id}}</p>
                             </div>
                             <div class="col-xs-12 col-md-6 text-right">
                                 <div class="input-group">
-                                    <input type="text" placeholder="Buscar" [(ngModel)]="searchword" class="form-control">
+                                    <input type="text" placeholder="Buscar" [(ngModel)]="searchword"
+                                        class="form-control">
                                     <span class="input-group-btn">
                                         <button id="but1" mat-raised-button type="submit" class="btn pull-right"
                                             (click)="true">
@@ -32,52 +33,58 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table">
+                            <table class="table text-center">
                                 <thead class=" text-primary">
                                     <th class="narrow-column">
                                         ID
                                     </th>
-                                    <th>
-                                        Tema
-                                    </th>
                                     <th class="narrow-column">
-                                        IDHU
+                                        Fecha
                                     </th>
                                     <th>
-                                        Actividad Asignada
+                                        Módulo
                                     </th>
-                                    <th class="">
-                                        Asignada
+                                    <th>
+                                        Componente
+                                    </th>
+                                    <th>
+                                        Descripción
+                                    </th>
+                                    <th>
+                                        Cantidad
                                     </th>
                                     <th class="narrow-column">
                                         Opciones
                                     </th>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let plan of filterPlans(searchword); index as i">
+                                    <tr *ngFor="let unitTest of filterUnitTests(searchword, fromDate, toDate); index as i">
                                         <td class="text-center">
-                                            {{plan.id}}
+                                            {{unitTest.id}}
                                         </td>
                                         <td>
-                                            {{plan.subject}}
+                                            {{datepipe.transform(unitTest.date_created, 'dd/MM/yyyy')}}
                                         </td>
                                         <td>
-                                            {{plan.user_story_id}}
+                                            {{unitTest.module}}
                                         </td>
                                         <td>
-                                            {{plan.activity}}
+                                            {{unitTest.component}}
                                         </td>
                                         <td>
-                                            {{plan.assigned}}
+                                            {{unitTest.description}}
+                                        </td>
+                                        <td>
+                                            {{unitTest.amount}}
                                         </td>
                                         <td class="text-right">
                                             <div class="btn-group" role="group">
                                                 <button type="button" class="btn btn-secondary" data-toggle="modal"
-                                                    data-target="#addEdit" (click)="initializeEditForm(plan)">
+                                                    data-target="#addEdit" (click)="initializeEditForm(unitTest)">
                                                     <fa-icon icon="edit"></fa-icon>
                                                 </button>
                                                 <button type="button" class="btn btn-secondary" data-toggle="modal"
-                                                    data-target="#eliminar" (click)="initializeDeleteForm(plan)">
+                                                    data-target="#eliminar" (click)="initializeDeleteForm(unitTest)">
                                                     <fa-icon icon="times"></fa-icon>
                                                 </button>
                                             </div>
@@ -85,6 +92,26 @@
                                     </tr>
                                 </tbody>
                             </table>
+                        </div>
+                        <div class="col-12">
+                            <div class="input-group">
+                                <mat-form-field style="margin:auto">
+                                    <input matInput [matDatepicker]="from" placeholder="Desde" [(ngModel)]="fromDate"
+                                        disabled>
+                                    <mat-datepicker-toggle matSuffix [for]="from"></mat-datepicker-toggle>
+                                    <mat-datepicker #from disabled="false"></mat-datepicker>
+                                </mat-form-field>
+                                <mat-form-field style="margin:auto">
+                                    <input matInput [matDatepicker]="to" placeholder="Hasta" [(ngModel)]="toDate"
+                                        disabled>
+                                    <mat-datepicker-toggle matSuffix [for]="to"></mat-datepicker-toggle>
+                                    <mat-datepicker #to disabled="false"></mat-datepicker>
+                                </mat-form-field>
+                                <mat-form-field style="margin:auto">
+                                    <input matInput type="text" placeholder="Total" [(ngModel)]="unitTests.length"
+                                        disabled>
+                                </mat-form-field>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -96,49 +123,54 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 *ngIf="addMode" class="modal-title">Agregar Plan</h5>
-                    <h5 *ngIf="!addMode" class="modal-title">Editar Plan {{plan.id}}</h5>
+                    <h5 *ngIf="addMode" class="modal-title">Agregar Prueba Unitaria</h5>
+                    <h5 *ngIf="!addMode" class="modal-title">Editar Prueba Unitaria {{unitTest.id}}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form [formGroup]="addEditPlanForm">
+                    <form [formGroup]="addEditForm">
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group">
-                                    <h6>Tema</h6>
-                                    <input formControlName="subject" type="text" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <h6>IDHU</h6>
-                                    <input formControlName="user_story_id" type="text" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <h6>Actividad</h6>
-                                    <input formControlName="activity" type="text" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <h6>Asignado</h6>
-                                    <input formControlName="assigned" type="text" class="form-control">
+                                    <mat-form-field>
+                                        <input formControlName="date_created" matInput [matDatepicker]="picker"
+                                            placeholder="Fecha">
+                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker disabled></mat-datepicker>
+                                    </mat-form-field>
+                                    <mat-form-field>
+                                        <input formControlName="module" type="text" matInput class="form-control"
+                                            placeholder="Módulo">
+                                    </mat-form-field>
+                                    <mat-form-field>
+                                      <mat-label>Componente</mat-label>
+                                        <select formControlName="component" matNativeControl required>
+                                          <option value="vista">Vista</option>
+                                          <option value="modelo">Modelo</option>
+                                          <option value="vista_modelo">Vista</option>
+                                        </select>
+                                    </mat-form-field>
+                                    <mat-form-field>
+                                        <input formControlName="description" type="text" matInput class="form-control"
+                                            placeholder="Descripción">
+                                    </mat-form-field>
+                                    <mat-form-field>
+                                        <input formControlName="amount" type="number" matInput class="form-control"
+                                            placeholder="Cantidad">
+                                    </mat-form-field>
                                 </div>
                             </div>
                         </div>
-
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                     <button *ngIf="addMode" type="button" class="btn btn-primary" data-toggle="modal"
-                        data-dismiss="modal" (click)="createPlan()">Crear Plan</button>
+                        data-dismiss="modal" (click)="createUnitTest()">Crear Prueba</button>
                     <button *ngIf="!addMode" type="button" class="btn btn-primary" data-toggle="modal"
-                        data-dismiss="modal" (click)="editPlan()">Editar Plan</button>
+                        data-dismiss="modal" (click)="editUnitTest()">Editar Prueba</button>
                 </div>
             </div>
         </div>
@@ -151,9 +183,10 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
                     <h4 class="margin-top">
-                        ¿Está seguro que desea eliminar el plan {{plan?plan.id:""}}?
+                        ¿Está seguro que desea eliminar la prueba unitaria
+                        {{unitTest?unitTest.id:""}}?
                     </h4>
-                    <a class="modal-button" data-dismiss="modal" (click)="removePlan()" target="_blank">
+                    <a class="modal-button" data-dismiss="modal" (click)="removeUnitTest()" target="_blank">
                         <div class="product-type">Si</div>
                     </a>
                     <a class="modal-button" data-dismiss="modal" target="_blank">
@@ -163,8 +196,4 @@
             </div>
         </div>
     </div>
-
-
-
-
 </div>

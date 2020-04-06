@@ -45,7 +45,7 @@ export class ProductbacklogComponent implements OnInit {
     this.addMode = true;
     this.addEditStoryForm = this.formBuilder.group({
       description: ['', Validators.required],
-      priority: [0],
+      priority: ['low'],
       epic: [false],
       done: [false],
       estimation: [0]
