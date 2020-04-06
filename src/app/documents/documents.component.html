@@ -32,12 +32,13 @@
                         </div>
                         <div class="row mt-3">
                             <div class="col-12 col-lg-2"><label for="">Nombre:</label></div>
-                            <div class="col-12 col-lg-10"><select formControlName="project_id" name="project_id" id="" *ngFor="let project of projects" style="width: 70%;" >
-                                                            <option value="{{project.id}}">{{project.description}}</option>
+                            <div class="col-12 col-lg-10"><select formControlName="project_id" name="project_id" id="" style="width: 70%;" >
+                                                            <option *ngFor="let project of projects" value="{{project.id}}">{{project.description}}</option>
                                                         </select>
                         </div>
                         </div>
                         <div class="row mt-3 d-flex justify-content-center">
+                            <p class="danger">{{error}}</p>
                             <button type="submit" class="btn btn-danger btn-round">Enviar</button>
                             <button type="button" class="btn btn-danger btn-round ml-3" (click)="limpiarCampos()">Limpiar campos</button>
                         </div>

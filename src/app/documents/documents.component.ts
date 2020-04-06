@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {DocumentsService} from '../services/documents/documents.service';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { ProjectsService } from '../services/projects/projects.service';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -19,10 +21,12 @@ export class DocumentsComponent implements OnInit {
   saveDocumentForm: FormGroup;  
   public file;
   projects
+  public error;
 
 
 
-  constructor(private documentsService:DocumentsService,private formBuilder: FormBuilder,private projectsService:ProjectsService) { }
+  constructor(private documentsService:DocumentsService,private formBuilder: FormBuilder,
+    private projectsService:ProjectsService, private router: Router) { }
 
   ngOnInit() {
 
@@ -70,10 +74,13 @@ export class DocumentsComponent implements OnInit {
     formData.append('image',this.file);
     formData.append('project_id',this.saveDocumentForm.get('project_id').value);
     this.documentsService.saveDoc(formData).subscribe(
-      (data:any)=>{
-        console.log(formData)
+      (data)=>{
         if(data){
-          console.log(data)
+          if(!data.error){
+            this.router.navigate(['document-list']);
+          }else{
+            this.error = data
+          }
         }
       }
       
