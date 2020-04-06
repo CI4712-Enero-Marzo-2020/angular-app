@@ -84,7 +84,9 @@ export class DocumentsComponent implements OnInit {
         }
       }
       
-    )
+    , err =>{
+      this.error = err.error.msg
+    })
   }
 
   limpiarCampos(){
