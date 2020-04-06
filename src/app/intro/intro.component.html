@@ -8,20 +8,33 @@
                         <h4 class="card-title"><i>Introducción</i></h4>
                         <p class="card-category">Introduzca introducción del proyecto</p>
                     </div>
+
                     <div class="card-body">
-                        <!-- <form (ngSubmit)="intro()" #introForm="ngForm">
+
+                        <form [formGroup]="addIntroForm">
+
                             <div class="row">
-                                <div class="col-md-8">
-                                      <textarea type="textarea" class="form-control" placeholder="Este documento describe la implementación del método de desarrollo de software scrum por el equipo..." [(ngModel)]="intro" name="intro" rows=15 cols=60></textarea>
+
+                                <div class="form-group">
+                                    <div class="col-md-8">
+                                        <label for="recipient-name" class="col-form-label">Proyecto:</label>
+                                        <input formControlName="project" type="text" class="form-control">
+                                    </div>
+                                    <div class="col-md-8">
+                                          <label for="recipient-name" class="col-form-label">Introducción:</label>
+                                          <input type="textarea" class="form-control" placeholder="Este documento describe la implementación del método de desarrollo de software scrum por el equipo..." formControlName="content" rows=15 cols=60>
+                                    </div>
                                 </div>
+
                             </div>
+
                             <div class="row">
                                 <div class="col-md-8">
-                                    <button type="submit" class="btn btn-danger btn-round">Enviar</button>
+                                    <button type="submit" class="btn btn-danger btn-round" (click)="addIntro()">Enviar</button>
                                     <button type="button" class="btn btn-danger btn-round" (click)="limpiarCampos()">Limpiar campos</button>
                                 </div>
                             </div>
-                        </form> -->
+                        </form> 
                     </div>
                 </div>
             </div>
