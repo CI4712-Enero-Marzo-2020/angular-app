@@ -123,7 +123,7 @@
                                         <mat-datepicker #picker disabled></mat-datepicker>
                                     </mat-form-field>
                                     <mat-form-field>
-                                        <input formControlName="functionality" type="text" matInput class="form-control"
+                                        <input id= "funcionalidad" formControlName="functionality" type="text" matInput class="form-control"
                                             placeholder="Funcionalidad">
                                     </mat-form-field>
                                 </div>
@@ -133,7 +133,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button *ngIf="addMode" type="button" class="btn btn-primary" data-toggle="modal"
+                    <button id ="crear" *ngIf="addMode" type="button" class="btn btn-primary" data-toggle="modal"
                         data-dismiss="modal" (click)="createUITest()">Crear Prueba</button>
                     <button *ngIf="!addMode" type="button" class="btn btn-primary" data-toggle="modal"
                         data-dismiss="modal" (click)="editUITest()">Editar Prueba</button>

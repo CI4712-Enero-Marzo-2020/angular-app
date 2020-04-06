@@ -6,7 +6,7 @@ describe("Hacer login", function(){
 		var username = browser.findElement(protractor.by.css('[name="username"]'));
 		var password = browser.findElement(protractor.by.css('[name="password"]'));
 		var submit = browser.findElement(protractor.by.css('[type="submit"]'));
-		username.sendKeys('yo');
+		username.sendKeys('tu');
 		password.sendKeys('1234');
 
 		submit.click();
@@ -117,6 +117,59 @@ describe("Hacer login", function(){
 		browser.sleep(400);
 		crearPlan.click();
 		browser.sleep(400);
+
+
+		//browser.sleep(100000);
+		
+
+
+	});
+
+	it("pruebas unitarias", function(){
+		browser.get("http://localhost:4200/sprintunittest/1");
+		browser.sleep(400);
+		var agregarPrueba = browser.findElement(protractor.by.css('[id="but2"]'));
+		agregarPrueba.click();
+		browser.sleep(400);
+		var modulo =  browser.findElement(protractor.by.css('[id="modulo"]'));
+		browser.sleep(400);
+		modulo.sendKeys("modulo prueba")
+		browser.sleep(400);
+		var componente =  browser.findElement(protractor.by.css('[id="modelo"]'));
+		componente.click();
+		browser.sleep(400);
+		var agregar =  browser.findElement(protractor.by.css('[id="agregar"]'));
+		agregar.click(400);
+		browser.sleep(400);
+		agregarPrueba.click();
+		var modulo =  browser.findElement(protractor.by.css('[id="modulo"]'));
+		browser.sleep(400);
+		modulo.sendKeys("modulo prueba 2")
+		browser.sleep(400);
+		componente.click();
+		var descripcion =  browser.findElement(protractor.by.css('[id="descripcion"]'));
+		descripcion.sendKeys("Un muy bonito modelo alksjdfkjashdfkjadshfkjasdfhkjsadfhkjadsfhkasjdfhasdkjf")
+		browser.sleep(400);
+		var agregar2 =  browser.findElement(protractor.by.css('[id="agregar"]'));
+		browser.sleep(400);
+		agregar2.click;
+		browser.sleep(400);
+		browser.get("http://localhost:4200/sprintuitest/1");
+		browser.sleep(400);
+		var agregarPruebaInterfaz = browser.findElement(protractor.by.css('[id="but2"]'));
+		browser.sleep(400);
+		agregarPruebaInterfaz.click();
+		browser.sleep(400);
+		funcionalidad = browser.findElement(protractor.by.css('[id="funcionalidad"]'));
+		browser.sleep(400);
+		funcionalidad.sendKeys("DIOS PLAN");
+		browser.sleep(400);
+		crear = browser.findElement(protractor.by.css('[id="crear"]'));
+		browser.sleep(400);
+		crear.click();
+		browser.sleep(400);
+
+
 
 
 		//browser.sleep(100000);

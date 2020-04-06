@@ -141,19 +141,19 @@
                                         <mat-datepicker #picker disabled></mat-datepicker>
                                     </mat-form-field>
                                     <mat-form-field>
-                                        <input formControlName="module" type="text" matInput class="form-control"
+                                        <input id="modulo" formControlName="module" type="text" matInput class="form-control"
                                             placeholder="Módulo">
                                     </mat-form-field>
                                     <mat-form-field>
                                       <mat-label>Componente</mat-label>
                                         <select formControlName="component" matNativeControl required>
                                           <option value="vista">Vista</option>
-                                          <option value="modelo">Modelo</option>
+                                          <option id="modelo" value="modelo">Modelo</option>
                                           <option value="vista_modelo">Vista</option>
                                         </select>
                                     </mat-form-field>
                                     <mat-form-field>
-                                        <input formControlName="description" type="text" matInput class="form-control"
+                                        <input id ="descripcion" formControlName="description" type="text" matInput class="form-control"
                                             placeholder="Descripción">
                                     </mat-form-field>
                                     <mat-form-field>
@@ -167,7 +167,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button *ngIf="addMode" type="button" class="btn btn-primary" data-toggle="modal"
+                    <button id="agregar" *ngIf="addMode" type="button" class="btn btn-primary" data-toggle="modal"
                         data-dismiss="modal" (click)="createUnitTest()">Crear Prueba</button>
                     <button *ngIf="!addMode" type="button" class="btn btn-primary" data-toggle="modal"
                         data-dismiss="modal" (click)="editUnitTest()">Editar Prueba</button>
