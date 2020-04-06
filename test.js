@@ -103,7 +103,7 @@ describe("Hacer login", function(){
 		browser.get("http://localhost:4200/productbacklog/1");
 		var verSprint = browser.findElement(protractor.by.css('[class="btn btn-primary sprint"]'));
 		verSprint.click();
-		browser.sleep(100000);
+		browser.sleep(400);
 		var planificacion =  browser.findElement(protractor.by.css('[id="planificacion"]'));
 		planificacion.click();
 		browser.sleep(400);
@@ -112,7 +112,11 @@ describe("Hacer login", function(){
 		var tema = browser.findElement(protractor.by.css('[id="tema"]'));
 		browser.sleep(400);
 		tema.sendKeys("Tema 1");
-		browser.sleep(4000);
+		browser.sleep(400);
+		var crearPlan = browser.findElement(protractor.by.css('[id="crearPlan"]'));
+		browser.sleep(400);
+		crearPlan.click();
+		browser.sleep(400);
 
 
 		//browser.sleep(100000);

@@ -108,7 +108,7 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <h6>Tema</h6>
-                                    <input formControlName="subject" type="text" class="form-control">
+                                    <input id = "tema" formControlName="subject" type="text" class="form-control">
                                 </div>
                             </div>
                             <div class="col-12">
@@ -135,7 +135,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button *ngIf="addMode" type="button" class="btn btn-primary" data-toggle="modal"
+                    <button id="crearPlan" *ngIf="addMode" type="button" class="btn btn-primary" data-toggle="modal"
                         data-dismiss="modal" (click)="createPlan()">Crear Plan</button>
                     <button *ngIf="!addMode" type="button" class="btn btn-primary" data-toggle="modal"
                         data-dismiss="modal" (click)="editPlan()">Editar Plan</button>
