@@ -32,6 +32,8 @@ import {LoginComponent} from '../../login/login.component';
 import { LoginActivate } from '../../login/login-activate';
 import { CreateUsersComponent } from 'src/app/create-users/create-users.component';
 import { RegisterComponent } from 'src/app/register/register.component';
+import { LogoutComponent } from 'src/app/login/login.component';
+import { DocumentListComponent} from 'src/app/document-list/document-list.component';
 
 
 import {
@@ -59,6 +61,7 @@ import { SprinttechnicalComponent } from 'src/app/sprinttechnical/sprinttechnica
 import { SprintDetailsComponent } from 'src/app/sprint-details/sprint-details.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { TasksComponent } from 'src/app/tasks/tasks.component';
+import { from } from 'rxjs';
 @NgModule({
   imports: [
     CommonModule,
@@ -94,7 +97,9 @@ import { TasksComponent } from 'src/app/tasks/tasks.component';
     DocumentsComponent,
     IntroComponent,
     CreateUsersComponent,
-    RegisterComponent
+    RegisterComponent,
+    LogoutComponent,
+    DocumentListComponent,
   ],
   providers: [
     LoginActivate,

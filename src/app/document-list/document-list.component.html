@@ -7,7 +7,7 @@
 
                         <div class="row">
                             <div class="col-xs-12 col-md-6 text-left">
-                                <h4 class="card-title ">Usuarios</h4>
+                                <h4 class="card-title ">Documentos</h4>
                                 <p class="card-category">Listado</p>
                             </div>
                             <div class="col-xs-12 col-md-6 text-right">
@@ -17,7 +17,7 @@
                                         <button mat-raised-button type="submit" class="btn pull-right">
                                             <fa-icon icon="glasses"></fa-icon>
                                         </button>
-                                        <button mat-raised-button type="submit" class="btn pull-right" (click)="register()">
+                                        <button mat-raised-button type="submit" class="btn pull-right" (click)="createInitDocument()">
                                             <i class="material-icons">user-add</i>
                                         </button>
                                     </span>
@@ -33,39 +33,37 @@
                                         ID
                                     </th>
                                     <th>
-                                        Usuario
-                                    </th>
-                                    <th>
                                         Nombre
                                     </th>
                                     <th>
-                                        Apellido
+                                        Metodo de Desarrollo
+                                    </th>
+                                    <th>
+                                        Version
                                     </th>
                                     <th class="options-column">
-                                        Rol
-                                    </th>
-                                    <th class="options-column">
-                                        Opciones
+                                        Proyecto
                                     </th>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let user of user_list">
+                                    <tr *ngFor="let document of document_list">
                                         <td>
-                                            {{user.id}}
+                                            {{document.id}}
                                         </td>
                                         <td>
-                                            {{user.username}}
+                                            {{document.name}}
                                         </td>
                                         <td>
-                                            {{user.firs_name}}
+                                            {{document.dev_met}}
                                         </td>
                                         <td>
-                                            {{user.last_name}}
+                                            {{document.version}}
                                         </td>
                                         <td>
-                                            {{user.role}}
+                                            {{document.project.name}}
                                         </td>
-                                        <td>
+
+                                        <!-- <td>
                                              <div class="btn-group" role="group">
                                                 <button type="button" class="btn btn-secondary">
                                                     <fa-icon icon="hand-paper"></fa-icon>
@@ -77,7 +75,7 @@
                                                     <fa-icon icon="times"></fa-icon>
                                                 </button>
                                             </div>
-                                        </td>
+                                        </td> -->
                                     </tr>
                                 </tbody>
                             </table>
