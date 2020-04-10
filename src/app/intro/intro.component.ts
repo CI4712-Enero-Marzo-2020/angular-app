@@ -39,8 +39,8 @@ export class IntroComponent implements OnInit {
   async addIntro() {
     const formData = new FormData();
     formData.append('content', this.addIntroForm.get('content').value);
-    formData.append('doc_id', this.addIntroForm.get('doc_id').value);
-    const newIntro = await this.IntroService.create_intro(this.addIntroForm.get('content').value, this.addIntroForm.get('doc_id').value);
+    formData.append('project', this.addIntroForm.get('project').value);
+    const newIntro = await this.IntroService.create_intro(this.addIntroForm.get('content').value, this.addIntroForm.get('project').value);
   }
 
   limpiarCampos() {

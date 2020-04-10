@@ -21,13 +21,13 @@ export class IntroService {
   }
 
   create_intro(content, project) {
-
-    this.doc_id = this.http.get(`${this.url}docs/get/${project}`)
+    //this.doc_id = this.http.get(`${this.url}docs/get/${project}`);
+    this.doc_id = 1; // Necesito una manera de obtener el id del documento
     const formData = new FormData();
     formData.append('content', content);
     formData.append('doc_id', this.doc_id );
 
-  	this.http.post(`${this.url}docs/add/intro/`, formData)
+  	this.http.post(`${this.url}docs/add/intro`, formData)
 
     .toPromise()
     .then(
