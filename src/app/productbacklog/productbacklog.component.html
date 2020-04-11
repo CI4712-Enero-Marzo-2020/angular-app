@@ -96,8 +96,8 @@
             </div>
         </div>
     </div>
-    <button *ngIf="newSprint" class="btn mat-raised-button sprint" (click)="generateSprint()">Generar Sprint</button>
-    <button *ngIf="!newSprint" class="btn btn-primary sprint" (click)="sprintDetail()">Ver Sprint</button>
+    <button id ="generarsprint" *ngIf="newSprint" class="btn mat-raised-button sprint" (click)="generateSprint()">Generar Sprint</button>
+    <button *ngIf="!newSprint" class="btn btn-primary sprint" id="versprint" (click)="sprintDetail()">Ver Sprint</button>
 
     <div class="modal modal-angular fade" id="addEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">

@@ -1,4 +1,4 @@
-describe("Hacer login", function(){
+describe("Pruebas", function(){
 	browser.ignoreSyncronization=true;
 
 	it("Hacer login", function(){
@@ -87,6 +87,7 @@ describe("Hacer login", function(){
 		prioridadHist.click();
 		browser.sleep(400);
 		submit.click();
+		browser.sleep(400);
 		agregar2.click();
 		browser.sleep(400);
 		nombreHist.sendKeys('Historia Prueba 1233421342134524512342134234');
@@ -117,6 +118,7 @@ describe("Hacer login", function(){
         var submit1 = browser.findElement(protractor.by.css('[id="asignar"]'));
         browser.sleep(400);
         submit1.click();
+        browser.sleep(400);
 
 
 
@@ -127,17 +129,65 @@ describe("Hacer login", function(){
 
 	});
 
+// it("generar sprint", function(){
+// 		browser.get("http://localhost:4200/productbacklog/1");
+// 		browser.sleep(400)
+// 		var generarsprint = browser.findElement(protractor.by.css('[id="generarsprint"]'));
+// 		browser.sleep(400);
+// 		generarsprint.click();
+// 		browser.sleep(400);
+// 		var descripcion = browser.findElement(protractor.by.css('[id="description"]'));
+// 		browser.sleep(400);
+// 		descripcion.sendKeys("Super Sprint");
+// 		browser.sleep(400);
+// 		var date = browser.findElement(protractor.by.css('[id="date"]'));
+// 		browser.sleep(400);
+// 		date.sendKeys("01-01-2021");
+// 		browser.sleep(400);
+// 		var crearSprint = browser.findElement(protractor.by.css('[id="crearsprint"]'));
+// 		browser.sleep(400);
+// 		crearSprint.click();
+// 		browser.sleep(400);
+
+// 		// var planificacion =  browser.findElement(protractor.by.css('[id="planificacion"]'));
+// 		// planificacion.click();
+// 		// browser.sleep(400);
+// 		// agregarPlan = browser.findElement(protractor.by.css('[id="but2"]'));
+// 		// agregarPlan.click();
+// 		// var tema = browser.findElement(protractor.by.css('[id="tema"]'));
+// 		// browser.sleep(400);
+// 		// tema.sendKeys("Tema 1");
+// 		// browser.sleep(400);
+// 		// var crearPlan = browser.findElement(protractor.by.css('[id="crearPlan"]'));
+// 		// browser.sleep(400);
+// 		// crearPlan.click();
+// 		// browser.sleep(400);
+
+
+// 		//browser.sleep(100000);
+		
+
+
+// 	});
+
+
+
 
 	it("ver sprint", function(){
 		browser.get("http://localhost:4200/productbacklog/1");
-		var verSprint = browser.findElement(protractor.by.css('[class="btn btn-primary sprint"]'));
+		browser.sleep(400)
+		var verSprint = browser.findElement(protractor.by.css('[id="versprint"]'));
+		browser.sleep(400);
 		verSprint.click();
 		browser.sleep(400);
 		var planificacion =  browser.findElement(protractor.by.css('[id="planificacion"]'));
+		browser.sleep(400);
 		planificacion.click();
 		browser.sleep(400);
 		agregarPlan = browser.findElement(protractor.by.css('[id="but2"]'));
+		browser.sleep(400);
 		agregarPlan.click();
+		browser.sleep(2000);
 		var tema = browser.findElement(protractor.by.css('[id="tema"]'));
 		browser.sleep(400);
 		tema.sendKeys("Tema 1");
@@ -146,9 +196,28 @@ describe("Hacer login", function(){
 		browser.sleep(400);
 		crearPlan.click();
 		browser.sleep(400);
-
-
-		//browser.sleep(100000);
+		browser.get("http://localhost:4200/productbacklog/1");
+		browser.sleep(400)
+		var verSprint = browser.findElement(protractor.by.css('[id="versprint"]'));
+		browser.sleep(400);
+		verSprint.click();
+		browser.sleep(400);
+		var planificacion =  browser.findElement(protractor.by.css('[id="planificacion"]'));
+		browser.sleep(400);
+		planificacion.click();
+		browser.sleep(400);
+		agregarPlan = browser.findElement(protractor.by.css('[id="but2"]'));
+		browser.sleep(400);
+		agregarPlan.click();
+		browser.sleep(400);
+		var tema = browser.findElement(protractor.by.css('[id="tema"]'));
+		browser.sleep(400);
+		tema.sendKeys("Tema 2");
+		browser.sleep(400);
+		var crearPlan = browser.findElement(protractor.by.css('[id="crearPlan"]'));
+		browser.sleep(400);
+		crearPlan.click();
+		browser.sleep(400);
 		
 
 

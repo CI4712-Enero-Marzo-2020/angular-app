@@ -24,12 +24,12 @@
                   <div class="col">
                     <div class="form-group">
                       <label for="">Cierre</label>
-                      <input type="date" class="form-control" min="{{ currentDate }}" formControlName="end_date" disabled="{{ !idSprint }}">
+                      <input id="date" type="date" class="form-control" min="{{ currentDate }}" formControlName="end_date" disabled="{{ !idSprint }}">
                     </div>
                   </div>
                 </div>
                 <p *ngIf="error">Debe indicar descripción del sprint y fecha de cierre</p>
-                <button *ngIf="!idSprint" type="submit" class="btn btn-primary">Generar sprint</button>
+                <button id="crearsprint" *ngIf="!idSprint" type="submit" class="btn btn-primary">Generar sprint</button>
               </form>
         </div>
       </div>
