@@ -3,7 +3,7 @@ exports.config = {
 	capabilities: {
 		'browserName': 'chrome',
 		'chromeOptions' : {
-	            args: ['--username=yo', 'password=1234', '--disable-web-security']
+	            args: ['--username=yo', 'password=1234', '--disable-web-security', '--disable-browser-side-navigation']
 	        }
 	 },
 	framework: 'jasmine2',

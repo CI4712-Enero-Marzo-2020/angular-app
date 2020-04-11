@@ -81,7 +81,7 @@
                                                     data-target="#addEdit" (click)="initializeEditForm(story)">
                                                     <fa-icon icon="edit"></fa-icon>
                                                 </button>
-                                                <button type="button" class="btn btn-secondary" data-toggle="modal"
+                                                <button id="eliminar" type="button" class="btn btn-secondary" data-toggle="modal"
                                                     data-target="#eliminar" (click)="selectStory(story)">
                                                     <fa-icon icon="times"></fa-icon>
                                                 </button>
@@ -219,7 +219,7 @@
                     <h4 class="margin-top">
                         ¿Está seguro que desea eliminar esta historia?
                     </h4>
-                    <a class="modal-button" data-dismiss="modal" (click)="removeStory()" target="_blank">
+                    <a id="si" class="modal-button" data-dismiss="modal" (click)="removeStory()" target="_blank">
                         <div class="product-type">Si</div>
                     </a>
                     <a class="modal-button" data-dismiss="modal" target="_blank">

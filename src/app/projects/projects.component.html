@@ -56,7 +56,7 @@
                                               <button type="button" class="btn btn-secondary" [routerLink]="['/productbacklog',project.id]">
                                                   <fa-icon icon="scroll"></fa-icon>
                                               </button>
-                                              <button type="button" class="btn btn-secondary" data-toggle="modal"
+                                              <button id="cambiar" type="button" class="btn btn-secondary" data-toggle="modal"
                                                   data-target="#pausar" (click)="selectProject(i)">
                                                   <fa-icon *ngIf="project.status == 'active'" icon="hand-paper"></fa-icon>
                                                   <fa-icon *ngIf="project.status != 'active'" icon="play"></fa-icon>
@@ -95,7 +95,7 @@
                   <h4 *ngIf="selectedProject.status != 'active'" class="margin-top">
                       ¿Está seguro que desea reanudar este proyecto?
                   </h4>
-                  <a class="modal-button" data-dismiss="modal" (click)="selectedProject.status == 'active' ? pauseProject() : activateProject()" target="_blank">
+                  <a id="si" class="modal-button" data-dismiss="modal" (click)="selectedProject.status == 'active' ? pauseProject() : activateProject()" target="_blank">
                       <div class="product-type">Si</div>
                   </a>
                   <a class="modal-button" data-dismiss="modal" target="_blank">
