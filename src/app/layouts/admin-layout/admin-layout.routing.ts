@@ -15,6 +15,7 @@ import { SprintDetailsComponent } from 'src/app/sprint-details/sprint-details.co
 import { TasksComponent } from 'src/app/tasks/tasks.component';
 import { DocumentsComponent } from '../../documents/documents.component';
 import { IntroComponent } from '../../intro/intro.component';
+import { RevisionsComponent } from '../../revisions/revisions.component';
 import { CreateUsersComponent } from 'src/app/create-users/create-users.component';
 import { RegisterComponent } from 'src/app/register/register.component';
 import { SprintGraphsComponent } from 'src/app/sprint-graphs/sprint-graphs.component';
@@ -46,6 +47,7 @@ export const AdminLayoutRoutes: Routes = [
     }]},
     { path: 'documents',       component: DocumentsComponent, canActivate: [LoginActivate]},
     { path: 'intro',       component: IntroComponent, canActivate: [LoginActivate]},
+    { path: 'revisions',       component: RevisionsComponent, canActivate: [LoginActivate]},
     { path: 'create-users', component: CreateUsersComponent},
     { path: 'register', component: RegisterComponent},
     { path: 'sprintplanning/:id', component: SprintplanningComponent},

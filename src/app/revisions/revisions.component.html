@@ -1,0 +1,52 @@
+
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title"><i>Historial de Revisiones</i></h4>
+                        <p class="card-category">Introduzca una revision del proyecto</p>
+                    </div>
+
+                    <div class="card-body">
+
+                        <form [formGroup]="addRevisionsForm">
+
+                            <div class="row">
+
+                                <div class="form-group">
+                                    <div class="col-md-8">
+                                        <label for="recipient-name" class="col-form-label">Fecha:</label>
+                                        <input formControlName="project" type="text" class="form-control">
+                                    </div>
+                                    <div class="col-md-8">
+                                          <label for="recipient-name" class="col-form-label">Verion:</label>
+                                          <input formControlName="project" type="text" class="form-control">
+                                    </div>
+                                    <div class="col-md-8">
+                                          <label for="recipient-name" class="col-form-label">Descripcion:</label>
+                                          <input type="textarea" class="form-control" placeholder="Este documento describe la implementación del método de desarrollo de software scrum por el equipo..." formControlName="content" rows=15 cols=60>
+                                    </div>
+                                          <div class="col-md-8">
+                                          <label for="recipient-name" class="col-form-label">Equipos de Desarrollo:</label>
+                                          <input formControlName="project" type="text" class="form-control">
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <button type="submit" class="btn btn-danger btn-round" (click)="addRevision()">Enviar</button>
+                                    <button type="button" class="btn btn-danger btn-round" (click)="limpiarCampos()">Limpiar campos</button>
+                                </div>
+                            </div>
+                        </form> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

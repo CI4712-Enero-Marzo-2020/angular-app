@@ -30,6 +30,7 @@ import { ProjectsComponent } from '../../projects/projects.component';
 import { ProductbacklogComponent } from '../../productbacklog/productbacklog.component';
 import { DocumentsComponent } from '../../documents/documents.component';
 import { IntroComponent } from '../../intro/intro.component';
+import { RevisionsComponent } from '../../revisions/revisions.component';
 import {LoginComponent} from '../../login/login.component';
 import { LoginActivate } from '../../login/login-activate';
 import { CreateUsersComponent } from 'src/app/create-users/create-users.component';
@@ -105,6 +106,7 @@ import { SprintUnitTestComponent } from 'src/app/sprint-unit-test/sprint-unit-te
     TasksComponent,
     DocumentsComponent,
     IntroComponent,
+    RevisionsComponent,
     CreateUsersComponent,
     RegisterComponent,
     SprintGraphsComponent,
